@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/code/core"/>
+	<classpathentry kind="src" path="src/main/code/referentiel"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/main/code/admin"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gevee-entity"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/gevee-svco-contract"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 5.1 Runtime"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/CoreDev"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
