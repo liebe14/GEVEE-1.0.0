@@ -35,7 +35,7 @@ Livraison : Lieu de depart: lieu d'enlèvement ou PARC GS  ; destination= Client 
 Retour vide : Lieu de depart : Client ,  Destination: PARC à vide  Armateur ou PARC GS ; Etat = vide
 
 
-Restitution Vide : Lieu de depart:   PARC GS, PAR A vide Armateur
+Restitution Vide : Lieu de depart:   PARC GS, PAR A vide Armateur.
 
 Double relevage : Lieu de depart= destination
 
