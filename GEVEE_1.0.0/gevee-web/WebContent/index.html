@@ -1,0 +1,22 @@
+<html>
+<head>
+ <title>Gestion des utilisateurs</title>
+</head>
+
+<script language="javascript">
+function pleinecran(fichier) {
+if( (navigator.appName == "Microsoft Internet Explorer")
+  && (navigator.platform != "MacPPC") ) {
+	ff=window.open(fichier,'GEVEE','top=0,left=0,width='+screen.width
+     +',height='+screen.height+',location=no,toolbar=no,menubar=no,status=no,scrollbars=yes,resizable=yes');
+} else {
+ 	ff=window.open(fichier,'GEVEE','top=0,left=0,width='+screen.width
+     +',height='+screen.height+',location=no,toolbar=no,menubar=no,status=no,scrollbars=yes,resizable=yes');
+ }
+}
+</script>
+
+<body onload="javascript: pleinecran('shared/pages/Login.jsf')">
+<H4></H4>
+</body>
+</html>

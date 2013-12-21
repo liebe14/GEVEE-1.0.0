@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="AcceuilDeBase::#shared#pages#Accueil.xhtml"
+    NAME="output" PATH="/shared/pages/Accueil.xhtml"
+    TARGET="rules:#shared#pages#Accueil.xhtml" TITLE="AcceuilDeBase" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="Login::#shared#pages#Login.xhtml"
+    NAME="output1" PATH="/shared/pages/Login.xhtml"
+    TARGET="rules:#shared#pages#Login.xhtml" TITLE="Login" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="LoginPassword::#shared#include#connexion#LoginPassword.xhtml"
+    NAME="output2" PATH="/shared/include/connexion/LoginPassword.xhtml"
+    TARGET="rules:#shared#include#connexion#LoginPassword.xhtml"
+    TITLE="LoginPassword" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ChangePassword::#shared#include#connexion#ChangePassword.xhtml"
+    NAME="output3" PATH="/shared/include/connexion/ChangePassword.xhtml"
+    TARGET="rules:#shared#include#connexion#ChangePassword.xhtml"
+    TITLE="ChangePassword" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#shared#pages#Login.xhtml"
+  PATH="/shared/pages/Login.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#shared#pages#Accueil.xhtml"
+  PATH="/shared/pages/Accueil.xhtml" SHAPE="272,209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#shared#include#connexion#ChangePassword.xhtml"
+  PATH="/shared/include/connexion/ChangePassword.xhtml"
+  SHAPE="304,641,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#shared#include#connexion#LoginPassword.xhtml"
+  PATH="/shared/include/connexion/LoginPassword.xhtml"
+  SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>
