@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+	<ui:composition template="/shared/templates/templateAvecMenus.xhtml">
+	
+	<!-- commentaires -->
+		<!-- Masquons la barre d'actions -->
+		<ui:define name="barreActions">			
+			
+		</ui:define>	
+			
+		<!-- Masquons l'entete  -->
+		<ui:define name="entete">
+			
+		</ui:define>
+		
+		<!-- Masquons les barres de menus  -->
+		<ui:define name="barres">
+		            			
+		</ui:define>
+		
+		<!-- Defintion de la barre d'information  -->	
+		<ui:define name="barreMessage">
+			<rich:messages id="msgs_barreMessage" style="height:2px;font-size:x-small;" showSummary="true" showDetail="true" errorClass="msg_error" infoClass="msg_infos" >
+			</rich:messages>
+		</ui:define>		
+		
+				
+		<!-- Contenu du formulaire -->	
+		<ui:define name="contenuFormulaire">
+						
+			<center><h:graphicImage value="/shared/images/Logo_pluss.jpg"  /></center>
+			<table  width="100%" >
+				<tr>
+					<td align="center" >
+						<h:outputText value="Espace de travail" style="text-align:center;font-style:normal;font-size:large;font-weight:bold;"/>
+					</td>
+				</tr>
+			</table>
+										
+		</ui:define>
+			
+		<ui:define name="zone_rappels">
+		
+		</ui:define>
+	</ui:composition>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      <f:view locale="#{localeCtrl.actual}" /> 
+ 
+	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+	
+		<ui:param name="managedBean" value="#{sessionScope[remCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'une remorque " />	
+				
+		<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+        					
+			<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow">
+			
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+											
+					<h:panelGroup>
+						<h:outputText value="#{locale.numparc}"  />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:inputText id="inpt_libelle"  value="#{entiteCourante.numParc}" style="width: 95%" required="true" readonly="#{defaultVue.navigationMgr.enModification}"
+							requiredMessage="Valeur obligatoire" >
+							<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						<rich:message for="inpt_libelle" errorClass="msg_error" />							
+					</h:panelGroup>	
+					
+					<h:panelGroup>
+						<h:outputText value="#{locale.numimma}"  />	
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>						
+					<h:panelGroup>
+						<h:inputText id="inpt_nummat"  value="#{entiteCourante.numMat}" style="width: 95%" required="true"
+							requiredMessage="Valeur obligatoire" >
+							<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						<rich:message for="inpt_nummat" errorClass="msg_error" />							
+					</h:panelGroup>	
+					
+					<h:panelGroup>
+						<h:outputText value="Chassi"  />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:inputText id="inpt_chas"  value="#{entiteCourante.numCha}" style="width: 95%" required="true"
+									requiredMessage="Valeur obligatoire">
+							<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						<rich:message for="inpt_chas" errorClass="msg_error" />
+					</h:panelGroup>	
+					
+					<h:outputText value="Famille "  />
+					<h:selectOneMenu id="sel_fam" value="#{entiteCourante.enuFam}" style="width: 95%"
+							title="Famille"  >
+						<f:selectItems  value="#{remCtrl.defaultVue.listeFamille['map']}"/>
+						<a4j:support event="onchange" ajaxSingle="true" />						
+					</h:selectOneMenu>	
+					
+					<h:outputText value="Marque "  />
+					<h:selectOneMenu id="sel_mar" value="#{entiteCourante.enuMar}" style="width: 95%"
+							title="Marque"  >
+						<f:selectItems  value="#{remCtrl.defaultVue.listeMarque['map']}"/>
+						<a4j:support event="onchange" ajaxSingle="true" />						
+					</h:selectOneMenu>	
+					
+				</h:panelGrid>	
+			
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+					
+					<h:outputText value="#{locale.nbreessieu} "  />
+					<h:inputText id="inpt_nbress"  value="#{entiteCourante.nbrEss}" style="width: 95%" styleClass="money">
+						<f:convertNumber  integerOnly="true"  />
+						<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>
+					
+					<h:outputText value="Etat de fonctionnement "  />
+					<h:inputTextarea  id="inpt_etafon"  value="#{entiteCourante.libEtaFon}" style="width: 95%" >
+						<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputTextarea>
+					
+					<h:outputText value="Date mise en circulation" />						
+					<rich:calendar value="#{entiteCourante.dateMisCir}" inputStyle="width: 30%"  title="Date mise en circulation" 
+									 styleClass="selectDate"  datePattern="dd/MM/yyyy">
+						<a4j:support event="onchanged" ajaxSingle="true" />
+					</rich:calendar>
+					
+				</h:panelGrid>						
+			
+			</h:panelGrid>
+																																											
+		</ui:define>	
+												
+	</ui:composition>
+	
+</html>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+  <f:view locale="#{localeCtrl.actual}" />    
+   		<ui:composition >
+  				
+			<h:panelGroup >		
+				<fieldset>
+					<legend> <h:outputText value="#{locale.prisencharge}" styleClass="legend" />  </legend>
+												
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+					
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+													         				         			         						         					         										
+							<h:outputText value="#{locale.nopcharge1}" title="#{locale.numeropriseencharge}" />								
+							<h:inputText  value="#{entiteCourante.infoPchg.CGrdFichPchg}" style="width: 84%" readonly="true" 
+								title="#{locale.numeropriseencharge}" />																																																										
+												
+							<h:outputText value="#{locale.nogfiche1}" title="#{locale.numeroimmatriculationgrandefiche}" />								
+							<h:inputText  value="#{entiteCourante.infoPchg.CMtrGrdFichPchg}" style="width: 84%" readonly="true" 
+								title="#{locale.numeroimmatriculationgrandefiche}" />																																																										
+																																																																												
+						</h:panelGrid>	
+					
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >	
+													         				         			         						         					         										
+							<h:outputText value="#{locale.notitrerglt}" title="#{locale.numerotitrerglt}" />								
+							<h:inputText  value="#{entiteCourante.CTitRglt}" style="width: 84%" readonly="true" 
+								title="#{locale.numerotitrerglt}" />																																																										
+												
+							<h:outputText value="#{locale.typrtitrglt1}" title="#{locale.typetitrglt}" />								
+							<h:inputText  value="#{defaultVue.listeEnmTypDoc[entiteCourante.ETitRglt].libelle}" style="width: 84%" readonly="true"
+								title="#{locale.typetitrglt}" />																																																										
+																	         															              				             				             				             															
+						</h:panelGrid>						
+					
+					</h:panelGrid>
+					
+					<rich:spacer height="4px" />
+					<rich:spacer height="4px" />
+					<rich:spacer height="4px" />
+												
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+					
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+											
+							<h:outputText value="#{locale.visasctemt1}" title="#{locale.datevisasectemt}" />											
+							<h:inputText  value="#{entiteCourante.infoPchg.dateVisaSctEmt}" style="width: 60%" readonly="true" title="#{locale.datevisasectemt}"  >
+								<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+							</h:inputText>
+							
+							<h:outputText value="#{locale.visasvcemt1}" title="#{locale.datevisaservemt}" />											
+							<h:inputText  value="#{entiteCourante.infoPchg.dateVisaSvcEmt}" style="width: 60%" readonly="true" title="#{locale.datevisaservemt}"  >
+								<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+							</h:inputText>											
+																																																																																	
+						</h:panelGrid>
+							
+						<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+																																									
+							<h:outputText value="#{locale.visascthc1}" title="#{locale.datevisasectvisahorscaisse}" />											
+							<h:inputText  value="#{entiteCourante.infoPchg.dateVisaSctHrsCai}" style="width: 60%" readonly="true" title="#{locale.datevisasectvisahorscaisse}"  >
+								<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+							</h:inputText>
+																																									
+							<h:outputText value="#{locale.visasvccmpt1}" title="#{locale.datevisasrvcmpt}" />											
+							<h:inputText  value="#{entiteCourante.infoPchg.dateVisaSctCmpt}" style="width: 60%" readonly="true" title="#{locale.datevisasrvcmpt}"  >
+								<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+							</h:inputText>
+																																																																																	
+						</h:panelGrid>
+						
+					</h:panelGrid>
+					
+				</fieldset>				
+			
+			</h:panelGroup>
+				
+			<h:panelGroup >		
+				<fieldset>
+					<legend> <h:outputText value="#{locale.reglement}" styleClass="legend" />  </legend>
+								
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+					
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+																																								
+							<h:outputText value="#{locale.datepgmt1}" title="#{locale.datepgmt}" />											
+							<h:inputText  value="" style="width: 60%" readonly="true" title="#{locale.datevisasrvcmpt}"  >
+								<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+							</h:inputText>
+							
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+													
+							<h:outputText value="#{locale.datepmt}" title="#{locale.datedupmt}" />											
+							<h:inputText  value="#{entiteCourante.datePaie}" style="width: 60%" readonly="true" title="#{locale.datepmt}"  >
+								<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+							</h:inputText>
+																		
+						</h:panelGrid>
+																																																																																	
+					</h:panelGrid>
+					
+					<rich:spacer height="4px" />
+					<rich:spacer height="4px" />
+					<rich:spacer height="4px" />
+					
+					<h:panelGrid columns="3" width="100%" columnClasses="pngdCol" rowClasses="pngdRow" >
+						
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight"  >
+						
+							<h:outputText value="#{locale.montantttc}" />										
+							<h:inputText  value="#{entiteCourante.VMntTtc}" styleClass="money" style="width: 60%" readonly="true" 
+									title="#{locale.montantorpa}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>										
+							
+							<h:outputText value="#{locale.netapayer1}" />										
+							<h:inputText  value="#{entiteCourante.VMntNetAPayer}" styleClass="money" style="width: 60%" readonly="true" 
+									title="#{locale.montantnaporpa}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>										
+							
+							<h:outputText value="#{locale.mntpaye}" />										
+							<h:inputText  value="#{entiteCourante.VMntPayer}" styleClass="money" style="width: 60%" readonly="true" 
+									title="#{locale.montantpayeorpa}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>										
+																																																																												
+						</h:panelGrid>	
+					
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight"  >	
+																
+							<h:outputText value="#{locale.tvauc1}"  />											
+							<h:inputText  value="#{entiteCourante.VMntTva}" style="width: 60%" styleClass="money" readonly="true" 
+									title="#{locale.montanttva}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>
+							
+							<h:outputText value="#{locale.cauc1}" />											
+							<h:inputText  value="#{entiteCourante.VMntCa}" style="width: 60%" styleClass="money" readonly="true" 
+									title="#{locale.montantcentadd}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>
+																	         															              				             				             				             															
+						</h:panelGrid>						
+					
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight"  >	
+							
+							<h:outputText value="#{locale.autresrtn1}" />											
+							<h:inputText  value="#{entiteCourante.VMntRtn}" style="width: 60%" styleClass="money" readonly="true" 
+									title="#{locale.montantautresretenues}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>
+							
+							<h:outputText value="#{locale.retenues}" />											
+							<h:inputText  value="#{entiteCourante.VMntRtns}" style="width: 60%" styleClass="money" readonly="true" 
+									title="#{locale.montanttotrtn}" >
+								<f:convertNumber currencySymbol="F CFA"  type="currency" pattern="#,###"  />
+							</h:inputText>
+																	         															              				             				             				             															
+						</h:panelGrid>						
+					
+					</h:panelGrid>
+			
+				</fieldset>				
+			
+			</h:panelGroup>
+																																																																						   			      			  		
+   		</ui:composition>
+
+</html>

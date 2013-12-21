@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      <f:view locale="#{localeCtrl.actual}" />  
+          
+	<ui:composition template="/shared/templates/templatePourFormulaire.xhtml">
+	
+
+		<ui:param name="ecranPrincipal" value="#{ (! empty ecranSup1) or (! empty ecranSup2) }" />
+		<ui:param name="defaultVue" value="#{managedBean.defaultVue}" />
+		<ui:param name="entiteCourante" value="#{managedBean.defaultVue.entiteCourante}" />
+		<ui:param name="entiteRecherche" value="#{managedBean.defaultVue.entiteRecherche}" />
+		
+						
+		<!-- L'entete devra etre redefinie dans le formulaire  -->
+		<ui:define name="entete">
+			<ui:insert name="entete">#{locale.entete}</ui:insert>
+		</ui:define>
+				
+		<!-- Definition des Menus  -->
+		<ui:define name="barres">
+		
+             <rich:toolBar binding="#{managedBean.menu}" />                                           					 	 				                                                                         
+              
+             <rich:toolBar binding="#{managedBean.toolbar}" /> 
+             
+             <ui:insert name="menuContextuel" />                                        					 	 				                                                                         
+
+       </ui:define>			
+					
+		<!-- Contenu par d�faut pour les formulaires Edition  et Details  -->	
+		<ui:define name="contenuFormulaire">
+			
+			<h:panelGrid columns="2" width="100%" style="border:2px solid #{richSkin.panelBorderColor};"  rendered="#{ecranPrincipal}" 
+						columnClasses="pngdColRight,pngdColLeftDynamic1tiers" >
+				<h:panelGroup style="width:100%">
+					
+					&#xa0;					
+		            <rich:toggleControl for="toggle" value="Principal" switchToState="ecranPrincipal"  />
+		            &#xa0;
+		            
+		            <ui:insert name="tglCtrl_ecranSup1" >		                        	        
+			            <h:panelGroup rendered="#{! empty ecranSup1 }">
+			            	&#xa0;
+			            	<rich:toggleControl for="toggle" value="#{ecranSup1}" switchToState="ecranSup1"  />
+			            	&#xa0;
+			            </h:panelGroup>		            
+		            </ui:insert>	
+		            
+		            <ui:insert name="tglCtrl_ecranSup2" >                        	        
+			            <h:panelGroup rendered="#{! empty ecranSup2 }">
+			            	&#xa0;
+			            	<rich:toggleControl for="toggle" value="#{ecranSup2}" switchToState="ecranSup2"  />
+			            	&#xa0;
+			            </h:panelGroup>		            
+		            </ui:insert>
+		            		                        	        
+
+		            	            		            	            
+				</h:panelGroup>	
+				
+<!--				<h:panelGroup style="width:100%">-->
+<!--					<h:outputText value="#{managedBean.defaultVue.entiteCourante.tblSwsEta.LEta}" rendered="#{managedBean.tecTrtEntity}" -->
+<!--									style="FONT-WEIGHT: bold; align: right" title="#{managedBean.defaultVue.entiteCourante.tblSwsEta.LEta}"/>-->
+<!--				</h:panelGroup>	-->
+<!--				-->
+<!--				<h:panelGroup style="width:100%" rendered="false">-->
+<!--					<marquee>-->
+<!--						<h:outputText value="#{managedBean.defaultVue.entiteCourante.tblSwsEta.LEta}" rendered="#{managedBean.tecTrtEntity}" -->
+<!--									style="FONT-WEIGHT: bold;" title="#{managedBean.defaultVue.entiteCourante.tblSwsEta.LEta}"/>-->
+<!--					</marquee>-->
+<!--				</h:panelGroup>	-->
+																			
+			</h:panelGrid>
+			
+			<h:panelGroup rendered="#{ecranPrincipal}" >
+				<br/>
+			</h:panelGroup>
+
+			<h:panelGrid columns="1" width="100%" style="border:2px solid #{richSkin.panelBorderColor};" border="0" cellpadding="0" cellspacing="0"   >
+
+				<rich:togglePanel id="toggle"  switchType="client" stateOrder="ecranPrincipal,ecranSup1,ecranSup2"  >
+	    		
+	     			<f:facet name="ecranPrincipal">
+	     			
+						<h:panelGrid id="pngd_ecranPrincipal" columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow" border="0" cellpadding="0" cellspacing="0"  >
+						
+							<ui:insert name="ecranPrincipalContenu" > #{locale.donneeprincipale} </ui:insert>					
+	     			
+	     				</h:panelGrid>
+	     				
+					</f:facet>
+					
+	 				
+	    			<f:facet name="ecranSup1">
+	     			
+						<h:panelGrid id="pngd_ecranSup1" columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow" border="0" cellpadding="0" cellspacing="0"  >
+						
+	     					<ui:insert name="ecranSup1Contenu" > #{locale.ecranadditionnel1} </ui:insert>
+	     					
+	     				</h:panelGrid>
+	     				
+					</f:facet>
+					
+	    			<f:facet name="ecranSup2">
+	     			
+						<h:panelGrid id="pngd_ecranSup2" columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow" border="0" cellpadding="0" cellspacing="0" >
+						
+	     					<ui:insert name="ecranSup2Contenu" > #{locale.ecranadditionnel2} </ui:insert>
+	     					
+	     				</h:panelGrid>
+	     				
+					</f:facet>
+					
+
+								
+				</rich:togglePanel>
+			
+			</h:panelGrid>
+				 
+		</ui:define>		
+					
+		<!-- La barre des actions devra etre redefini dans le formulaire -->
+		<ui:define name="barreActions">			
+			<ui:insert name="barreActions">#{locale.barreactions}</ui:insert>
+		</ui:define>
+
+		<!-- Cette d�finition a essentiellement pour but d'annuler les erreurs cr��s par l'injection du DataExport au niveau du TemplatePourFormulaire  -->			 
+		<ui:define name="tranversalFormModalPanel">	
+			
+		</ui:define>				
+		
+						
+	</ui:composition>
+</html>

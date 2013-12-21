@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      <f:view locale="#{localeCtrl.actual}" />
+     
+  	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		
+		<ui:param name="managedBean" value="#{sessionScope[usrCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des utilisateurs" />
+		
+		<!-- Crit�res standards de recherche -->
+		<ui:define name="standardFilter"  >
+		
+			<h:panelGrid columns="2" width="100%"   columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+			
+				<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				
+					<h:outputText value="Compte :" />          				
+         			<h:inputText  value="#{usrCtrl.defaultVue.entiteRecherche.codUsr}" style="width: 60%" /> 
+         			
+					<h:outputText value="Nom" />          				
+         			<h:inputText  value="#{usrCtrl.defaultVue.entiteRecherche.libNom}" style="width: 60%" />           					           					           					   					            				            				            			
+         			          					           					           					   					            				            				            			        									   					           					
+				</h:panelGrid>
+				<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				</h:panelGrid>
+																																																	
+			</h:panelGrid>	
+						
+		</ui:define>
+		
+		<!-- Colonnes sp�cifiques � l'entit� -->
+		<ui:define name="specificColumns"  >
+		
+			<rich:column label="Compte" sortBy="#{entity.codUsr}" filterBy="#{entity.codUsr}" >
+				<f:facet name="header">
+					<h:outputText value="Compte"  />
+				</f:facet>
+				<h:outputText value="#{entity.codUsr}" />				
+			</rich:column>
+			
+			<rich:column label="Nom" sortBy="#{entity.libNom}" filterBy="#{entity.libNom}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Nom"  />
+				</f:facet>
+				<h:outputText value="#{entity.libNom}" />				
+			</rich:column>
+			
+			<rich:column label="Prenom" sortBy="#{entity.libPre}" filterBy="#{entity.libPre}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Prenom"  />
+				</f:facet>
+				<h:outputText value="#{entity.libPre}" />				
+			</rich:column>
+			
+			<rich:column label="Fonction" sortBy="#{entity.libFon}" filterBy="#{entity.libFon}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Fonction"  />
+				</f:facet>
+				<h:outputText value="#{entity.libFon}" />				
+			</rich:column>
+				
+		</ui:define>
+													
+	</ui:composition>
+	
+</html>

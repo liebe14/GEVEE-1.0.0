@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_set_rptgen_params" autosized="true" minWidth="350"   >
+			
+				<f:facet name="header">
+					<h:outputText value="Veuillez renseigner les parametres " style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form>		
+				<h:panelGrid columns="1" width="100%" style="border:2px solid #{richSkin.panelBorderColor}; " border="0" cellpadding="0" cellspacing="0" >
+				
+					<h:panelGrid columns="1" width="100%" rowClasses="pngdRow"
+							columnClasses="pngdColMiddle">
+							<h:panelGroup>
+
+								<rich:dataTable id="tble_table"
+									value="#{rptGenCtrl.defaultVue.listParams}"
+									var="item" width="100%" rows="15"
+									onRowClick="selectedRow=this;"
+									onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									cellpadding="0" cellspacing="0" border="0"
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+									<f:facet name="header">
+										<rich:columnGroup>
+
+											<rich:column >
+												<h:outputText value="Parametre" />
+											</rich:column>
+
+											<rich:column >
+												<h:outputText value="Type" />
+											</rich:column>
+
+											<rich:column>
+												<h:outputText value="Valeur" />
+											</rich:column>
+										</rich:columnGroup>
+									</f:facet>
+
+									<rich:column>
+										<h:outputText value="#{item.libelle}" />
+									</rich:column>
+
+									<rich:column>
+										<h:outputText value="#{item.type}" />
+									</rich:column>
+									
+									<rich:column>
+										<h:inputText value="#{item.valeur}" />
+									</rich:column>		
+
+								</rich:dataTable>								
+								<!--  Gestionnaire de Paginnation -->
+								<rich:datascroller for="tble_table" rendered="false" />
+
+							</h:panelGroup>
+					</h:panelGrid>
+					
+						
+					<rich:separator height="0px" style="border:1px solid #{richSkin.panelBorderColor};"  />
+										
+					<h:panelGrid columns="1" width="100%"  style="text-align:right;" > 
+					
+						<h:panelGroup>						
+																														
+								<a4j:commandButton value="Generer" 	action="#{rptGenCtrl.genererEtat}"
+									oncomplete="#{rich:component('mpnl_set_rptgen_params')}.hide();return true;"  status="stus_actions" />
+																																											
+								<a4j:commandButton value="Annuler"   ajaxSingle="true" immediate="true"
+									oncomplete="#{rich:component('mpnl_set_rptgen_params')}.hide();return false;" />										
+												
+						</h:panelGroup>					
+					</h:panelGrid>									
+				</h:panelGrid>
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>

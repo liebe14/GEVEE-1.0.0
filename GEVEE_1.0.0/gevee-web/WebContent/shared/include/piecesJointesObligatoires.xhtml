@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+   <f:view locale="#{localeCtrl.actual}" />     
+   		<ui:composition >
+  													
+     		<h:panelGroup id="pngp_requiredPiece" rendered="#{managedBean.defaultVue.requiredPieceMgr.rowCount > 0 }" >
+				<fieldset>
+				<legend> <h:outputText value="#{locale.pieceobli}" styleClass="legend" />  </legend>
+				
+					<rich:dataList var="piece" value="#{managedBean.defaultVue.requiredPieceMgr.listeRecherche}" rows="20"  >
+																	
+						<h:panelGrid columns="5">
+						
+							<h:outputText value="#{piece.tblTypPce.LTypPce}" /> 
+							
+							<a4j:commandLink  value="#{locale.ajouter}" action="#{managedBean.ajouterPceJteObligatirePreModal}" ajaxSingle="true" immediate="true" 	rendered="#{ empty piece.LRefPce}" reRender="mpnl_file"	oncomplete="#{rich:component('mpnl_file')}.show()"  >
+								<f:setPropertyActionListener value="#{piece.specialId}" target="#{managedBean.defaultVue.requiredPieceMgr.key}"  />
+							</a4j:commandLink>
+							
+							<a4j:commandLink  value="#{locale.supprimer}"	action="#{managedBean.supprimerPceJteObligatire}"	ajaxSingle="true"	immediate="true" 	rendered="#{ ! empty piece.LRefPce}" reRender="pngp_requiredPiece,pnel_tablePceJte" >
+								<f:setPropertyActionListener value="#{piece.specialId}" target="#{managedBean.defaultVue.requiredPieceMgr.key}" />
+							</a4j:commandLink>
+							
+							<h:inputHidden id="iphd_pieceObligatoire" value="#{piece.LRefPce}" required="true"	requiredMessage="#{locale.infodescpiece}" />
+							
+							<rich:message for="iphd_pieceObligatoire" errorClass="msg_error"  />
+																			
+						</h:panelGrid> 
+																																																															
+					</rich:dataList>
+			
+			
+				</fieldset>								
+			</h:panelGroup>	
+			
+			<ui:include src="/shared/include/tableauPiecesJointes.xhtml" />		     			     			 
+																																																																						   			      			  		
+   		</ui:composition>
+
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<f:view locale="#{localeCtrl.actual}" />
+<head>
+
+
+<title>#{locale.pageconnexiongevee}</title>
+<link rel="stylesheet" type="text/css" href="../css/login/general.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/login/window.css"></link>
+<link rel="stylesheet" type="text/css" href="../css/login/login.css"></link>
+<script type="text/javascript">
+  // Disable frame hijacking  
+  if (top != self) top.location.href = location.href;
+</script>
+
+</head>
+<body onload="document.flogin.inpt_user.focus();">
+<div id="top">
+<div id="login-header">
+<div id="logo"></div>
+</div>
+<div id="content">
+<div id="sidebar"><img src="../images/login/Logo_pluss.jpg" alt=""
+	width="781" height="306"></img></div>
+	<!-- <img src="../images/login/cameroun_a.gif" /> -->
+<div id="login">
+<div id="title">#{locale.bienvenue}</div>
+<div id="login-form">
+<noscript>
+<p class="loginFailed">JavaScript is required. Enable JavaScript to use GEVEE LOGIN Page</p>
+</noscript>
+ <h:form id="flogin" >
+ 
+ 	<h:panelGrid  columns="1"	width="100%"  >
+ 
+		<h:panelGrid columns="1" width="100%"  style="text-align:center;"	>
+			<rich:messages id="msgs_barreMessage" layout="table" style="font-size:small;" showSummary="false" showDetail="true" warnClass="msg_warn" infoClass="msg_infos" level="INFO,WARN"  />						
+		</h:panelGrid>
+															
+		<a4j:include viewId="/shared/include/connexion/LoginPassword.xhtml" />
+	
+	</h:panelGrid>
+
+</h:form>
+</div>
+</div>
+</div>
+<div id="info"></div>
+</div>
+
+<div class="login-footer" >
+<div class="info" >
+
+<p id="footerVersion" style="font-size:11px;font-weight:normal;">#{locale.sysgesconmvnt}</p>
+<p id="footerVersion2">#{locale.version}</p>
+<p id="copyright">#{locale.copyright}</p>
+<p id="trademark" >#{locale.repubcamer}</p>
+</div>
+</div>
+</body>
+</html>

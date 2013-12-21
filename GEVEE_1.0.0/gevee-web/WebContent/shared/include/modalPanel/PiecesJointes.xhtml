@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<f:view locale="#{localeCtrl.actual}" />       
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_file" autosized="true" minWidth="600"
+				minHeight="325">
+
+				<f:facet name="header">
+					<h:outputText value="#{modalCtrl.titre}"
+						style="padding-right:15px;" />
+				</f:facet>
+
+				<h:form>
+
+					<h:panelGrid columns="" width="100%">
+
+						<h:panelGrid columns="2" width="100%">
+
+							<h:panelGrid columns="2">
+
+								<h:outputText value="Type : " />
+								<h:selectOneMenu value="#{modalCtrl.type}"
+									style=" width : 200px;">
+									<f:selectItems value="#{modalCtrl.typesFichier}" />
+								</h:selectOneMenu>
+
+								<h:outputText value="#{locale.reference2}" />
+								<h:panelGroup>
+									<h:inputText id="inpt_ref" value="#{modalCtrl.reference}"
+										style=" width : 200px;" required="true"
+										requiredMessage="#{locale.referenceoblig}">
+										<a4j:support event="onblur" ajaxSingle="true" reRender="pngd_actions" />
+									</h:inputText>
+								</h:panelGroup>
+
+								<h:outputText value="#{locale.date3}" />
+								<h:panelGroup>
+									<rich:calendar id="cald_date" value="#{modalCtrl.date}"
+										inputStyle=" width : 200px;" required="true"
+										requiredMessage="#{locale.dateoblig}">
+										<a4j:support event="onchanged" ajaxSingle="true" reRender="pngd_actions" />
+									</rich:calendar>
+								</h:panelGroup>
+
+							</h:panelGrid>
+
+							<h:panelGrid columns="1">
+
+								<h:outputText value="#{locale.infossupp}" />
+								<h:inputTextarea value="#{modalCtrl.description}"
+									style=" width : 250px;" />
+
+							</h:panelGrid>
+
+						</h:panelGrid>
+
+						<rich:separator height="2px" />
+
+						<rich:fileUpload autoclear="false" listHeight="100px"
+							listWidth="100%"
+							maxFilesQuantity="#{modalCtrl.uploadsAvailable}"
+							immediateUpload="#{modalCtrl.autoUpload}"
+							transferErrorLabel="#{locale.erreurtransfertfichier}"
+							acceptedTypes="#{modalCtrl.acceptedTypes}" allowFlash="#{modalCtrl.useFlash}"
+							fileUploadListener="#{modalCtrl.listener}"
+							addControlLabel="#{locale.ajouter}" cancelEntryControlLabel="#{locale.annuler}"
+							clearAllControlLabel="#{locale.supprimettt}" stopControlLabel="#{locale.stop}"
+							stopEntryControlLabel="#{locale.stop}" uploadControlLabel="#{locale.telecharger}"
+							doneLabel="#{locale.fichiertelecharge}" clearControlLabel="#{locale.nettoyer}"
+							progressLabel="#{locale.telechargementencours}" sizeErrorLabel="#{locale.taillefichierinval}"  >
+
+							<a4j:support event="onuploadcomplete" ajaxSingle="true" reRender="pngd_actions" />
+
+						</rich:fileUpload>
+
+						<rich:separator height="2px" />
+
+						<h:panelGrid id="pngd_actions" columns="" width="100%"
+							style="text-align:right;">
+							<h:panelGroup>
+								<a4j:commandButton value="#{locale.valider}"
+									action="#{modalCtrl.valider}"
+									oncomplete="#{rich:component('mpnl_file')}.hide();return true;"
+									disabled="#{ ( (empty modalCtrl.reference) or  (empty modalCtrl.date)  or ( (modalCtrl.pieceRequise)? (modalCtrl.size eq 0):false) )}"
+									reRender="#{modalCtrl.reRender}" status="stus_actions" />
+								<a4j:commandButton value="#{locale.annuler}"
+									action="#{modalCtrl.annuler}" ajaxSingle="true"	immediate="true"
+									oncomplete="#{rich:component('mpnl_file')}.hide();return false;" />
+							</h:panelGroup>
+						</h:panelGrid>
+
+						<rich:messages style="height:2px;font-size:x-small;"
+							showSummary="false" showDetail="true" errorClass="msg_warn"
+							level="INFO,WARN,ERROR" />
+
+					</h:panelGrid>
+
+				</h:form>
+
+			</rich:modalPanel>         
+        												
+		</ui:composition>
+</html>

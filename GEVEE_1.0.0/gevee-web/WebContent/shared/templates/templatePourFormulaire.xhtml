@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+	<f:view locale="#{localeCtrl.actual}" /> 
+	<ui:composition template="/shared/templates/templateAvecMenus.xhtml">
+	
+	
+		<!-- La barre des actions devra etre redefini dans le formulaire -->
+		<ui:define name="barreActions">			
+			<ui:insert name="barreActions">#{locale.barreactions}</ui:insert>
+		</ui:define>	
+			
+		<!-- L'entete devra etre redefinie dans le formulaire  -->
+		<ui:define name="entete">
+			<ui:insert name="entete">#{locale.entete}</ui:insert>			
+		</ui:define>
+				
+		
+		
+		<!-- Construction des barres de Menus  --> 
+		<ui:define name="barres"> 
+		
+                <rich:toolBar  > 
+                
+                 	<rich:toolBarGroup >
+                 	               	                	
+                 		<rich:dropDownMenu value="Actions de base" direction="bottom-right" jointPoint="bl" submitMode="ajax"  >
+
+	            			 <rich:menuItem value="Nouveau" />
+	            			 <rich:menuItem value="Afficher" />	
+	            			 <rich:menuItem value="Modifier" />
+	            			 <rich:menuItem value="Supprimer" />
+	            			             			 
+	            			 <rich:menuSeparator/>
+<!--	            			 -->
+<!--							<rich:menuItem value="#{locale.previsualiser}" action="null" ajaxSingle="true" oncomplete="preview('')"  />-->
+<!--							<rich:menuItem value="#{locale.imprimer}" />		            			     		-->
+<!--            			      -->
+<!--            			     <rich:menuSeparator/>-->
+            			     
+            			     <rich:menuItem value="Copier" />
+            			     <rich:menuItem value="#{locale.selectionner}" />
+            			              			             			             			 	            			            			 	                 		
+	                 	</rich:dropDownMenu>	                 	
+                 	
+                 		<rich:dropDownMenu value="#{locale.actionspec}"    >
+	            			<rich:menuItem value="...">	            			     		
+	            			 </rich:menuItem>		            			 	            			                  		
+	                 	</rich:dropDownMenu>
+	                 	
+                 		<rich:dropDownMenu value="Aide" >
+	            			<rich:menuItem value="...">	            			     		
+	            			 </rich:menuItem>            			 	                 		
+	                 	</rich:dropDownMenu>	                 	
+	                 		                 		                 	                 	
+                 	</rich:toolBarGroup>
+                            	
+<!--					 <rich:toolBarGroup  location="right">					 -->
+<!--					    <rich:dropDownMenu value="#{locale.noterapide}"   >	                 		-->
+<!--	                 	</rich:dropDownMenu>					 	 -->
+<!--					 </rich:toolBarGroup>					 	 				                                                 -->
+                
+                
+                </rich:toolBar>	
+               
+               <rich:toolBar itemSeparator="line"   >
+                	<a4j:commandButton image="/shared/images/new-24x24.png" title="Nouveau" />
+                	<a4j:commandButton image="/shared/images/edit-24x24.png" title="Modifier" />
+                	<a4j:commandButton image="/shared/images/preview-24x24.png" title="Consulter" />
+                	<a4j:commandButton image="/shared/images/delete-24x24.png" title="Supprimer" />
+                </rich:toolBar>                
+				
+		</ui:define>
+		
+		<!-- Defintion de la barre d'information  -->	
+		<ui:define name="barreMessage">
+			<rich:messages id="msgs_barreMessage" layout="table" style="height:2px;font-size:small;" showSummary="false" showDetail="true" warnClass="msg_warn" infoClass="msg_infos" level="INFO,WARN" >
+				<f:facet name="warnMarker">
+					<h:graphicImage value="/shared/images/error-24x24.png" />
+				</f:facet>
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/shared/images/info2-24x24.png" />
+				</f:facet>
+			</rich:messages>
+			
+			<script>
+				//alert("hello");				
+				updateMenu();
+			</script>
+			<div id="console" align="left" style="weight:400px;height:100px;border:1px solid black;background:orange;overflow:auto;font-size:10px;display:none"> </div>
+		</ui:define>		
+		
+				
+		<!-- Le formulaire defini lui meme son contenu  -->	
+		<ui:define name="contenuFormulaire">
+			<ui:insert name="contenuFormulaire"> #{locale.contenuformulaire}</ui:insert>			
+		</ui:define>
+		
+		<!-- Definition des modal panels (Le Data Export n'a pas sa place � ce niveau il devrait uniquement �tre utilis� pour le formulaire LISTE)  -->	
+		<ui:define name="tranversalFormModalPanel">
+		
+			<ui:include src="../include/modalPanel/DatasExport.xhtml" />
+		
+		</ui:define>				
+		
+	</ui:composition>
+</html>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<head>
+<title><ui:insert name="pageTitle">Gevee 1.0</ui:insert></title>
+<style type="text/css"><!--
+body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+.header {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+}
+
+.bottom {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	text-align: center;
+	vertical-align: middle;
+	color: #8E969D;
+}
+
+.cur {
+	cursor: pointer;
+}
+
+.money {
+	text-align: right;
+}
+
+.number {
+	text-align: right;
+}
+
+.date {
+	text-align: right;
+}
+
+.msg_error {
+	color: red;
+}
+
+.msg_warn {
+	color: red;
+	vertical-align: top;
+}
+
+.msg_infos {
+	color: green;
+	vertical-align: top;
+}
+
+.pnel_table {
+	overflow: auto;
+}
+
+.pngdCol {
+	vertical-align: top;
+	text-align: left;
+}
+
+.pngdRow {
+	vertical-align: top;
+}
+
+.pngdColLeft {
+	text-align: right;
+}
+
+.pngdColLeftDynamic {
+	text-align: right;
+	width: 20%;
+}
+
+.pngdLColRight {
+	text-align: left;
+}
+
+.pngdLColRightDynamic {
+	text-align: left;
+}
+
+.pngdColLeftDynamic1tiers {
+	text-align: right;
+	width: 33%;
+}
+
+.pngdColMiddle {
+	vertical-align: top;
+	text-align: left;
+	width: 50%;
+	cellspacing:0;
+	cellpadding:0;
+}
+
+.pngd3Col {
+	vertical-align: top;
+	text-align: left;
+	width: 33%;
+	cellspacing:0;
+	cellpadding:0;
+}
+
+.pngdColCenter {
+	vertical-align: top;
+	text-align: center;
+}
+
+.legend{
+	FONT-WEIGHT: bold;
+}
+
+.selectYear tr[id]{
+	display:none; 
+}
+
+.readonly{
+
+}
+
+.editable{
+	background-color: #FFFFD1; 
+}
+
+.required{
+	background-color: #E1FFE1; 
+}
+
+.pic {
+        margin-bottom: -4px;
+        margin-right: 2px;
+}
+ 
+.search .rf-ddm-itm-sel {
+        background-color: transparent;
+        background-image:none;
+        border-color: transparent;
+        cursor: default;
+}
+
+--></style>
+
+</head>
+
+<body  bgcolor="#ffffff" onload="initPage();">
+
+<!-- Formulaire pour l'envoi des donnees ... -->
+
+<center>
+
+
+<table  style="border: 1px solid #CAD6E0; height: 100%;"  width="100%" border="0">
+	<tbody>	  
+		<tr valign="#{sessionCtrl.defaultVue.menuAlign}" >
+			<td>
+			<table width="100%" align="left" cellpadding="0"
+				cellspacing="2" border="0">
+				<tbody>
+
+					<tr valign="top">
+						<td width="100%">
+							<h:inputHidden id="specialKey" value="#{sessionScope.specialKey}" /> 
+							<h:outputText value="#{sessionScope.specialKey}" rendered="false" />
+						</td>
+					</tr>
+					<tr valign="top">
+						<td class="header" width="100%" style="border: 1px solid #CAD6E0; height:10%;">
+							<ui:insert name="menuBrowser">Navigateur</ui:insert>
+						</td>
+					</tr>
+					<tr valign="top">
+						<td class="header" width="100%" style="border: 1px solid #CAD6E0; height: 10%;">
+							<ui:insert name="menuProgram">Barre de preferences</ui:insert>
+						</td>
+					</tr>
+					<tr valign="top">
+						<td class="header" width="100%" style="border: 1px solid #CAD6E0; height: 10%;">
+							<ui:insert name="menuDetail">Barre de profil</ui:insert>
+						</td>
+					</tr>
+					<tr valign="top">
+						<td>
+				<!-- Debut -->
+				<table style="border: 1px solid #CAD6E0;" align="center"
+					cellpadding="0" cellspacing="1" border="0" width="100%">
+					<tbody>
+
+						<tr>
+							<td class="header"  align="left" valign="middle"
+								width="100%">
+								<ui:insert name="entete">Entete</ui:insert>
+								<ui:insert name="hiddenZone"></ui:insert>
+								<ui:insert name="includeScripts"></ui:insert>
+							</td>
+						</tr>
+						
+						<tr>
+							<td height="1%" width="100%"><h:form id="actionForm"  >
+								<ui:insert name="barres">Barre de Menu et Outils</ui:insert>
+							</h:form></td>
+						</tr>
+
+						<tr>
+							<td align="center" height="1%" width="100%" valign="top" style="background-color:#F7F7F7;"><ui:insert
+								name="barreMessage">Barre de Message</ui:insert></td>
+						</tr>
+
+						<tr>
+							<td>
+							<h:form id="contentForm"  >
+							<table width="100%" cellpadding="0" cellspacing="0">
+							
+							
+								<tr>
+									<td width="100%"><rich:panel id="pnel_main"
+										style="height:600px;overflow:auto;">
+										<table width="100%" style="height: 100%" align="left"
+											cellpadding="0" cellspacing="0" border="0">
+											<tbody>
+
+
+												<tr valign="top"  >
+													<td width="100%">
+													<h:inputHidden id="specialKey" value="#{sessionScope.specialKey}" />													
+													<h:outputText value="#{sessionScope.specialKey}" rendered="false" />
+													<ui:insert name="contenuFormulaire">Contenu du Formulaire</ui:insert>
+
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</rich:panel></td>
+								</tr>
+
+								<tr>
+									<td height="1%" width="100%"><ui:insert
+										name="barreActions">Barre des  Actions</ui:insert></td>
+								</tr>
+
+							</table>
+							</h:form>
+							</td>
+						</tr>
+						<tr>
+							<td class="bottom" height="1%" width="100%"><ui:insert
+								name="pageBottom"><h:outputText value="Copyright @ 2013, Gss. Tous droits reservés" /></ui:insert><br>
+								<ui:insert  name="pageBottom" ><h:outputText style="COLOR: red; font-size: medium; font-weight: bold" value="Evaluation" rendered="false"/></ui:insert>	</br></td>
+							 
+						</tr>
+						
+						<tr>
+							<td>
+								<ui:insert name="modalPanel"></ui:insert>	
+								<ui:insert name="tranversalPageModalPanel"></ui:insert>	
+								<ui:insert name="tranversalFormModalPanel"></ui:insert>								
+								<ui:insert name="fieldsStyle"></ui:insert>
+								<ui:insert name="pageScripts"></ui:insert>
+								
+							</td>
+						</tr>												
+
+					</tbody>
+				</table>
+
+				<!-- Fin -->
+				
+			<!-- Zone de definition des modal panel --> 							
+					
+			
+			<!-- Zone de definition des modal panel -->
+			
+			</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			</td>
+			
+		</tr>
+
+	</tbody>
+</table>
+
+
+</center>
+
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+  
+  <f:view locale="#{localeCtrl.actual}" />  
+          
+	<ui:composition template="/shared/templates/templateFormulaire.xhtml">
+	
+		<ui:param name="nomPage" value="#{managedBean.memoEntite}Edition" />
+						
+		<!-- L'entete devra etre redefinie dans le formulaire  -->
+		<ui:define name="entete">			
+			<h:outputText value="#{locale.creation}" rendered="#{! managedBean.defaultVue.navigationMgr.enModification}" />
+			<h:outputText value="Modification " rendered="#{managedBean.defaultVue.navigationMgr.enModification}" />
+			<h:outputText value="#{entetePage}" />
+									
+			<ui:insert name="nomPage">
+				<h:inputHidden id="iphd_page" binding="#{managedBean.hidden}" value="#{nomPage}" />	
+			</ui:insert>
+								
+		</ui:define>
+		
+		<!-- Red�finition du comportement de la zone technique qui doit apparaitre uniquement en Modification pour le formulaire d'Edition -->
+         <ui:define name="tglCtrl_ecranTechnique"   > 			           
+            <h:panelGroup rendered="#{ecranTechnique and managedBean.defaultVue.navigationMgr.enModification}" >
+            	&#xa0;
+            	<rich:toggleControl for="toggle" value="#{locale.historique}" switchToState="ecranTechnique" />			                       	
+            	&#xa0;
+            </h:panelGroup>		     		            	               
+         </ui:define>	
+         
+		<!-- Red�finition du comportement de la zone Pi�ces Jointes afin de g�rer les pi�ces jointes Obligatoires -->
+		<ui:define name="ecranPieceContenu" > 
+			<!-- Contenu standard des Pi�ces jointes dans le formulaire d'Edition -->
+			<h:panelGrid  columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow"  border="0" cellpadding="0" cellspacing="0" rendered="#{managedBean.requiredDocEntity}" >																		 
+				<ui:include src="/shared/include/piecesJointesObligatoires.xhtml"  />
+			</h:panelGrid>
+		</ui:define>
+         																																											
+		<!-- Definition des actions  -->	
+		<ui:define name="barreActions">
+			<rich:toolBar>
+				<rich:toolBarGroup location="right"  >				
+					<a4j:commandButton value="Enregistrer" action="#{managedBean.enregistrer}"  status="stus_actions" /> 															
+					<a4j:commandButton value="Annuler" action="#{managedBean.annulerEdition}" ajaxSingle="true" immediate="true" /> 					
+				</rich:toolBarGroup>												
+			</rich:toolBar>
+		</ui:define>
+										
+	</ui:composition>
+</html>

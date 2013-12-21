@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<f:view locale="#{localeCtrl.actual}" />       
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_data_export" autosized="true" minWidth="900"   >
+			
+				<f:facet name="header">
+					<h:outputText value="#{locale.exportdonnees}" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form>		
+				<h:panelGrid columns="1" width="100%" style="border:2px solid #{richSkin.panelBorderColor}; " border="0" cellpadding="0" cellspacing="0" >
+					
+					<h:panelGrid columns="" style="text-align:center;" width="100%" columnClasses="pngdColCenter">
+						<rich:messages id="msgs_message" style="height:4px;font-size:small;" showSummary="false" showDetail="true" warnClass="msg_warn" infoClass="msg_infos" level="INFO,WARN"  />						
+					</h:panelGrid>
+						
+					<h:panelGrid columns="1" width="100%" columnClasses="pngdCol">			
+						
+						<h:panelGroup >
+							<fieldset>
+								<legend> <h:outputText value="#{locale.details}" styleClass="legend" />  </legend>
+											
+								<h:panelGrid columns="2" width="100%" >
+												
+									<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight" >
+									
+										<h:outputText value="#{locale.titre1}" title="#{locale.titreetat}" />
+										<h:inputText id="inpt_titreEtat" style="width: 90%" label="#{locale.titreetat}" value="#{managedBean.defaultVue.exportTitreEtat}" 
+													required="false"  requiredMessage="#{locale.renseignertitreetat}"/>
+									</h:panelGrid>
+												
+									<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight" >
+										
+										<h:outputText value="#{locale.format1}" title="#{locale.formatexport}" />
+										<h:selectOneMenu id="somn_outputFormat" value="#{managedBean.defaultVue.exportOutputFormat}">
+											<f:selectItems  value="#{appCtrl.listOutputFormat}" />						
+										</h:selectOneMenu>
+																						
+									</h:panelGrid>
+								</h:panelGrid>	
+							</fieldset>
+						</h:panelGroup>
+						
+						<h:panelGroup >
+							<fieldset>
+								<legend> <h:outputText value="#{locale.modeleause}" styleClass="legend" />  </legend>
+											
+								<h:panelGrid columns="2" width="100%" rowClasses="pngdRow" >
+												
+									<h:panelGrid id="pngd_modele" columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight" >
+									
+										<h:outputText value="#{locale.modele1}" title="#{locale.modeleetats}" />
+										<h:panelGroup>
+											<h:selectOneMenu id="somn_listeModeleEtat" value="#{managedBean.defaultVue.modeleEtat.CRptMdl}" style="width: 84%" disabled="#{managedBean.defaultVue.nouveauModeleEtat}">
+												<f:selectItem itemLabel="" itemValue="#{null}"/>
+												<f:selectItems  value="#{managedBean.defaultVue.listeModelesEtat}" />		
+												<a4j:support event="onchange"  ajaxSingle="true"  actionListener="#{managedBean.actualiserModeleExport}" reRender="pngd_modele,pngd_shuttle" status="stus_actions" />				
+											</h:selectOneMenu>
+											
+											<a4j:commandButton image="/shared/images/add-16x16.png" action="#{managedBean.ajouterModeleEtat}" title="#{locale.ajouternvomodele}" 
+											   rendered="#{! managedBean.defaultVue.nouveauModeleEtat}" reRender="pngd_modele"  immediate="true" />
+											
+											<a4j:commandButton image="/shared/images/edit-16x16.png" action="#{managedBean.modifierModeleEtat}" title="#{locale.modifiernommodele}" 
+											  rendered="#{(! empty managedBean.defaultVue.modeleEtat.CRptMdl) and (! managedBean.defaultVue.nouveauModeleEtat)}"  
+											  reRender="pngd_modele"  immediate="true" />
+											
+											<a4j:commandButton image="/shared/images/delete-16x16.png" action="#{managedBean.supprimerModeleEtat}" title="#{locale.supprimermodele}" 
+											  rendered="#{(! empty managedBean.defaultVue.modeleEtat.CRptMdl) and (! managedBean.defaultVue.nouveauModeleEtat)}" 
+											  reRender="pngd_modele,pngd_shuttle"  immediate="true" 
+											  onclick="if(! confirm('êtes vous certain de vouloir supprimer ce modèle ?','Confirmation')) return false;"/>
+										</h:panelGroup>
+										
+										<h:outputText value="#{locale.nommodele1}" title="#{locale.nommodelesaisir}" rendered="#{managedBean.defaultVue.nouveauModeleEtat}" />
+										<h:panelGroup rendered="#{managedBean.defaultVue.nouveauModeleEtat}" >
+											<h:inputText id="inpt_libelleModele" value="#{managedBean.defaultVue.modeleEtat.LLib}" style="width: 84%" >
+												<a4j:support event="onchange"  ajaxSingle="true"  />
+											</h:inputText>
+											
+											<a4j:commandButton image="/shared/images/cancel-16x16.png" action="#{managedBean.annulerSaisieModeleEtat}" title="#{locale.annulersaisiemodele}" 
+											  reRender="pngd_modele"  immediate="true" />
+											
+										</h:panelGroup>
+										
+									</h:panelGrid>
+												
+									<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeft,pngdColRight" >
+															
+										<h:outputText value="" />
+										<h:panelGroup>
+											<h:selectBooleanCheckbox value="#{managedBean.defaultVue.exportInclureTousModeles}" title="#{locale.rechercherparmimodeles}" >
+												<a4j:support event="onchange"  ajaxSingle="true"  reRender="pngd_modele" status="stus_actions" />
+											</h:selectBooleanCheckbox>
+											<h:outputText value="#{locale.touslesmodeles}" />
+										</h:panelGroup>	
+																						
+									</h:panelGrid>
+									
+								</h:panelGrid>	
+																		
+								<rich:spacer height="7"/>
+								
+								<h:outputText id="optt_error" value="" />
+								
+						     	<h:panelGrid id="pngd_shuttle" columns="2" width="100%"  columnClasses="pngdCol" >
+						     	
+									<rich:listShuttle id="shuttle" sourceCaptionLabel="#{locale.listecolonnes}" sourceValue="#{managedBean.defaultVue.listeColumnsSource}"  sourceListWidth="360"  var="djColumn"
+										targetCaptionLabel="#{locale.colonnesaexporter}" 	  targetListWidth="360" targetValue="#{managedBean.defaultVue.listeColumnsCible}"
+										converter="djColumnConverter"  fastOrderControlsVisible="true" orderControlsVisible="true"   listsHeight="300"
+										copyControlLabel="#{locale.ajouter}" copyAllControlLabel="#{locale.ajoutertout}" removeControlLabel="Retirer" removeAllControlLabel="#{locale.retirertout}" 
+										downControlLabel="#{locale.bas}" upControlLabel="#{locale.haut}" topControlLabel="#{locale.premier}" bottomControlLabel="#{locale.dernier}" >
+										
+										<rich:column >
+											<f:facet name="header" >
+							          	 		<h:outputText value=" " />
+							          	 	</f:facet>
+											<h:panelGrid width="100%" style="align: center;" >
+												<h:outputText value=" " />
+											</h:panelGrid>										
+										</rich:column>																																								
+										 
+										<rich:column >
+											<f:facet name="header" >
+							          	 		<h:outputText value="#{locale.titre}" />
+							          	 	</f:facet>
+											<h:panelGrid width="100%" >
+												<h:inputText id="inpt_titre" style="width: 100%" label="#{locale.titre}" value="#{djColumn.title}" title="#{djColumn.title}"
+														required="false"  requiredMessage="#{locale.renseignertitre}"/>
+											</h:panelGrid>			
+										</rich:column>
+										
+										<rich:column >
+											<f:facet name="header" >
+							          	 		<h:outputText value="#{locale.taille}" />
+							          	 	</f:facet>
+											<h:panelGrid width="100%" styleClass="money" >
+												<rich:inputNumberSpinner value="#{djColumn.width}" step="10" maxValue="10000" inputSize="5"/>
+											</h:panelGrid>				
+										</rich:column>
+										
+										<rich:column >
+											<f:facet name="header" >
+							          	 		<h:outputText value="#{locale.somme}" />
+							          	 	</f:facet>
+											<h:panelGrid width="100%" style="align: center;" >
+												<h:selectBooleanCheckbox id="chbx_somme" value="#{djColumn.calculateSum}"  title="#{locale.demandercalculsomme}" />
+											</h:panelGrid>										
+										</rich:column>																																								
+										
+										<rich:column >
+											<f:facet name="header" >
+							          	 		<h:outputText value="#{locale.groupe}" />
+							          	 	</f:facet>
+											<h:panelGrid width="100%" style="align: center;" >
+												<h:selectBooleanCheckbox id="chbx_groupe" value="#{djColumn.groupeByThis}"  title="#{locale.demandergroupementcolonne}" />
+											</h:panelGrid>										
+										</rich:column>																																								
+											
+									</rich:listShuttle>
+									
+									<rich:message for="shuttle" errorClass="msg_error"  />
+																					     	
+						     	</h:panelGrid>
+					    		
+							</fieldset>
+						</h:panelGroup>
+							
+					</h:panelGrid>																
+						
+					<rich:separator height="0px" style="border:1px solid #{richSkin.panelBorderColor};"  />
+										
+					<h:panelGrid columns="1" width="100%"  style="text-align:right;" > 
+					
+						<h:panelGroup>						
+								
+								<a4j:commandButton action="#{managedBean.supprimerModeleEtat}" value="#{locale.supprimermodele}" reRender="pngd_modele,pngd_shuttle"
+									onclick="if(! confirm('êtes vous certain de vouloir supprimer ce modèle ?','Confirmation')) return false;"
+									rendered="false"/>																							
+								
+								<a4j:commandButton action="#{managedBean.enregistrerModeleEtat}" value="#{locale.enregistrermodele}" reRender="pngd_modele,pngd_shuttle"/>																							
+																								
+								<h:commandButton action="#{managedBean.exporterDynamique}" value="#{locale.exporter}" onclick="return true;" 
+									disabled="#{(empty managedBean.defaultVue.listeColumnsSource) and (empty managedBean.defaultVue.listeColumnsCible)}" />																							
+								
+								<a4j:commandButton value="#{locale.fermer}" immediate="true" onclick="#{rich:component('mpnl_data_export')}.hide();return false;"  />																					
+						
+						</h:panelGroup>					
+					</h:panelGrid>							
+				</h:panelGrid>
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+  <f:view locale="#{localeCtrl.actual}" />      
+   		<ui:composition >
+  		
+			<rich:panel id="pnel_tablePceJte" >
+				<f:facet name="header"> 
+				<h:outputText value="#{locale.listepiecejointe}(#{managedBean.defaultVue.pieceMgr.rowCount})  " />  
+				</f:facet>
+				
+				<h:panelGroup rendered="true" > 
+				
+					<rich:extendedDataTable id="tble_tablePceJte" value="#{managedBean.defaultVue.pieceMgr.dataModel}" selection="#{managedBean.defaultVue.pieceMgr.selection}" var="piece"  width="100%" height="400px"					
+						 rows="#{managedBean.defaultVue.pieceMgr.rows}" tableState="#{managedBean.defaultVue.pieceMgr.tableState}" selectionMode="#{managedBean.defaultVue.pieceMgr.selectionMode}" 
+						 onRowClick="selectedRow=this;">
+						 
+								<rich:column label="#{locale.reff}" sortBy="#{piece.LRefPce}" filterBy="#{piece.LRefPce}"  width="30%" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.reff}" />
+									</f:facet>																					
+									<h:panelGrid columns="2" rendered="#{! empty piece.LRefFch}" >
+										<h:graphicImage value="/shared/images/#{piece.fileExtention}-16x16.png" />
+										<h:commandLink  value="#{piece.LRefPce}.#{piece.fileExtention}"  action="#{managedBean.downloadPiece}" >
+											<f:setPropertyActionListener value="#{piece.specialId}" target="#{managedBean.defaultVue.pieceMgr.key}" />
+										</h:commandLink>																																												
+									</h:panelGrid>	
+									<h:outputText value="#{piece.LRefPce}" rendered="#{empty piece.LRefFch}" />																															
+								</rich:column>
+															
+								<rich:column label="#{locale.types}" sortBy="#{piece.tblTypPce.LTypPce}" filterBy="#{piece.tblTypPce.LTypPce}" width="20%" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.types} " />
+									</f:facet>
+									<h:outputText value="#{piece.tblTypPce.LTypPce}"  />
+								</rich:column>
+								
+								<rich:column label="#{locale.dates}"   width="15%" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.dates}" />
+									</f:facet>
+									<h:outputText value="#{piece.datePce}"  >
+										<f:convertDateTime type="date" dateStyle="full" pattern="EEEE, d MMM yyyy"  timeZone="GMT+1"/>
+									</h:outputText>
+								</rich:column>
+									
+								<rich:column label="#{locale.descriptions}"  width="35%" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.descriptions}" />
+									</f:facet>
+									<h:outputText value="#{piece.LInfPce}"  />
+								</rich:column>
+																
+						<!--  Mise a jour de la selection dans le bean manage-->										
+						<a4j:support ajaxSingle="true" event="onselectionchange" rendered="false" />
+																																															 						 						 
+					</rich:extendedDataTable>	
+					
+					<!--  Gestionnaire de Paginnation -->					
+					<rich:datascroller for="tble_tablePceJte" />
+				
+				</h:panelGroup>		
+			</rich:panel>	
+					   			      			  		
+   		</ui:composition>
+
+</html>

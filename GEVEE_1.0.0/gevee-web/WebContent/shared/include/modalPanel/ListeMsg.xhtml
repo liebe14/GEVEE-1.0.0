@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_msg_liste"  autosized="true" minWidth="620" minHeight="100"  >
+			
+				<f:facet name="header">
+					<h:outputText value="#{locale.listeMsg}" style="padding-right:15px;" />	
+										
+				</f:facet>
+				
+				
+				<h:form>	
+				<rich:extendedDataTable id="tble_liste_msg" value="#{defaultVue.msgTableMgr.dataModel}" selection="#{defaultVue.msgTableMgr.selection}" var="entity"  width="100%"  height="250px"					
+							rows="#{defaultVue.msgTableMgr.rows}" tableState="#{defaultVue.msgTableMgr.tableState}" selectionMode="#{defaultVue.msgTableMgr.selectionMode}" 
+							onRowClick="selectedRow=this;" cellpadding="0" cellspacing="0" border="0"  >
+							
+							<rich:column label="#{locale.code}" sortBy="#{entity.codMsgNtf}" filterBy="#{entity.codMsgNtf}" width="300">
+								<f:facet name="header">
+									<h:outputText value="#{locale.code}"  title="#{locale.code}"/>
+								</f:facet>
+								<h:outputText value="#{entity.codMsgNtf}" />				
+							</rich:column>
+							
+							<rich:column label="#{locale.sujetmsg}" sortBy="#{entity.libSjt}" filterBy="#{entity.libSjt}" width="300">
+								<f:facet name="header">
+									<h:outputText value="#{locale.sujetmsg}"  title="#{locale.sujetmsg}"/>
+								</f:facet>
+								<h:outputText value="#{entity.libSjt}" />
+													
+							</rich:column>
+							
+							<!-- Mise a jour de la selection dans le bean manage -->  										
+			<a4j:support ajaxSingle="true" event="onselectionchange" reRender="dtl" />
+							
+			<!--  Gestion du double Click pour afficher une entite en consultation  -->
+													
+			<!-- Controle du menu contextuel  -->  											 																							
+			<rich:componentControl event="onRowDblClick" for="ctmn_menu_valfrais" operation="show"  />
+			
+			<!-- Table footer  --> 
+			<f:facet name="footer" >
+
+			
+		</f:facet>
+			</rich:extendedDataTable>
+			
+			<fieldset>
+			            <legend> <h:outputText value="#{locale.detailsMsg}" styleClass="legend" /> </legend>
+			            <h:panelGrid columns="1" id="dtl">
+			            	<h:inputTextarea value="#{defaultVue.msgTableMgr.entiteSelectionne.libCtn}" style="width : 550px; height : 50px; font-family :Palatino Linotype" readonly="true" />
+			            </h:panelGrid>
+			 </fieldset>
+				<a4j:commandLink oncomplete="#{rich:component('mpnl_msg_liste')}.hide();" value="#{locale.fermer}" title="#{locale.fermer}"  immediate="true" action="ok" />
+		
+				</h:form>
+			
+			
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>

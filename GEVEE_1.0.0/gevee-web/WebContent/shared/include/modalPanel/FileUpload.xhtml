@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<f:view locale="#{localeCtrl.actual}" />       
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_fileUpload"  autosized="true" minWidth="600"  >
+			
+				<f:facet name="header">
+					<h:outputText value="#{modalFileUploadManagerCtrl.modalTitle}" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form>
+					
+				<h:panelGrid columns="1" width="100%"  style="border:2px solid #{richSkin.panelBorderColor};" columnClasses="pngdCol" border="0" cellpadding="0" cellspacing="0"  >
+
+					<h:panelGrid id="pngd_detailsPiece" columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+																		
+						<h:panelGrid columns="2" width="100%"  >
+																											
+							<h:panelGroup>
+								<h:outputText value="#{locale.reference}"  />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 					
+							<h:panelGroup>									
+								<h:inputText id="inpt_ref" value="#{modalFileUploadManagerCtrl.tblPceJte.LRefPce}" style="width: 90%"   
+									required="true" requiredMessage="#{msg['erreur.validation.obligatoire']}" title="Référence de la pièce" />
+								<rich:message for="inpt_ref" errorClass="msg_error" />									
+							</h:panelGroup>
+	
+							<h:panelGroup>
+								<h:outputText value="#{locale.valeur}"  />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 					
+							<h:panelGroup>																	
+								<h:inputText id="inpt_valeur"  value="#{modalFileUploadManagerCtrl.tblPceJte.VValPce}"  style="width: 90%" styleClass="money" onblur="formatMoney(this,true);"  
+								 	required="true" requiredMessage="#{msg['erreur.validation.obligatoire']}" title="#{locale.valeurpiece}"	 >
+									<f:convertNumber pattern="#,###" />
+								</h:inputText>									
+								<rich:message for="inpt_valeur" errorClass="msg_error" />									
+							</h:panelGroup>
+							
+							<h:panelGroup>
+								<h:outputText value="#{locale.date}"  />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 											
+							<h:panelGroup>
+								<rich:calendar id="cald_date" value="#{modalFileUploadManagerCtrl.tblPceJte.datePce}" style="width: 90%"  
+									required="true" requiredMessage="#{msg['erreur.validation.obligatoire']}" />							
+								<rich:message for="cald_date" errorClass="msg_error" />																			
+							</h:panelGroup>
+																					
+																																																																																																								
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" width="100%"  >
+						
+							<h:outputText value="#{locale.infocomplementaire1}"  />
+							<h:inputTextarea  value="#{modalFileUploadManagerCtrl.tblPceJte.LInfPce}" style="width: 95%"  />
+						
+						</h:panelGrid>
+												
+					</h:panelGrid>
+					
+					<h:panelGrid id="pngd_file"  width="100%"  >
+
+						<rich:fileUpload id="fileupload" autoclear="false" listHeight="100px" listWidth="100%"		
+							required="#{modalFileUploadManagerCtrl.isFileRequired}"	requiredMessage="#{locale.joindrefichier}"				
+							maxFilesQuantity="#{modalFileUploadManagerCtrl.uploadsAvailable}"
+							immediateUpload="#{modalFileUploadManagerCtrl.autoUpload}"
+							transferErrorLabel="#{locale.erreurtransfertfichier}"
+							acceptedTypes="#{modalFileUploadManagerCtrl.acceptedTypes}" allowFlash="#{modalFileUploadManagerCtrl.useFlash}"
+							fileUploadListener="#{modalFileUploadManagerCtrl.listener}"
+							addControlLabel="#{locale.ajouter}" cancelEntryControlLabel="#{locale.annuler}"
+							clearAllControlLabel="#{locale.supprimertout}" stopControlLabel="#{locale.stop}"
+							stopEntryControlLabel="#{locale.stop}" uploadControlLabel="#{locale.telecharger}"
+							doneLabel="#{locale.fichiertelecharge}" clearControlLabel="#{locale.nettoyer}"
+							progressLabel="#{locale.telechargementencours}" sizeErrorLabel="#{locale.taillefichierpasvalide}"  >
+						
+						</rich:fileUpload>
+						<rich:message for="fileupload" errorClass="msg_error" />									
+					
+					</h:panelGrid>
+													
+					<rich:separator height="0px" style="border:1px solid #{richSkin.panelBorderColor};"  />
+									
+					<h:panelGrid columns="" width="100%"  style="text-align:right;"  > 						
+						<h:panelGroup>						
+
+								<a4j:commandButton value="#{locale.ajouter}" 	action="#{modalFileUploadManagerCtrl.ajouter}" reRender="pngd_detailsPiece, pngd_file, #{modalFileUploadManagerCtrl.reRender}" status="stus_actions"  />
+									 																		   
+								<a4j:commandButton value="#{locale.valider}" 	action="#{modalFileUploadManagerCtrl.valider}" rendered="false"
+									oncomplete="#{rich:component('mpnl_fileUpload')}.hide();return true;" reRender="#{modalFileUploadManagerCtrl.reRender}"  status="stus_actions" />
+																																											
+								<a4j:commandButton value="#{locale.fermer}"  action="#{modalFileUploadManagerCtrl.fermer}" ajaxSingle="true" immediate="true"
+									oncomplete="#{rich:component('mpnl_fileUpload')}.hide();return false;" status="stus_actions"  />										
+																																		
+						</h:panelGroup>					
+					</h:panelGrid>	
+																						
+				</h:panelGrid>
+				
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>

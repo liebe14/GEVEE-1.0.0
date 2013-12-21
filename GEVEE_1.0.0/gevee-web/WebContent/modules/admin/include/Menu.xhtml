@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+   		<ui:composition >
+   		
+		        <rich:panelMenuGroup label="Administration" 
+		        	rendered="#{ccollocConfig['deploiement.module.admin'] and (showMenu['ADMIN'] and sessionScope.estAdministrateur) 
+		        	and (sessionScope.mapEntityAuth['ADM01'] or sessionScope.mapEntityAuth['SoEltSal'] or sessionScope.mapEntityAuth['SoSvc']
+		        		or sessionScope.mapEntityAuth['SoMdt'] or sessionScope.mapEntityAuth['SoPaieAgt'])}">
+		        
+		        	<rich:panelMenuGroup label="Sécurité" rendered="#{sessionScope.mapEntityAuth['ADM01']}">
+		        	
+		        		<rich:panelMenuItem label="Utilisateurs" action="#{usrCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+			            
+		            	<rich:panelMenuItem label="Droits Utilisateurs" action="#{drtCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+		            					            	
+			            <rich:panelMenuItem label="Rôles" action="#{rolCtrl.openHomePage}" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+			            				        		
+		        		<rich:panelMenuItem label="Périmètres d'action" action="#{prmDonCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+		            				            			        		
+		        		<rich:panelMenuItem label="Permissions" action="#{prmGaoCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+		            				            	
+		            	<rich:panelMenuItem label="Groupes Accès Objets" action="#{gaoCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>
+		            				                    		         				        		            
+		        	</rich:panelMenuGroup>
+		        
+		        	<rich:panelMenuGroup label="Configuration" rendered="#{sessionScope.mapEntityAuth['ADM01']}">
+		        	
+  			        	<rich:panelMenuItem   label="Agents" action="#{agtCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"  />
+		        			        		
+		        		<rich:panelMenuItem label="Enumération" action="#{enmCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+		            				            
+		        		<rich:panelMenuItem label="Type Enumération" action="#{typEnmCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>	
+		       		        		
+		            	<rich:panelMenuItem label="Types de Pièces" action="#{typPceCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+
+		            	<rich:panelMenuItem label="Types de Pièces de Dépense" action="#{typDpsPceCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>			                    
+		        					            	
+		            	<rich:panelMenuItem label="Calendrier Système" action="#{sysCldCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>
+		            	
+		            	<rich:panelMenuItem label="Etats Génériques" action="#{rptGenCtrl.openHomePage}" ajaxSingle="true" rendered="#{sessionScope.mapEntityAuth['ADM01']}"/>
+		            			                    		       		            			            
+		        	</rich:panelMenuGroup>
+
+		        	<rich:panelMenuGroup label="Interface avec la Solde" rendered="false" >
+		        	
+		        		<rich:panelMenuItem label="Eléments de salaire" action="#{soldEltSalCtrl.openHomePage}" ajaxSingle="true" rendered="true" />			                    
+			            
+		            	<rich:panelMenuItem label="Services de la solde" action="#{soldSvcCtrl.openHomePage}" ajaxSingle="true" rendered="true" />			                    
+		            					            	
+			            <rich:panelMenuItem label="Mandats de la solde" action="#{soldMdtCtrl.openHomePage}" rendered="true" />			                    
+			            				        		
+		        		<rich:panelMenuItem label="Détails de la paie des agents" action="#{soldPaieAgtCtrl.openHomePage}" ajaxSingle="true" rendered="true" />			                    
+		            			                    		       		            			            
+		        	</rich:panelMenuGroup>
+			      		            
+		            <rich:panelMenuItem label="Orchestration" action="null" ajaxSingle="true" data="#{ccollocConfig['serveur.sws.adresse']}" oncomplete="pleinEcran(data,'SWS')"  rendered="#{sessionScope.mapEntityAuth['ADM01']}" />			                    			          
+		            
+		            <rich:panelMenuItem label="Règles métiers" action="null" ajaxSingle="true" data="#{ccollocConfig['serveur.sbr.adresse']}" oncomplete="pleinEcran(data,'SBR')" rendered="#{sessionScope.mapEntityAuth['ADM01']}" />			                    			     			            				            			            
+		        
+		        </rich:panelMenuGroup>	
+			        			           			  		
+   		</ui:composition>
+
+</html>

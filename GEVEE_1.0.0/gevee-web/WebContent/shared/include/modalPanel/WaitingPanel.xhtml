@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<ui:composition >
+   		
+			<a4j:region>
+				<a4j:status id="stus_actions"
+					onstart="#{rich:component('mpnl_wait')}.show()"
+					onstop="#{rich:component('mpnl_wait')}.hide()" />
+			</a4j:region> 
+			
+			<rich:modalPanel id="mpnl_wait" autosized="true" width="200"
+				height="60" moveable="false" resizeable="false">
+				<f:facet name="header">
+					<h:outputText value="Traitement en cours" />
+				</f:facet>
+
+				<table>
+					<tr>
+						<td><h:graphicImage style="border-width:0"
+							value="/shared/images/loading9.gif" /></td>
+						<td align="center" valign="middle" width="100%" >
+							
+						<h:outputText value="Patienter" /></td>
+					</tr>
+				</table>
+			</rich:modalPanel>    			
+   		
+   		</ui:composition>
+
+</html>

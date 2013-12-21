@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+     <f:view locale="#{localeCtrl.actual}" />   
+     
+          
+	<ui:composition template="/shared/templates/templateDeBase.xhtml">
+	
+	
+	<!-- Zone du template de base a propager afin qu'elles soient redefinies    -->
+		<ui:define name="entete">			
+			<ui:insert name="entete">Entête</ui:insert>
+		</ui:define>	
+		
+		<!-- Définition des champs cachés  -->
+		<ui:define name="hiddenZone">
+<!--			<h:inputHidden id="mapGaoAsgTrt" value="#{sessionScope.mapGaoAsgTrt}"  />-->
+<!--			<h:inputHidden id="mapEtatTrt" value="#{sessionScope.mapEtatCodeTrt}"  />-->
+<!--			<h:inputHidden id="enableControls" value="#{cimmoConfig['enable.javascript.menuDynamique']}" />-->
+<!--			<h:outputText value="#{sessionScope.mapEtatTrt}" rendered="false" />	-->
+			
+			<!-- Inclusion des fonctions javascript de gestion du menu contextuel -->
+			<script type="text/javascript" src="../../shared/js/menu_functions.js"></script>
+			<script type="text/javascript" src="../../../shared/js/menu_functions.js"></script>
+			<script type="text/javascript" src="../../../../shared/js/menu_functions.js"></script>
+			<script type="text/javascript" src="../../../../../shared/js/menu_functions.js"></script>
+			<script type="text/javascript" src="../../../../../../shared/js/menu_functions.js"></script>
+			
+			<script type="text/javascript" src="../../shared/js/util.js"></script>
+			<script type="text/javascript" src="../../../shared/js/util.js"></script>
+			<script type="text/javascript" src="../../../../shared/js/util.js"></script>
+			<script type="text/javascript" src="../../../../../shared/js/util.js"></script>
+			<script type="text/javascript" src="../../../../../../shared/js/util.js"></script>
+			
+			<script type="text/javascript" src="../../shared/js/calendar_functions.js"></script>
+			<script type="text/javascript" src="../../../shared/js/calendar_functions.js"></script>
+			<script type="text/javascript" src="../../../../shared/js/calendar_functions.js"></script>
+			<script type="text/javascript" src="../../../../../shared/js/calendar_functions.js"></script>
+			<script type="text/javascript" src="../../../../../../shared/js/calendar_functions.js"></script>
+			
+			<script type="text/javascript" src="../../shared/js/common_functions.js"></script>
+			<script type="text/javascript" src="../../../shared/js/common_functions.js"></script>
+			<script type="text/javascript" src="../../../../shared/js/common_functions.js"></script>
+			<script type="text/javascript" src="../../../../../shared/js/common_functions.js"></script>
+			<script type="text/javascript" src="../../../../../../shared/js/common_functions.js"></script>
+			
+			<script type="text/javascript">
+				// init();		
+			</script>	
+			
+		</ui:define>
+		
+	
+		<ui:define name="barres">			
+			<ui:insert name="barres">Barre de Menu et Outils</ui:insert>
+		</ui:define>	
+
+		<ui:define name="barreMessage">			
+			<ui:insert name="barreMessage">Barre de Message</ui:insert>
+		</ui:define>	
+		
+		<ui:define name="contenuFormulaire">			
+			<ui:insert name="contenuFormulaire">Contenu du Formulaire</ui:insert>
+		</ui:define>
+		
+		<ui:define name="barreActions">			
+			<ui:insert name="barreActions">Barre d'Actions</ui:insert>
+		</ui:define>	
+	<!-- Ces redefinitions ne sont utiles que pour nous permettre de bien travailler dans Eclipse    -->	
+					
+		
+		<!-- Define menuProgram -->
+		<ui:define name="menuProgram">
+			<h:form>
+			<rich:simpleTogglePanel switchType="ajax" opened="#{sessionCtrl.defaultVue.profileMenuOpened}" rendered="false" style="border:1; width:100%" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.preference}" />
+				</f:facet>
+				
+				<h:panelGrid columns="8"  width="100%"  >
+					
+					<rich:spacer width="0px" />
+					<h:panelGrid columns="12" >
+							<h:outputText value="Utilisateur:"	title="#{sessionCtrl.defaultVue.user.libNom} #{sessionCtrl.defaultVue.user.libPre}"  />
+							<h:outputText value="#{sessionCtrl.defaultVue.user.codUsr}" title="#{sessionCtrl.defaultVue.user.libNom} #{sessionCtrl.defaultVue.user.libPre}"  />
+							<h:outputText value="#{sessionCtrl.defaultVue.statut}" rendered="true" />
+							<rich:separator height="0px" width="30%" />
+					</h:panelGrid>
+					 
+					<rich:spacer width="0px" />
+					<h:panelGrid columns="" width="100%" style="text-align:right;">
+						<h:commandButton action="#{sessionCtrl.deconnexion}" value="#{locale.deconnexion}" immediate="true" onclick="if(! confirm('#{locale.confirmdeconnexion} ','Confirmation')) return false;" />
+					</h:panelGrid>
+					<rich:spacer width="0px" />																
+				</h:panelGrid>		
+			</rich:simpleTogglePanel>	
+			</h:form>
+		</ui:define>
+									
+		<ui:define name="menuDetail">
+		<!-- Formulaire: Faudra penser a le mettre au endroit approprie -->
+			<h:form>
+			<rich:simpleTogglePanel switchType="ajax" 
+									opened="#{sessionCtrl.defaultVue.profileMenuOpened}"  
+									style="border:1; width:100%"
+									rendered="false" >
+				<f:facet name="header">
+					<h:outputText value="Profil" />
+				</f:facet>
+				
+				<h:panelGrid columns="1"  width="100%"  >
+					
+					<h:panelGrid columns="1" width="100%" >
+												
+						<h:panelGrid columns="9" width="30%">
+							
+							<h:outputText value="Utilisateur:"	title="#{sessionCtrl.defaultVue.user.libNom} #{sessionCtrl.defaultVue.user.libPre}"  />
+							<h:outputText value="#{sessionCtrl.defaultVue.user.codUsr}" title="#{sessionCtrl.defaultVue.user.libNom} #{sessionCtrl.defaultVue.user.libPre}"  />
+							<rich:separator height="0px" width="30px" />
+							<h:outputText value="Statut:"  rendered="true" />						
+							<h:outputText value="#{sessionCtrl.defaultVue.statut}" rendered="true" />
+							<rich:separator height="0px" width="70%" />
+																			
+						</h:panelGrid>
+																							
+					</h:panelGrid>
+																					
+				</h:panelGrid>		
+			</rich:simpleTogglePanel>	
+			</h:form>
+		</ui:define>
+		
+		<!-- Menu Demarrer -->
+		<!--  -->
+		
+		<ui:define name="menuBrowser">
+		<!-- Formulaire:  Faudra penser a le mettre au endroit approprie -->
+		
+		<!--  --> 
+		<h:form>
+		<rich:toolBar height="26px">
+			
+            <ui:include src="../../modules/admin/include/DDMenu.xhtml" />
+            <ui:include src="../../modules/referentiel/include/DDMenu.xhtml" />
+            
+            <rich:separator width="70" height="0"/>
+            <ui:include src="../../shared/include/accueil/DDMenu.xhtml" />
+			
+		</rich:toolBar>
+		</h:form>
+		
+	</ui:define>	
+		
+		<ui:define name="tranversalPageModalPanel">
+		
+			<ui:include src="../include/modalPanel/WaitingPanel.xhtml" />
+			<ui:include src="../include/modalPanel/ExpirationSession.xhtml" />			
+			<ui:include src="../include/modalPanel/ModifMotDePasse.xhtml" />
+			
+		</ui:define>	
+		
+		<ui:define name="fieldsStyle">
+			<script type="text/javascript">
+				// Mise à jour des styles des composants non modifiables
+				setReadonlyStyle();
+			</script>
+		</ui:define>
+	
+		
+	</ui:composition>
+	
+</html>

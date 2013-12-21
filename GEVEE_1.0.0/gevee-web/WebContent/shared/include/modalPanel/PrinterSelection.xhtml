@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+<f:view locale="#{localeCtrl.actual}" />       
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_impression" autosized="true" minWidth="500"   >
+			
+				<f:facet name="header">
+					<h:outputText value="#{locale.impressiondirecte}" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form id="form_impression" >	
+					
+				<h:panelGrid columns="1" width="100%" style="border:2px solid #{richSkin.panelBorderColor};" border="0" cellpadding="0" cellspacing="0" >
+				
+					<h:panelGrid columns="2" width="100%"   >
+					
+						<h:outputText value="#{locale.imprimante1}"  />
+						
+						<h:panelGroup>
+						
+							<h:selectOneMenu   value="#{modalCtrl.printerAlias}"  style="width: 350px" >
+								<f:selectItems  value="#{sessionCtrl.defaultVue.listePrinters}" />						
+							</h:selectOneMenu>
+							
+							<h:outputText value="&#xa0;&#xa0;"  />
+							
+                			<a4j:commandButton image="/shared/images/refresh-16x16.png" actionListener="#{sessionCtrl.refreshListePrinters}" ajaxSingle="true" immediate="true" 
+                			 	reRender="form_impression"	title="#{locale.raffraichir}" status="stus_actions" />	                  	       	
+						
+						</h:panelGroup>
+																		
+					</h:panelGrid>
+						
+					<rich:separator height="0px" style="border:1px solid #{richSkin.panelBorderColor};"  />
+										
+					<h:panelGrid columns="1" width="100%"  style="text-align:right;" > 
+					
+						<h:panelGroup>						
+																																
+								<a4j:commandButton value="#{locale.imprimer}" action="#{modalCtrl.valider}" disabled="#{empty sessionCtrl.defaultVue.listePrinters}"
+									oncomplete="#{rich:component('mpnl_impression')}.hide();return true;" status="stus_actions" />
+																
+								<a4j:commandButton value="#{locale.annuler}" ajaxSingle="true" immediate="true" oncomplete="#{rich:component('mpnl_impression')}.hide();return false;"  />																					
+						
+						</h:panelGroup>					
+					</h:panelGrid>									
+				</h:panelGrid>
+				
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>

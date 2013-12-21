@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="UsrDetails::#modules#admin#pages#UsrDetails.xhtml"
+    NAME="output21" PATH="/modules/admin/pages/UsrDetails.xhtml"
+    TARGET="rules:#modules#admin#pages#UsrDetails.xhtml"
+    TITLE="UsrDetails" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="UsrEdition::#modules#admin#pages#UsrEdition.xhtml"
+    NAME="output22" PATH="/modules/admin/pages/UsrEdition.xhtml"
+    TARGET="rules:#modules#admin#pages#UsrEdition.xhtml"
+    TITLE="UsrEdition" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="UsrListe::#modules#admin#pages#UsrListe.xhtml" NAME="output23"
+    PATH="/modules/admin/pages/UsrListe.xhtml"
+    TARGET="rules:#modules#admin#pages#UsrListe.xhtml" TITLE="UsrListe" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#modules#admin#pages#UsrEdition.xhtml"
+  PATH="/modules/admin/pages/UsrEdition.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#modules#admin#pages#UsrDetails.xhtml"
+  PATH="/modules/admin/pages/UsrDetails.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#modules#admin#pages#UsrListe.xhtml"
+  PATH="/modules/admin/pages/UsrListe.xhtml" SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

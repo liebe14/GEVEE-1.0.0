@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+ <managed-bean>
+  <managed-bean-name>remCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.ref.controleur.RemCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>tracCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.ref.controleur.TracCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>RemDetails</from-outcome>
+   <to-view-id>/modules/referentiel/pages/RemDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>RemEdition</from-outcome>
+   <to-view-id>/modules/referentiel/pages/RemEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>RemListe</from-outcome>
+   <to-view-id>/modules/referentiel/pages/RemListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>TracDetails</from-outcome>
+   <to-view-id>/modules/referentiel/pages/TracDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>TracEdition</from-outcome>
+   <to-view-id>/modules/referentiel/pages/TracEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>TracListe</from-outcome>
+   <to-view-id>/modules/referentiel/pages/TracListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+ </navigation-rule>
+</faces-config>

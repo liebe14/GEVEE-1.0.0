@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+  <f:view locale="#{localeCtrl.actual}" />
+          
+	<ui:composition template="/shared/templates/templateFormulaire.xhtml">
+	
+		<ui:param name="nomPage" value="#{managedBean.memoEntite}Details" />
+						
+		<!-- L'entete devra etre redefinie dans le formulaire  -->
+		<ui:define name="entete">
+			<h:outputText value="Consultation " />
+			<h:outputText value="#{entetePage}" />
+			
+			<ui:insert name="nomPage">				
+				<h:inputHidden id="iphd_page" binding="#{managedBean.hidden}" value="#{nomPage}" />	
+			</ui:insert>
+									
+		</ui:define>
+				
+																																																				
+		<!-- Definition des actions  -->	
+		<ui:define name="barreActions">
+			<rich:toolBar  >
+				<rich:toolBarGroup itemSeparator="line" location="left" >
+					<h:panelGroup>
+						<h:panelGrid columns="4">
+							<a4j:commandButton image="/shared/images/first-24x24.png" title="Premier" actionListener="#{managedBean.premier}"  ajaxSingle="true" reRender="pnel_main" />				
+							<a4j:commandButton image="/shared/images/previous-24x24.png" title="Precedent" actionListener="#{managedBean.precedent}"  ajaxSingle="true" reRender="pnel_main" />
+							<a4j:commandButton image="/shared/images/next-24x24.png" title="Suivant"  actionListener="#{managedBean.suivant}" ajaxSingle="true" reRender="pnel_main" />
+							<a4j:commandButton image="/shared/images/last-24x24.png" title="Dernier" actionListener="#{managedBean.dernier}"  ajaxSingle="true" reRender="pnel_main" />														
+						</h:panelGrid>				
+					</h:panelGroup>
+	
+				</rich:toolBarGroup>
+				
+				<rich:toolBarGroup location="right" >
+					<a4j:commandButton  value="Terminer" action="#{managedBean.terminer}" ajaxSingle="true" immediate="true" />
+				</rich:toolBarGroup>
+												
+			</rich:toolBar>
+		</ui:define>	
+						
+		<ui:define name="tranversalFormModalPanel">		
+<!--			<ui:include src="/shared/include/modalPanel/DatasExport.xhtml" />-->
+<!--			<ui:include src="/shared/include/modalPanel/PrinterSelection.xhtml" />-->
+<!--			<ui:include src="/shared/include/modalPanel/MotifTraitement.xhtml" />					-->
+<!--			<ui:include src="/shared/include/modalPanel/ParametresEtatsIntegre.xhtml" />	-->
+		</ui:define>				
+												
+	</ui:composition>
+</html>

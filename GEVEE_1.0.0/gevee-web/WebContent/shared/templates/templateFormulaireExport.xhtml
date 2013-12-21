@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+  
+  <f:view locale="#{localeCtrl.actual}" /> 
+          
+	<ui:composition template="/shared/templates/templateFormulaire.xhtml">
+	
+		<ui:param name="nomPage" value="#{managedBean.memoEntite}Liste" />
+						
+		<!-- L'entete devra etre redefinie dans le formulaire  -->
+		<ui:define name="entete">
+			<h:outputText value="#{locale.exportation} " />
+			<h:outputText value="#{entetePage}" />
+			
+			<ui:insert name="nomPage">
+				<h:inputHidden id="iphd_page"  binding="#{managedBean.hidden}" value="#{nomPage}" />	
+			</ui:insert>
+											
+		</ui:define>
+		
+		<!-- Injection du menu contextuel pour le tableau -->
+		<ui:define name="menuContextuel">
+            <rich:contextMenu id="ctmn_menu" binding="#{managedBean.tableMenu}" />
+            <a4j:jsFunction action="null" name="refreshPage" data="#{managedBean.timeoutElapsed}" oncomplete="if(data == true){loadPageListTable();}" />
+            <a4j:jsFunction actionListener="#{managedBean.rechercher}" reRender="pnel_table,actionForm" status="stus_actions"
+				name="loadPageListTable" />																																		                        			
+ 		</ui:define>
+							
+		<!-- Le formulaire defini lui meme son contenu  -->	
+		<ui:define name="contenuFormulaire">
+		
+			<ui:insert name="filtre">
+				
+				<!-- Filtre de recherche  -->
+				<rich:simpleTogglePanel switchType="client" id="stpl_filtre" >
+					<f:facet name="header">  					
+						<h:outputText value="#{locale.filtrerrecherche}" /> 						
+					</f:facet>
+					
+					<h:panelGrid columns="1" width="100%"  style="border:1px solid #{richSkin.panelBorderColor}; " border="0" cellpadding="0" cellspacing="0"  >
+					
+						<h:panelGrid  width="100%" >
+							<h:panelGroup>
+							
+								&#xa0;
+					            <rich:toggleControl for="toggle" value="#{locale.optionscourantes}" switchToState="ecranStandardFilter"   />
+					            &#xa0;
+					            					            					            
+					            <h:panelGroup rendered="#{! empty ecranSupFilter1 }">
+					            	&#xa0;
+					            	<rich:toggleControl for="toggle" value="#{ecranSupFilter1}" switchToState="ecranSupFilter1"  />
+					            	&#xa0;
+					            </h:panelGroup>	
+					            
+					            &#xa0;
+					            <rich:toggleControl for="toggle" value="#{locale.optionsavancees}" switchToState="ecranAdvancedFilter"  />
+					            &#xa0;
+					            	            					            				            
+							</h:panelGroup>																	
+						</h:panelGrid>
+										
+						<rich:separator lineType="dashed"  height="1px" style="border:0px dashed  #{richSkin.panelBorderColor};"  />
+						
+						<rich:togglePanel id="toggle"  switchType="client" stateOrder="ecranStandardFilter,ecranSupFilter1,ecranAdvancedFilter" >
+			    		
+			     			<f:facet name="ecranStandardFilter">
+			     							     				
+								<h:panelGrid  columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow" >
+								
+									<ui:insert name="standardFilter"  >
+									
+										<h:panelGrid columns="2" width="100%"   columnClasses="pngdCol" rowClasses="pngdRow" >
+																
+											<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeft,pngdColRight" >
+											
+												<h:outputText value="Id :" />          				
+				           						<h:inputText  value="#{managedBean.defaultVue.entiteRecherche.Id}" style="width: 90%" /> 
+				           						
+				           						<h:outputText value="XXX :" />          				
+				           						<h:inputText  value="" style="width: 90%" />           					           					           					   					            				            				            			
+				           						          					           					           					   					            				            				            																						           					 																																																																																																																																																				
+											</h:panelGrid>
+															
+											<h:panelGrid columns="2" width="100%"  border="0" columnClasses="pngdColLeft,pngdColRight" >
+											
+												<h:outputText value="YYY :" />
+												<h:panelGroup>
+													<h:inputText value="" style="width: 15%"   title="Code" />
+													<h:inputText value="" style="width: 75%" title="Libell�"  />
+												</h:panelGroup>	
+												
+												<h:outputText value="WWW :" />
+												<h:panelGroup>
+													<h:inputText value="" style="width: 15%"   title="Code" />
+													<h:inputText value="" style="width: 75%" title="Libell�"  />
+												</h:panelGroup>	
+																																																																									    						    						    																																																			
+											</h:panelGrid>	
+																																																												
+										</h:panelGrid>	
+										
+									</ui:insert>
+																				
+								</h:panelGrid>			     							     							     				
+			     				
+			     			</f:facet>
+			     			
+			     			
+			    			<f:facet name="ecranSupFilter1">
+			     			
+								<h:panelGrid id="pngd_ecranSupFilter1" columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow"   >
+								
+			     					<ui:insert name="ecranSupFilter1" > #{locale.filtreadditionnel1} </ui:insert>
+			     					 
+			     				</h:panelGrid>
+			     				
+							</f:facet>
+			     			
+			  		     			
+			     			<f:facet name="ecranAdvancedFilter">
+			     						     						     												
+								<h:panelGrid  columns="1" width="100%" columnClasses="pngdCol" rowClasses="pngdRow" >
+								
+									<ui:insert name="advancedFilter"  >
+									
+										<ui:insert name="advancedFilterTecTrt"  >
+										
+											<h:panelGrid columns="2" width="100%"   columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+																																					
+												<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" rowClasses="pngdRow" >
+												
+													<h:outputText value="#{locale.datecrt1}" title="#{locale.datecreation}"	rendered="#{managedBean.tecEntity}"  />
+													<h:panelGrid columns="2" width="95%" border="0" cellpadding="0" 	rendered="#{managedBean.tecEntity}"  >
+													
+														<h:panelGroup style="text-align:left;" >
+															<h:outputText value="#{locale.min}:" />
+															<rich:calendar id="cald_dateMin" value="#{managedBean.defaultVue.entiteRecherche.itvMinDateVal}" datePattern="dd/MM/yyyy HH:mm" inputStyle="text-align:right; width:65%"  showApplyButton="true"/>
+															<script type="text/javascript">
+																// Mise � jour de la propri�t� onclick du composant du calendrier pour la mise en forme de celui-ci notamment afin qu'il affiche le footer en fran�ais
+																setOnclickCalendarFr("contentForm:cald_dateMin");
+															</script>
+														</h:panelGroup>
+														
+														<h:panelGroup style="text-align:left;" >
+															<h:outputText value="#{locale.max}:" />
+															<rich:calendar id="cald_dateMax" value="#{managedBean.defaultVue.entiteRecherche.itvMaxDateVal}"  datePattern="dd/MM/yyyy HH:mm" inputStyle="text-align:right; width:65%" showApplyButton="true"/>
+															<script type="text/javascript">
+																// Mise � jour de la propri�t� onclick du composant du calendrier pour la mise en forme de celui-ci notamment afin qu'il affiche le footer en fran�ais
+																setOnclickCalendarFr("contentForm:cald_dateMax");
+															</script>
+														</h:panelGroup>
+														
+													</h:panelGrid>
+													
+													<h:outputText value="#{locale.datemdf1}" title="#{locale.datedernieremodif}"	rendered="#{managedBean.tecEntity}"  />
+													<h:panelGrid columns="2" width="95%" border="0" cellpadding="0"	rendered="#{managedBean.tecEntity}"   >
+													
+														<h:panelGroup style="text-align:left;" >
+															<h:outputText value="#{locale.max}:" />
+															<rich:calendar id="cald_dateMin1" value="" datePattern="dd/MM/yyyy HH:mm" inputStyle="text-align:right; width:65%"  showApplyButton="true"/>
+															<script type="text/javascript">
+																// Mise � jour de la propri�t� onclick du composant du calendrier pour la mise en forme de celui-ci notamment afin qu'il affiche le footer en fran�ais
+																setOnclickCalendarFr("contentForm:cald_dateMin1");
+															</script>
+														</h:panelGroup>
+														
+														<h:panelGroup style="text-align:left;" >
+															<h:outputText value="#{locale.max}:" />
+															<rich:calendar id="cald_dateMax1" value=""  datePattern="dd/MM/yyyy HH:mm" inputStyle="text-align:right; width:65%" showApplyButton="true"/>
+															<script type="text/javascript">
+																// Mise � jour de la propri�t� onclick du composant du calendrier pour la mise en forme de celui-ci notamment afin qu'il affiche le footer en fran�ais
+																setOnclickCalendarFr("contentForm:cald_dateMax1");
+															</script>
+														</h:panelGroup>
+														
+													</h:panelGrid>
+													
+													<h:outputText value="#{locale.etat}:"	rendered="#{managedBean.tecTrtEntity}"  />
+													<h:selectOneMenu value="#{managedBean.defaultVue.entiteRecherche.trtEta}" style="width: 90%"	rendered="#{managedBean.tecTrtEntity}" 	>
+														<f:selectItem itemValue="#{null}" />
+														<f:selectItems  value="#{managedBean.defaultVue.listeEtatAll}" />
+													</h:selectOneMenu>
+																																																																								           										           						          					           					           					   					            				            				            																						           					 																																																																																																																																																				
+												</h:panelGrid>
+												
+												<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeft,pngdColRight"	  >
+												
+													<h:outputText value="#{locale.createur1}"	rendered="#{managedBean.tecEntity}" 	/>          				
+					           						<h:inputText  value="#{managedBean.defaultVue.entiteRecherche.tecCUsrCrt}" style="width: 60%"	rendered="#{managedBean.tecEntity}" 	/> 
+																							
+													<h:outputText value="#{locale.modificateur1}"	rendered="#{managedBean.tecEntity}" 	/>          				
+					           						<h:inputText  value="#{managedBean.defaultVue.entiteRecherche.tecCUsrMod}" style="width: 60%"	rendered="#{managedBean.tecEntity}"  	/> 
+					           										           						
+													<h:outputText value="#{locale.gaouc}:"		rendered="#{managedBean.tecEntity}"  />          				
+					           						<h:inputText  value="#{managedBean.defaultVue.entiteRecherche.tecGao}" style="width: 60%"	rendered="#{managedBean.tecEntity}" 	 /> 
+					           										           						          					           					           					   					            				            				            																						           					 																																																																																																																																																				
+												</h:panelGrid>										
+																																																																																																	
+											</h:panelGrid>	
+											
+										</ui:insert>
+									
+									</ui:insert>
+									
+									<ui:insert name="advancedFilterOther"  >
+									
+									</ui:insert>
+																												
+								</h:panelGrid>			     				
+			     							     							     							     				
+			     			</f:facet>
+			     						     						     					     			
+			     		</rich:togglePanel>	 
+												
+						<rich:separator lineType="beveled"  height="1px" style="border:0px dashed  #{richSkin.panelBorderColor};"  />
+					
+						<ui:insert name="filterActions"  >
+							<h:panelGroup layout="horizontal" >
+								
+								<h:panelGrid  columns="4"	>
+									<h:outputText value="#{locale.rechercherpar1}" />
+									<h:selectOneRadio value="#{managedBean.defaultVue.typeRecherche}" layout="lineDirection" >
+										<f:selectItem itemLabel="#{locale.code}"  itemValue="#{locale.codeuc}" />
+										<f:selectItem itemLabel="#{locale.critere}" itemValue="#{locale.critereuc}" />	
+										<f:selectItem itemLabel="#{locale.tout}" itemValue="#{locale.toutuc}"  />						
+									</h:selectOneRadio>		
+									
+									<a4j:commandButton  value="#{locale.rechercher}" actionListener="#{managedBean.rechercher}" reRender="pnel_table,actionForm" status="stus_actions" />													
+											
+									<a4j:commandButton  value="#{msg['filtre.reset']}" actionListener="#{managedBean.reinitialiser}" ajaxSingle="true" reRender="stpl_filtre" status="stus_actions" />							
+																																		
+								</h:panelGrid>					
+							</h:panelGroup>
+						</ui:insert>
+						
+					</h:panelGrid>			
+							
+				</rich:simpleTogglePanel>
+				
+				<rich:spacer height="15"/>
+				
+			</ui:insert>			
+				
+			<ui:insert name="areaBetweenFilterAndTable">	
+			
+						
+			</ui:insert>									
+						
+			<ui:insert name="tableau">	
+					
+				<!-- Liste de Recherche -->		
+				<rich:panel  id="pnel_table" >
+					<f:facet name="header">
+						
+						<h:panelGroup> 
+							<ui:insert name="tablePanelHeader"> 
+								<h:panelGrid columns="2" width="100%"> 
+									<h:outputText value="#{locale.liste} #{entetePage} (#{managedBean.defaultVue.tableMgr.rowCount} / #{managedBean.defaultVue.tableMgr.totalRecherche} )  " />  
+									<h:panelGrid columns="" style="text-align:right" width="100%" >
+										<h:selectOneMenu value="#{managedBean.defaultVue.tableMgr.page}" rendered="#{! empty managedBean.defaultVue.listePagination}" >
+											<f:selectItems value="#{managedBean.defaultVue.listePagination}" />							
+											<a4j:support event="onchange"  ajaxSingle="true"  actionListener="#{managedBean.paginer}" reRender="pnel_table,actionForm" status="stus_actions" />
+										</h:selectOneMenu>
+									</h:panelGrid>			
+								</h:panelGrid>
+							</ui:insert>	
+						</h:panelGroup>	
+						 				
+					</f:facet>
+					
+					<h:panelGroup rendered="true" >
+											
+						<rich:extendedDataTable id="tble_table" value="#{managedBean.defaultVue.tableMgr.dataModel}" selection="#{managedBean.defaultVue.tableMgr.selection}" var="entity"  width="100%"  height="300px"					
+							rows="#{managedBean.defaultVue.tableMgr.rows}" tableState="#{managedBean.defaultVue.tableMgr.tableState}" selectionMode="#{managedBean.defaultVue.tableMgr.selectionMode}" 
+							onRowClick="selectedRow=this;" cellpadding="0" cellspacing="0" border="0"  >
+							
+							<!-- tecTrtColumns -->	
+							<ui:insert name="tecTrtColumns"  >						
+																																													
+							</ui:insert>
+																											
+							<ui:insert name="specificColumns">
+							
+								<rich:column label="Id" sortBy="#{entity.id}" filterBy="#{entity.id}" visible="true"   >
+									<f:facet name="header">
+										<h:outputText value="#{locale.id}" />
+									</f:facet>
+									<h:outputText value="#{entity.id}" />				
+								</rich:column>
+								
+							</ui:insert>
+																				
+							<ui:insert name="tecColumns" >
+							
+								<rich:column label="#{locale.gaouc}"  visible="false" rendered="#{managedBean.tecEntity}"  >
+									<f:facet name="header">
+										<h:outputText value="#{locale.gaouc}" />
+									</f:facet>
+									<h:outputText value="#{entity.tecGao}" />				
+								</rich:column>
+														
+								<rich:column label="#{locale.createur}" visible="false"	rendered="#{managedBean.tecEntity}" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.createur}" title="#{locale.codeusercreation}" />
+									</f:facet>
+									<h:outputText value="#{entity.tecCUsrCrt}"  />
+								</rich:column>
+								
+								<rich:column label="#{locale.datecreation}" visible="false"	rendered="#{managedBean.tecEntity}" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.datecreation}"  />
+									</f:facet>
+									<h:outputText value="#{entity.tecDCrtVal}"  >
+										<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+									</h:outputText>
+								</rich:column>
+																
+								<rich:column label="#{locale.modificateur}" visible="false"	rendered="#{managedBean.tecEntity}" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.createur}" title="#{locale.codeusermaj}" />
+									</f:facet>
+									<h:outputText value="#{entity.tecCUsrMod}"  />
+								</rich:column>							
+																													
+								<rich:column label="#{locale.datemodif}" visible="false"	rendered="#{managedBean.tecEntity}" >
+									<f:facet name="header">
+										<h:outputText value="#{locale.datemodif}" title="#{locale.datedernieremodif}"  />
+									</f:facet>
+									<h:outputText value="#{entity.tecDModVal}"  >
+										<f:convertDateTime type="both" pattern="dd/MM/yyyy HH:mm:ss" timeZone="GMT+1" />
+									</h:outputText>
+								</rich:column>
+																											
+							</ui:insert>
+							
+							<ui:insert name="commonColumns">
+							
+								<rich:column label="#{locale.specialid}" sortBy="#{entity.specialId}" filterBy="#{entity.specialId}" visible="false"  >
+									<f:facet name="header">
+										<h:outputText value="#{locale.specialid}" />
+									</f:facet>
+									<h:outputText value="#{entity.specialId}" />				
+								</rich:column>
+																					
+							</ui:insert>
+																
+																																																															
+							<!--  Mise a jour de la selection dans le bean manage-->										
+							<a4j:support ajaxSingle="true" event="onselectionchange" />
+							
+							<!--  Gestion du double Click pour afficher une entite en consultation-->
+													
+							<!--  Controle du menu contextuel -->											 																							
+							<rich:componentControl event="onRowDblClick" for="ctmn_menu" operation="show"  />					
+																								 						 						 
+						</rich:extendedDataTable>	
+						
+						<ui:insert name="tablePanelFooter"> 
+							<!--  Gestionnaire de Paginnation -->					
+							<rich:datascroller for="tble_table" />					
+						</ui:insert>
+						
+					</h:panelGroup>		
+				
+				</rich:panel>
+				
+								
+			</ui:insert>
+			
+		</ui:define>
+																					
+		<!-- Definition des actions  -->	
+		<ui:define name="barreActions">
+			<rich:toolBar>
+				<rich:toolBarGroup location="right"  >				
+					<a4j:commandButton   value="#{locale.exporter}" action="#{managedBean.loadSelectedData}" reRender="bdef" onclick="javascript:Richfaces.showModalPanel('mpnl_batch_datas_export');" ajaxSingle="true" />
+					<a4j:commandButton value="#{locale.fermer}" ajaxSingle="true" action="#{managedBean.fermer}" immediate="true" /> 										 					
+				</rich:toolBarGroup>												
+			</rich:toolBar>
+		</ui:define>	
+		
+		<ui:define name="tranversalFormModalPanel">		
+			<ui:include src="/shared/include/modalPanel/DatasExport.xhtml" />
+			<ui:include src="/shared/include/modalPanel/PrinterSelection.xhtml" />
+			<ui:include src="/shared/include/modalPanel/MotifTraitement.xhtml" />									
+			<ui:include src="/shared/include/modalPanel/ParametresEtatsIntegre.xhtml" />	
+		</ui:define>				
+							
+	</ui:composition>
+</html>

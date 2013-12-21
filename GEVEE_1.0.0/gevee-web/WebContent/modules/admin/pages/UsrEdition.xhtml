@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+     <f:view locale="#{localeCtrl.actual}" /> 
+ 	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+   			
+		<ui:param name="managedBean" value="#{sessionScope[usrCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un utilisateur" />
+		
+	<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+	
+			<h:panelGroup>
+				<fieldset>
+					<legend> <h:outputText value="#{locale.paramconnexion}" styleClass="legend" />  </legend>
+
+        			<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow"  >
+        							         		
+         				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+
+							<h:panelGroup>
+								<h:outputText value="Compte " />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 					
+							<h:panelGroup>
+								<h:inputText id="inpt_compte" value="#{entiteCourante.codUsr}" style="width: 60%" readonly="#{defaultVue.navigationMgr.enModification}"
+									required="true" requiredMessage="Valeur obligatoire"   >
+									<a4j:support event="onchange" ajaxSingle="true" />
+								</h:inputText>
+								<rich:message for="inpt_compte" errorClass="msg_error" />	
+							</h:panelGroup>
+														
+							<h:panelGroup>
+								<h:outputText value="Mot de passe" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 					
+							<h:panelGroup>
+								<h:inputSecret id="inpt_pwd" value="#{entiteCourante.codPwd}" style="width: 60%"  redisplay="true" 
+									required="true" requiredMessage="Valeur obligatoire"   >
+									<a4j:support event="onchange" ajaxSingle="true" />
+								</h:inputSecret>
+								<rich:message for="inpt_pwd" errorClass="msg_error" />	
+							</h:panelGroup>
+							
+							<h:panelGroup id="optt_confirmation"  >								  																
+								<h:outputText value="Confirmation" />
+								<ui:include src="/shared/include/required.xhtml" />								
+							</h:panelGroup >
+							<h:panelGroup id="plgp_confirmation" >
+							    <h:inputSecret id="inpt_pwd2" value="#{defaultVue.password}" style="width: 60%" redisplay="true"   title="saisie mot de passe" >
+							      <a4j:support event="onchange"  ajaxSingle="true"  />	
+							    </h:inputSecret>
+						    	<rich:message for="inpt_pwd2" errorClass="msg_error" />							    
+							</h:panelGroup>							
+							
+							<h:outputText value="Expire le :" />						
+							<rich:calendar value="#{entiteCourante.dateExpPwd}" inputStyle="width: 50%"  title="Date d'expiration du mot de passe" 
+											styleClass="selectDate" datePattern="dd/MM/yyyy">
+								<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>
+																
+         				</h:panelGrid>  
+         				
+         				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+         				
+         				</h:panelGrid> 
+
+         			</h:panelGrid>  
+         	
+				</fieldset>								
+			</h:panelGroup>
+
+			<h:panelGroup>
+				<fieldset>
+					<legend> <h:outputText value="Informations Personelles" styleClass="legend" />  </legend>
+
+        			<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow"  >
+        							         		
+         				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+
+							<h:panelGroup>
+								<h:outputText value="Nom" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_nom"  value="#{entiteCourante.libNom}" style="width: 60%" 
+								 	required="true"  requiredMessage="Valeur obligatoire" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_nom" errorClass="msg_error" />						
+							</h:panelGroup>	
+
+							<h:outputText value="Prenom"  />						
+							<h:inputText  value="#{entiteCourante.libPre}"   style="width: 60%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>	
+							
+							<h:panelGroup>
+								<h:outputText value="Sexe" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+						    <h:panelGroup>
+								<h:selectOneRadio id="sord_sexe" value="#{entiteCourante.booSex}"  
+						    		required="true" requiredMessage="Valeur obligatoire" >
+									<f:selectItem itemLabel="M" itemValue="M"  />
+									<f:selectItem itemLabel="F" itemValue="F"/>
+									<a4j:support event="onchange"  ajaxSingle="true" />
+								</h:selectOneRadio> 
+								<rich:message for="sord_sexe" errorClass="msg_error" />
+							</h:panelGroup>
+						
+							<h:outputText value="Fonction"  />						
+							<h:inputText  value="#{entiteCourante.libFon}"   style="width: 60%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>
+							
+
+							<h:outputText value="#{locale.dateembc}" />						
+							<rich:calendar value="#{entiteCourante.dateEmbauche}" inputStyle="width: 50%;"  title="Date d'embauche" >
+								<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>
+							
+							<h:outputText value="Adresse" />
+							<h:inputTextarea value="#{entiteCourante.libAdr}" style="width: 60%" >
+								<a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputTextarea>
+										  					
+         				</h:panelGrid> 
+         				
+         				<h:panelGrid columns="2" width="100%" columnClasses="pngdColRightDynamic,pngdColRightDynamic"  >
+         				</h:panelGrid> 
+						
+						 
+         					         		         		
+         			</h:panelGrid>  
+         	
+				</fieldset>								
+			</h:panelGroup>
+
+		</ui:define>
+	
+													
+	</ui:composition>
+	
+</html>

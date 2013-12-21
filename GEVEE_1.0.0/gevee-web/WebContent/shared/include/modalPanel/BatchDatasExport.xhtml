@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+          
+<f:view locale="#{localeCtrl.actual}" />       
+    
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_batch_datas_export" autosized="true" minWidth="900"   >
+			
+				<f:facet name="header">
+					<h:outputText value="#{locale.exportdonnees}" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form id="bdef">		
+				<h:panelGrid columns="1" width="100%" style="border:2px solid #{richSkin.panelBorderColor}; " border="0" cellpadding="0" cellspacing="0" >
+					
+					<h:panelGrid columns="" style="text-align:center;" width="100%" columnClasses="pngdColCenter">
+						<rich:messages id="msgs_message" style="height:4px;font-size:small;" showSummary="false" showDetail="true" warnClass="msg_warn" infoClass="msg_infos" level="INFO,WARN"  />						
+					</h:panelGrid>
+						
+					<h:panelGrid columns="1" width="100%" columnClasses="pngdCol">			
+						
+						<h:panelGroup >
+							<fieldset>
+								<legend> <h:outputText value="#{locale.parametres}" styleClass="legend" />  </legend>
+											
+								<h:panelGrid columns="2" width="100%" >
+												
+									<h:panelGrid columns="2"  >
+									
+										<h:panelGroup >
+											<h:outputText value="#{locale.nomfichier}" title="#{locale.nomfichier}" />
+											<ui:include src="/shared/include/required.xhtml" />
+										</h:panelGroup>
+										<h:panelGroup >
+											<h:inputText id="inpt_nom_fichier" style="width: 400px" label="#{locale.nomfichier}" value="#{managedBean.filename}" 
+														required="false"  requiredMessage="#{locale.renseignernomfichier}"/>
+											<rich:message for="inpt_nom_fichier" errorClass="msg_error" />
+										</h:panelGroup>
+									</h:panelGrid>
+												
+									<h:panelGrid columns="2"  >
+										
+										<h:outputText value="#{locale.format}:" title="#{locale.formatexport}" />
+										<h:selectOneMenu id="somn_outputFormat" value="#{managedBean.defaultVue.exportOutputFormat}" disabled="true">
+											<f:selectItem  itemValue="EXCELL" itemLabel="EXCELL"/>
+											<!-- <f:selectItems  value="#{appCtrl.listOutputFormat}" /> -->						
+										</h:selectOneMenu>
+																						
+									</h:panelGrid>
+								</h:panelGrid>	
+							</fieldset>
+						</h:panelGroup>
+						
+						<h:panelGroup >
+							<fieldset>
+								<legend> <h:outputText value="#{locale.structurefichier}" styleClass="legend" />  </legend>
+											
+								<h:panelGrid columns="3" >
+															
+										<rich:spacer width="700"/>
+										<h:panelGroup>
+											<h:selectBooleanCheckbox id="chk" value="#{managedBean.overall}" title="#{locale.cochertout}" >
+												<a4j:support event="onchange"  action="#{managedBean.cocherTout}" vacajaxSingle="true"  reRender="tble_col" status="stus_actions" />
+											</h:selectBooleanCheckbox>
+											<h:outputText value="#{locale.cocherdecochertout}" />
+										</h:panelGroup>	
+																						
+									</h:panelGrid>
+								
+								<h:panelGrid columns="1">	
+								<rich:dataTable id="tble_col" value="#{immoCtrl.exportFormatElts}"  var="colonne"  width="100%"  height="100px" 
+												rows="5" >
+										<rich:column  width="250">
+											<f:facet name="header">
+												<h:outputText value="#{locale.nomattribut}"  title="#{locale.nomattribut}"/>
+											</f:facet>
+											<h:inputText value="#{colonne.attributeName}" style="width: 230px"/>				
+										</rich:column>
+										
+										<rich:column  width="150">
+											<f:facet name="header">
+												<h:outputText value="#{locale.typeattribut}"  title="#{locale.typeattribut}"/>
+											</f:facet>
+											<h:outputText value="#{colonne.attributeType}" />				
+										</rich:column>
+										
+										<rich:column  width="350">
+											<f:facet name="header">
+												<h:outputText value="#{locale.nomcolonne}"  title="#{locale.nomcolonne}"/>
+											</f:facet>
+											<h:inputText value="#{colonne.columnName}" style="width: 300px"/>				
+										</rich:column>
+										
+										<rich:column  width="50">
+											<f:facet name="header">
+												<h:outputText value="#{locale.selectionner}"  title="#{locale.selectionner}"/>
+											</f:facet>
+											<h:selectBooleanCheckbox value="#{colonne.selected}" title="#{locale.cochertout}" >
+												<a4j:support event="onchange"  action="#{managedBean.updateCocherTout}" reRender="chk" ajaxSingle="true"  status="stus_actions" />
+											</h:selectBooleanCheckbox>			
+										</rich:column>
+								</rich:dataTable>
+								<rich:datascroller for="tble_col" maxPages="2"/>	
+					    		</h:panelGrid>
+							</fieldset>
+						</h:panelGroup>
+							
+					</h:panelGrid>																
+						
+					<rich:separator height="0px" style="border:1px solid #{richSkin.panelBorderColor};"  />
+										
+					<h:panelGrid columns="1" width="100%"  style="text-align:right;" > 
+					
+						<h:panelGroup>																													
+																								
+								<h:commandButton action="#{managedBean.exporterDatas}" value="#{locale.demarrer}"  >	
+										<rich:componentControl for="mpnl_batch_datas_export" operation="hide" event="onclick" />
+								</h:commandButton>																						
+								
+								<a4j:commandButton value="#{locale.fermer}" action="#{managedBean.clearExportFormatDatas}" reRender="tble_col"  onclick="#{rich:component('mpnl_batch_datas_export')}.hide();return false;"  />																					
+						
+						</h:panelGroup>					
+					</h:panelGrid>							
+				</h:panelGrid>
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>
+
