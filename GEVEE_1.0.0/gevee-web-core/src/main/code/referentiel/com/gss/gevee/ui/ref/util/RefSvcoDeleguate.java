@@ -1,6 +1,9 @@
 package com.gss.gevee.ui.ref.util;
 
 import com.gss.gevee.be.core.base.BaseLogger;
+import com.gss.gevee.be.ref.svco.IRemoteChau;
+import com.gss.gevee.be.ref.svco.IRemoteCli;
+import com.gss.gevee.be.ref.svco.IRemoteLieu;
 import com.gss.gevee.be.ref.svco.IRemoteRem;
 import com.gss.gevee.be.ref.svco.IRemoteTrac;
 import com.gss.gevee.ui.admin.util.AdminSvcoDeleguate;
@@ -44,6 +47,36 @@ public class RefSvcoDeleguate {
 	public static IRemoteTrac getSvcoTrac() throws ServiceLocatorException{
         return (IRemoteTrac) GeveeSvcoDeleguate.getCachingServiceLocator().lookup(getSvcoBeanName("SvcoTrac", IRemoteTrac.class));
     }
+	
+	/**
+	 * Retourne le service composé pour la gestion des Chauffeurs
+	 * 
+	 * @return
+	 * @throws ServiceLocatorException
+	 */
+	public static IRemoteChau getSvcoChau() throws ServiceLocatorException{
+        return (IRemoteChau) GeveeSvcoDeleguate.getCachingServiceLocator().lookup(getSvcoBeanName("SvcoChau", IRemoteChau.class));
+    }	
+	
+	/**
+	 * Retourne le service composé pour la gestion des Clients
+	 * 
+	 * @return
+	 * @throws ServiceLocatorException
+	 */
+	public static IRemoteCli getSvcoCli() throws ServiceLocatorException{
+        return (IRemoteCli) GeveeSvcoDeleguate.getCachingServiceLocator().lookup(getSvcoBeanName("SvcoCli", IRemoteCli.class));
+    }	
+
+	/**
+	 * Retourne le service composé pour la gestion des Lieux
+	 * 
+	 * @return
+	 * @throws ServiceLocatorException
+	 */
+	public static IRemoteLieu getSvcoLieu() throws ServiceLocatorException{
+        return (IRemoteLieu) GeveeSvcoDeleguate.getCachingServiceLocator().lookup(getSvcoBeanName("SvcoLieu", IRemoteLieu.class));
+    }	
 
 
 

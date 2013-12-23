@@ -4,11 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-import com.gss.gevee.be.admin.entity.utilisateur.TabUsr;
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.svco.base.IBaseSvco;
 import com.gss.gevee.be.ref.entity.TabRem;
-import com.gss.gevee.ui.admin.util.AdminSvcoDeleguate;
 import com.gss.gevee.ui.core.base.GeveeCtrl;
 import com.gss.gevee.ui.core.base.ServiceLocatorException;
 import com.gss.gevee.ui.core.base.Traitement;
