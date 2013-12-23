@@ -1,21 +1,73 @@
 package com.gss.gevee.be.ref.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
+import java.io.Serializable;
 
-public class TabLieu {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.gss.gevee.be.core.base.GeveeBaseEntity;
+
+@Entity
+@Table(name="TAB_LIEU")
+public class TabLieu extends GeveeBaseEntity implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
-	//Numero de l'ordre de transport
+	public TabLieu(){
+		
+	}
+	
+	//Code lieu
 	@Id
-	@Column(name = "NUM_ORD_TRA")
+	@Column(name = "COD_LIEU")
 	private String codLieu;
+
+	//Libelle du lieu
+	@Column(name = "LIB_LIEU")
+	private String libLieu;
+
+	
+	public String getCodLieu() {
+		return codLieu;
+	}
 
 	public void setCodLieu(String codLieu) {
 		this.codLieu = codLieu;
 	}
 
-	public String getCodLieu() {
-		return codLieu;
+	public String getLibLieu() {
+		return libLieu;
+	}
+
+	public void setLibLieu(String libLieu) {
+		this.libLieu = libLieu;
+	}
+
+	@Override
+	public String getEntityCode() {
+		return "Lieu";
+	}
+
+	@Override
+	public Serializable getId() {		
+		 return getCodLieu();
+	}
+
+	@Override
+	public void setId(Serializable id) {
+		setCodLieu((String)id);
+	}
+
+	@Override
+	public void validateData() {		
+		
+	}
+
+	@Override
+	public void initData() {	
+		
 	}
 
 }
