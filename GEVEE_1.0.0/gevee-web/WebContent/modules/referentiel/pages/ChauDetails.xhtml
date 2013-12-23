@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+ 	<ui:composition template="/shared/templates/templateFormulaireDetails.xhtml">
+   			
+		<ui:param name="managedBean" value="#{sessionScope[chauCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un chauffeur" />
+		
+	<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+	
+			<h:panelGroup>
+				<fieldset>
+					<legend> <h:outputText value="Detail Chauffeur" styleClass="legend" />  </legend>
+
+        			<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow"  >
+        							         		
+         				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+
+							<h:outputText value="Matricule :}"   />
+			  				<h:inputText  value="#{entiteCourante.matChau}" style="width: 95%"  readonly="true" />
+
+							<h:outputText value="Nom :"   />
+			  				<h:inputText value="#{entiteCourante.libNom}" style="width: 95%"  readonly="true"  redisplay="true" />
+
+							<h:outputText value="Prenom :"   />
+			  				<h:inputText value="#{entiteCourante.libPre}" style="width: 95%"  readonly="true"  redisplay="true" />
+
+							<h:outputText value="Numéro du Permis :"   />
+			  				<h:inputText value="#{entiteCourante.numPerm}" style="width: 95%"  readonly="true"  redisplay="true" />
+
+							<h:outputText value="Date Validité du permis :" />
+							<h:inputText value="#{entiteCourante.dateValidePermis}" style="width: 95%" readonly="true" title="Date de validité du permis"   >
+								<f:convertDateTime type="date" dateStyle="full" pattern="EEEE, d MMM yyyy" timeZone="GMT+1"/>
+							</h:inputText>
+							
+							
+							<h:outputText value="Téléphone :"   />
+			  				<h:inputText value="#{entiteCourante.libTel}" style="width: 95%"  readonly="true"  redisplay="true" />							
+
+							<h:outputText value="Numéro CNI :"   />
+			  				<h:inputText value="#{entiteCourante.numCNI}" style="width: 95%"  readonly="true"  redisplay="true" />							
+
+							<h:outputText value="Date de délivrance de la CNI :" />
+							<h:inputText value="#{entiteCourante.dateDelivranceCNI}" style="width: 95%" readonly="true" title="Date de délivrance de la CNI"   >
+								<f:convertDateTime type="date" dateStyle="full" pattern="EEEE, d MMM yyyy" timeZone="GMT+1"/>
+							</h:inputText>
+							
+							<h:outputText value="Date de validité de la CNI :" />
+							<h:inputText value="#{entiteCourante.dateValideCNI}" style="width: 95%" readonly="true" title="Date de validité de la CNI"   >
+								<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1"/>
+							</h:inputText>
+							
+							<h:outputText value="Information :"   />
+			  				<h:inputTextarea value="#{entiteCourante.libInf}" style="width: 95%"  readonly="true"  redisplay="true" />
+							
+								
+         				</h:panelGrid>  
+         					         		         		
+         			</h:panelGrid>  
+         	
+				</fieldset>								
+			</h:panelGroup>
+
+		</ui:define>
+													
+	</ui:composition>
+	
+</html>

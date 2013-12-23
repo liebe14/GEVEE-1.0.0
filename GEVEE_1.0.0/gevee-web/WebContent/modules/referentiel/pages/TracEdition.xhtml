@@ -93,7 +93,8 @@
 					</h:inputTextarea>
 					
 					<h:outputText value="Date mise en circulation" />						
-					<rich:calendar value="#{entiteCourante.dateMisCir}" inputStyle="width: 30%"  title="Date mise en circulation" >
+					<rich:calendar value="#{entiteCourante.dateMisCir}" inputStyle="width: 30%"  title="Date mise en circulation" 
+							styleClass="selectDate"  datePattern="dd/MM/yyyy">
 						<a4j:support event="onchanged" ajaxSingle="true" />
 					</rich:calendar>
 					

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+   			
+		<ui:param name="managedBean" value="#{sessionScope[cliCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un client" />
+		
+	<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+
+			<h:panelGroup>
+				<fieldset>
+					<legend> <h:outputText value="Informations Clients" styleClass="legend" />  </legend>
+
+        			<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow"  >
+        							         		
+         				<h:panelGrid columns="2"  width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+
+							<h:panelGroup>
+								<h:outputText value="Code client" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_cod"  value="#{entiteCourante.codCli}" style="width: 95%" 
+								 	required="true"  requiredMessage="Valeur obligatoire" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_cod" errorClass="msg_error" />						
+							</h:panelGroup>	
+							
+							<h:panelGroup>
+								<h:outputText value="Nom" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_nom"  value="#{entiteCourante.libNom}" style="width: 95%" 
+								 	required="true"  requiredMessage="#{msg['erreur.validation.obligatoire']}" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_nom" errorClass="msg_error" />						
+							</h:panelGroup>	
+
+							<h:outputText value="Prenom"  />						
+							<h:inputText  value="#{entiteCourante.libPre}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>	
+								
+						   <h:outputText value="Téléphone"  />						
+							<h:inputText  value="#{entiteCourante.libTel}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>
+													
+							<h:outputText value="Fax"  />						
+							<h:inputText   value="#{entiteCourante.libFax}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>																					
+			
+							<h:outputText value="Localité"  />						
+							<h:inputText   value="#{entiteCourante.libLoc}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>	
+							
+							<h:outputText value="Adresse"  />						
+							<h:inputTextarea   value="#{entiteCourante.libAdr}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputTextarea>																					
+																											
+							
+										  					
+         				</h:panelGrid>  
+         					         		         		
+         			</h:panelGrid>  
+         	
+				</fieldset>								
+			</h:panelGroup>
+
+		</ui:define>
+	
+													
+	</ui:composition>
+	
+</html>

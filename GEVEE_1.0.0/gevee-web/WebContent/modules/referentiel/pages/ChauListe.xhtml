@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+     
+  	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		
+		<ui:param name="managedBean" value="#{sessionScope[chauCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des chauffeurs" />
+		
+		<!-- Criteres standards de recherche -->
+		<ui:define name="standardFilter"  >
+		
+			<h:panelGrid columns="2" width="100%"   columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+			
+				<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				
+					<h:outputText value="Matricule :" />          				
+         			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.matChau}" style="width: 60%" /> 
+         			
+					<h:outputText value="Nom" />          				
+         			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.libNom}" style="width: 60%" />           					           					           					   					            				            				            			
+
+					<h:outputText value="Prenom" />          				
+         			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.libPre}" style="width: 60%" />           					           					           					   					            				            				            			
+         			          					           					           					   					            				            				            			        									   					           					
+				</h:panelGrid>
+														
+																																																	
+			</h:panelGrid>	
+						
+		</ui:define>
+		
+		<!-- Colonnes specifiques e l entite -->
+		<ui:define name="specificColumns"  >
+		
+			<rich:column label="Matricule" sortBy="#{entity.matChau}" filterBy="#{entity.matChau}" >
+				<f:facet name="header">
+					<h:outputText value="Matricule"  />
+				</f:facet>
+				<h:outputText value="#{entity.matChau}" />				
+			</rich:column>
+			
+			<rich:column label="Nom" sortBy="#{entity.libNom}" filterBy="#{entity.libNom}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Nom"  />
+				</f:facet>
+				<h:outputText value="#{entity.libNom}" />				
+			</rich:column>
+			
+			<rich:column label="Prenom" sortBy="#{entity.libPre}" filterBy="#{entity.libPre}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Prenom"  />
+				</f:facet>
+				<h:outputText value="#{entity.libPre}" />				
+			</rich:column>
+			
+		    <rich:column label="Numéro Permis" sortBy="#{entity.numPerm}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Numero Permis"  />
+				</f:facet>
+				<h:outputText value="#{entity.numPerm}" />				
+			</rich:column>
+				
+		    <rich:column label="Date Validité du permis" sortBy="#{entity.dateValidePermis}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Date Validité du permis"  />
+				</f:facet>
+				<h:outputText value="#{entity.dateValidePermis}" />				
+			</rich:column>
+
+		    <rich:column label="Information" sortBy="#{entity.libInf}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Information"  />
+				</f:facet>
+				<h:outputText value="#{entity.libInf}" />				
+			</rich:column>	
+			
+		    <rich:column label="Téléphone" sortBy="#{entity.libTel}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Téléphone"  />
+				</f:facet>
+				<h:outputText value="#{entity.libTel}" />				
+			</rich:column>
+			
+		    <rich:column label="Numéro CNI" sortBy="#{entity.numCNI}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Numéro CNI"  />
+				</f:facet>
+				<h:outputText value="#{entity.numCNI}" />				
+			</rich:column>	
+			
+			<rich:column label="Date délivrance CNI" sortBy="#{entity.dateDelivranceCNI}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Date délivrance CNI"  />
+				</f:facet>
+				<h:outputText value="#{entity.dateDelivranceCNI}" />				
+			</rich:column>	
+			
+			<rich:column label="Date validité CNI" sortBy="#{entity.dateValideCNI}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Date validité CN"  />
+				</f:facet>
+				<h:outputText value="#{entity.dateValideCNI}" />				
+			</rich:column>				
+							
+		</ui:define>
+													
+	</ui:composition>
+	
+</html>

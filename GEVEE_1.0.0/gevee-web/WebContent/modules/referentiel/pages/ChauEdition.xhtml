@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+   			
+		<ui:param name="managedBean" value="#{sessionScope[chauCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un chauffeur" />
+		
+	<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+
+			<h:panelGroup>
+				<fieldset>
+					<legend> <h:outputText value="Informations Chauffeurs" styleClass="legend" />  </legend>
+
+        			<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow"  >
+        							         		
+         				<h:panelGrid columns="2"  width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+
+							<h:panelGroup>
+								<h:outputText value="Matricule" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_mat"  value="#{entiteCourante.matChau}" style="width: 95%" 
+								 	required="true"  requiredMessage="Valeur obligatoire" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_mat" errorClass="msg_error" />						
+							</h:panelGroup>	
+							
+							<h:panelGroup>
+								<h:outputText value="Nom" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_nom"  value="#{entiteCourante.libNom}" style="width: 95%" 
+								 	required="true"  requiredMessage="#{msg['erreur.validation.obligatoire']}" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_nom" errorClass="msg_error" />						
+							</h:panelGroup>	
+
+							<h:outputText value="Prenom"  />						
+							<h:inputText  value="#{entiteCourante.libPre}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>	
+
+							<h:panelGroup>
+								<h:outputText value="Numéro du permis" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_permis"  value="#{entiteCourante.numPerm}" style="width: 95%" 
+								 	required="true"  requiredMessage="#{msg['erreur.validation.obligatoire']}" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_permis" errorClass="msg_error" />						
+							</h:panelGroup>	
+							
+							<h:outputText value="Date Validité permis :" />						
+							<rich:calendar value="#{entiteCourante.dateValidePermis}" inputStyle="width: 50%;"  title="Date Validité du permis" >
+								<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>							
+								
+						</h:panelGrid>
+						
+						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+														
+						   <h:outputText value="Téléphone"  />						
+							<h:inputText  value="#{entiteCourante.libTel}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputText>
+							
+							<h:panelGroup>
+								<h:outputText value="Numéro CNI" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>
+								<h:inputText id="inpt_cni"  value="#{entiteCourante.numCNI}" style="width: 95%" 
+								 	required="true"  requiredMessage="#{msg['erreur.validation.obligatoire']}" >							 	
+									<a4j:support event="onchange"  ajaxSingle="true" />											
+								</h:inputText>	
+								<rich:message for="inpt_cni" errorClass="msg_error" />						
+							</h:panelGroup>	
+							
+						    <h:outputText value="Date délivrance CNI:" />						
+							<rich:calendar value="#{entiteCourante.dateDelivranceCNI}" inputStyle="width: 50%;"  title="Date de délivrance de la CNI" >
+								<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>	
+							
+						    <h:outputText value="Date validité CNI :" />						
+							<rich:calendar value="#{entiteCourante.dateValideCNI}" inputStyle="width: 50%;"  title="Date de validité de la CNI" >
+								<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>	
+							
+							<h:outputText value="Information"  />						
+							<h:inputTextarea   value="#{entiteCourante.libInf}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputTextarea>																					
+							
+										  					
+         				</h:panelGrid>  
+         					         		         		
+         			</h:panelGrid>  
+         	
+				</fieldset>								
+			</h:panelGroup>
+
+		</ui:define>
+	
+													
+	</ui:composition>
+	
+</html>

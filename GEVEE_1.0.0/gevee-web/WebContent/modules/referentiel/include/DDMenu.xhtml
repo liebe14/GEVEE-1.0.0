@@ -35,6 +35,30 @@
                 </rich:menuGroup>
                 
                 <rich:menuSeparator />
+               
+               <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{chauCtrl.openHomePage}"
+	                        ajaxSingle="true">
+	                        <h:outputText value="Chauffeur" />       
+	            </rich:menuItem>
+	            
+	            <rich:menuSeparator />
+
+               <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{cliCtrl.openHomePage}"
+	                        ajaxSingle="true">
+	                        <h:outputText value="Client" />       
+	            </rich:menuItem>
+	            
+	            <rich:menuSeparator />
+	            
+               <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{lieuCtrl.openHomePage}"
+	                        ajaxSingle="true">
+	                        <h:outputText value="Lieu" />       
+	            </rich:menuItem>
+	            
+                <rich:menuSeparator />
 			</rich:dropDownMenu>	
 			        			           			  		
    		</ui:composition>

@@ -12,6 +12,21 @@
   <managed-bean-class>com.gss.gevee.ui.ref.controleur.TracCtrl</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>chauCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.ref.controleur.ChauCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>cliCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.ref.controleur.CliCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>lieuCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.ref.controleur.LieuCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
  <navigation-rule>
   <from-view-id>*</from-view-id>
   <navigation-case>
@@ -40,6 +55,62 @@
   <navigation-case>
    <from-outcome>TracListe</from-outcome>
    <to-view-id>/modules/referentiel/pages/TracListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>TractListe</from-outcome>
+   <to-view-id>/modules/referentiel/pages/TracListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>TracEdition</from-outcome>
+   <to-view-id>/modules/referentiel/pages/TracEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>TracDetails</from-outcome>
+   <to-view-id>/modules/referentiel/pages/TracDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ChauDetails</from-outcome>
+   <to-view-id>/modules/referentiel/pages/ChauDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ChauEdition</from-outcome>
+   <to-view-id>/modules/referentiel/pages/ChauEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ChauListe</from-outcome>
+   <to-view-id>/modules/referentiel/pages/ChauListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>CliDetails</from-outcome>
+   <to-view-id>/modules/referentiel/pages/CliDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>CliEdition</from-outcome>
+   <to-view-id>/modules/referentiel/pages/CliEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>CliListe</from-outcome>
+   <to-view-id>/modules/referentiel/pages/CliListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>LieuDetails</from-outcome>
+   <to-view-id>/modules/referentiel/pages/LieuDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>LieuEdition</from-outcome>
+   <to-view-id>/modules/referentiel/pages/LieuEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>LieuListe</from-outcome>
+   <to-view-id>/modules/referentiel/pages/LieuListe.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
  </navigation-rule>

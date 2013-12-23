@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+     
+  	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		
+		<ui:param name="managedBean" value="#{sessionScope[cliCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des clients" />
+		
+		<!-- Criteres standards de recherche -->
+		<ui:define name="standardFilter"  >
+		
+			<h:panelGrid columns="2" width="100%"   columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+			
+				<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				
+					<h:outputText value="Code client :" />          				
+         			<h:inputText  value="#{cliCtrl.defaultVue.entiteRecherche.codCli}" style="width: 60%" /> 
+         			
+					<h:outputText value="Nom" />          				
+         			<h:inputText  value="#{cliCtrl.defaultVue.entiteRecherche.libNom}" style="width: 60%" />           					           					           					   					            				            				            			
+
+					<h:outputText value="Prenom" />          				
+         			<h:inputText  value="#{cliCtrl.defaultVue.entiteRecherche.libPre}" style="width: 60%" />           					           					           					   					            				            				            			
+         			          					           					           					   					            				            				            			        									   					           					
+				</h:panelGrid>
+														
+																																																	
+			</h:panelGrid>	
+						
+		</ui:define>
+		
+		<!-- Colonnes specifiques e l entite -->
+		<ui:define name="specificColumns"  >
+		
+			<rich:column label="Code client" sortBy="#{entity.codCli}" filterBy="#{entity.codCli}" >
+				<f:facet name="header">
+					<h:outputText value="Code Client"  />
+				</f:facet>
+				<h:outputText value="#{entity.codCli}" />				
+			</rich:column>
+			
+			<rich:column label="Nom" sortBy="#{entity.libNom}" filterBy="#{entity.libNom}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Nom"  />
+				</f:facet>
+				<h:outputText value="#{entity.libNom}" />				
+			</rich:column>
+			
+			<rich:column label="Prenom" sortBy="#{entity.libPre}" filterBy="#{entity.libPre}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Prenom"  />
+				</f:facet>
+				<h:outputText value="#{entity.libPre}" />				
+			</rich:column>
+			
+							
+		</ui:define>
+													
+	</ui:composition>
+	
+</html>
