@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
@@ -12,31 +11,27 @@ import com.gss.gevee.be.core.dao.base.IBaseDao;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
 import com.gss.gevee.be.core.sisv.base.BaseSisv;
-import com.gss.gevee.be.mouv.dao.IDaoOrd;
+import com.gss.gevee.be.mouv.dao.IDaoCon;
 import com.gss.gevee.be.mouv.entity.TabCon;
-import com.gss.gevee.be.mouv.entity.TabOrd;
 
-@Stateless
-public class SisvOrd extends BaseSisv<TabOrd, String> implements ISisvOrd{
-
+public class SisvCon extends BaseSisv<TabCon, String> implements ISisvCon{
 	
-	private static BaseLogger logger = BaseLogger.getLogger(SisvOrd.class);
+	private static BaseLogger logger = BaseLogger.getLogger(SisvCon.class);
 
 	@Override
 	public BaseLogger getLogger() {
 		return logger;
 	} 
 	@EJB
-	IDaoOrd daoOrd;
+	IDaoCon daoCon;
 	
 	@Override
-	public IBaseDao<TabOrd, String> getBaseDao() {
-		return daoOrd;
+	public IBaseDao<TabCon, String> getBaseDao() {
+		return daoCon;
 	}
-
 	public <X extends BaseEntity> X rechercher(X entity, Serializable id) throws GeveeSystemException {
 		try {
-			return daoOrd.findById(entity, id);
+			return daoCon.findById(entity, id);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
 			GeveeSystemException sbr = new GeveeSystemException(e);
@@ -47,7 +42,7 @@ public class SisvOrd extends BaseSisv<TabOrd, String> implements ISisvOrd{
 	public <X extends BaseEntity> List<X> rechercherTout(X entity) throws GeveeSystemException {
 		
 		try {
-			return daoOrd.findAll(entity);
+			return daoCon.findAll(entity);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
 			GeveeSystemException sbr = new GeveeSystemException(e);
@@ -58,21 +53,12 @@ public class SisvOrd extends BaseSisv<TabOrd, String> implements ISisvOrd{
 	public <X extends BaseEntity> List<X> rechercherParCritere(X entity) throws GeveeSystemException {
 		
 		try {
-			return daoOrd.findByExample(entity);
+			return daoCon.findByExample(entity);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
 			GeveeSystemException sbr = new GeveeSystemException(e);
 			throw sbr;
 		}
 	}
-	
-	//On ré-implemente le creer
-	public <X extends BaseEntity> X creer(X p$entite) throws GeveePersistenceException  {
-		TabCon conteneur = (TabCon)p$entite;
-		String codCon = conteneur.getTabOrdTran().getNumOrdTra()+"_"+conteneur.getNumCon();
-		conteneur.setCodCon(codCon);
-		return (X) daoOrd.save(conteneur);
-	}
-
 
 }
