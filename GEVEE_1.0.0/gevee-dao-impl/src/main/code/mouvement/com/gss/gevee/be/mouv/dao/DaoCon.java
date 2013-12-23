@@ -10,24 +10,24 @@ import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
 import com.gss.gevee.be.core.dao.base.BaseDao;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
-import com.gss.gevee.be.mouv.entity.TabOrd;
+import com.gss.gevee.be.mouv.entity.TabCon;
 
 @Stateless
-public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
+public class DaoCon extends BaseDao<TabCon, String> implements IDaoCon{
 	
-	private static BaseLogger logger = BaseLogger.getLogger(DaoOrd.class);
+	private static BaseLogger logger = BaseLogger.getLogger(DaoCon.class);
 	
 	@Override
 	public BaseLogger getLogger() {
 		return logger;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public <X extends BaseEntity> X findById(X entity, Serializable id)
 			throws GeveePersistenceException {
 		try{
 			String query = "SELECT o FROM " + entity.getClass().getSimpleName() + " o " + 
-			" WHERE o.numOrdTra='" + id + "' ";
+			" WHERE o.codCon='" + id + "' ";
 			
 			logger.debug("Requete <" + query + ">");
 			
@@ -47,7 +47,7 @@ public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
 		throws GeveePersistenceException {
 		try{
 			String query = "SELECT o FROM " + entity.getClass().getSimpleName() + " o " + 
-			" ORDER BY o.numOrdTra ";
+			" ORDER BY o.numCon ";
 			
 			logger.debug("Requete <" + query + ">");
 			
@@ -66,23 +66,17 @@ public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
 	public <X extends BaseEntity> List<X> findByExample(X entity)
 	throws GeveePersistenceException {
 		String clauseWhere = "1=1 ";
-		TabOrd currentOrd = (TabOrd)entity;
-		if(currentOrd.getNumOrdTra() != null ){
-			clauseWhere = clauseWhere + "AND upper(o.numOrdTra) like '%"+currentOrd.getNumOrdTra()+"%'";
+		TabCon currentCon = (TabCon)entity;
+		if(currentCon.getNumCon() != null ){
+			clauseWhere = clauseWhere + "AND upper(o.numCon) like '%"+currentCon.getNumCon()+"%'";
 		}
-		if(currentOrd.getNumDoss() != null ){
-			clauseWhere = clauseWhere + "AND upper(o.numDoss) like '%"+currentOrd.getNumDoss()+"%'";
-		}
-		if(currentOrd.getTabLieuEnlev().getCodLieu() != null ){
-			clauseWhere = clauseWhere + "AND upper(o.tabLieuEnlev.codLieu) like '%"+currentOrd.getTabLieuEnlev().getCodLieu()+"%'";
-		}
-		if(currentOrd.getTabLieuDecha().getCodLieu() != null ){
-			clauseWhere = clauseWhere + "AND upper(o.tabLieuDecha.codLieu) like '%"+currentOrd.getTabLieuDecha().getCodLieu()+"%'";
+		if(currentCon.getTabOrdTran().getNumOrdTra()!= null ){
+			clauseWhere = clauseWhere + "AND upper(o.tabOrdTran.numOrdTra) like '%"+currentCon.getTabOrdTran().getNumOrdTra()+"%'";
 		}
 		
 		try{
 			String query = "SELECT o FROM " + entity.getClass().getSimpleName() + " o where " + clauseWhere +
-			" ORDER BY o.numOrdTra ";
+			" ORDER BY o.numCon ";
 
 			logger.debug("Requete <" + query + ">");
 
@@ -97,5 +91,6 @@ public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
 			throw sdr;
 		}
 	}
+
 
 }
