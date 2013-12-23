@@ -55,7 +55,7 @@ public class TabOrd extends GeveeBaseEntity{
 	
 	// Poids total
 	@Column(name = "VAL_POI_TOT")
-	private BigDecimal valPoiTot;
+	private String valPoiTot;
 	
 	// nombre de colis total
 	@Column(name = "VAL_COL_TOT")
@@ -201,11 +201,11 @@ public class TabOrd extends GeveeBaseEntity{
 		return tabLieuDecha;
 	}
 
-	public void setValPoiTot(BigDecimal valPoiTot) {
+	public void setValPoiTot(String valPoiTot) {
 		this.valPoiTot = valPoiTot;
 	}
 
-	public BigDecimal getValPoiTot() {
+	public String getValPoiTot() {
 		return valPoiTot;
 	}
 
