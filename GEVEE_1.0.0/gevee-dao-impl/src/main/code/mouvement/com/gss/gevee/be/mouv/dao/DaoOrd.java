@@ -73,11 +73,11 @@ public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
 		if(currentOrd.getNumDoss() != null ){
 			clauseWhere = clauseWhere + "AND upper(o.numDoss) like '%"+currentOrd.getNumDoss()+"%'";
 		}
-		if(currentOrd.getTabLieuEnlev().getCodLieu() != null ){
-			clauseWhere = clauseWhere + "AND upper(o.tabLieuEnlev.codLieu) like '%"+currentOrd.getTabLieuEnlev().getCodLieu()+"%'";
+		if(currentOrd.getTabLieuEnlev().getLibLieu() != null ){
+			clauseWhere = clauseWhere + "AND upper(o.tabLieuEnlev.libLieu) like '%"+currentOrd.getTabLieuEnlev().getLibLieu()+"%'";
 		}
-		if(currentOrd.getTabLieuDecha().getCodLieu() != null ){
-			clauseWhere = clauseWhere + "AND upper(o.tabLieuDecha.codLieu) like '%"+currentOrd.getTabLieuDecha().getCodLieu()+"%'";
+		if(currentOrd.getTabLieuDecha().getLibLieu() != null ){
+			clauseWhere = clauseWhere + "AND upper(o.tabLieuDecha.libLieu) like '%"+currentOrd.getTabLieuDecha().getLibLieu()+"%'";
 		}
 		
 		try{
