@@ -6,13 +6,12 @@ import com.gss.gevee.be.ref.svco.IRemoteCli;
 import com.gss.gevee.be.ref.svco.IRemoteLieu;
 import com.gss.gevee.be.ref.svco.IRemoteRem;
 import com.gss.gevee.be.ref.svco.IRemoteTrac;
-import com.gss.gevee.ui.admin.util.AdminSvcoDeleguate;
 import com.gss.gevee.ui.core.base.GeveeSvcoDeleguate;
 import com.gss.gevee.ui.core.base.ServiceLocatorException;
 
 public class RefSvcoDeleguate {
 	
-	BaseLogger logger = BaseLogger.getLogger(AdminSvcoDeleguate.class);
+	BaseLogger logger = BaseLogger.getLogger(RefSvcoDeleguate.class);
 	/**
 	 * Retourne le nom du Bean du Service composé en fonction du nom de l'entité (@param p$p$beanName)
 	 * 

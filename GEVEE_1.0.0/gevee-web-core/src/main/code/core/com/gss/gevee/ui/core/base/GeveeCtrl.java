@@ -530,10 +530,10 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 			else if(typeRecherche.equals("TOUT")) {
 								
 				v$liste = rechercherTout(defaultVue.getEntiteRecherche());
-				
 				// Réinitialisation de la zone de recherche
 				reinitialiser(evt);
 			}
+			
 			// Mise  à jour de  la liste de recherche ==> Mise à jour du modèle automatiquement
 			defaultVue.getTableMgr().setListeRecherche(v$liste);
 			
@@ -645,7 +645,6 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 				v$navigation = getMemoEntite().concat(CoreConstants.SUFFIXE_NVGT_DETAILS);
 								
 				FacesUtil.addInfoMessage("","CREATION_SUCCESS");
-				///FacesUtil.addInfoMessage("",BundleEnum.MSG_TRT_CREATION_SUCCES.getValeur());
 											
 			}
 			
@@ -1109,5 +1108,138 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 		// Retour à la page adéquate
 		return v$navigation;
 	}	
+	/**
+	 * Permet de naviguer vers les entités liés d'une entité donnée 
+	 * C'est une implementation de la logique de relation Merise (1 à 1, 1 à n, ...) entre les entités
+	 * Exemple: Pour 1 Ministere l'on pourrait avoir la liste de ses Sections ou alors pour une Section voir le Ministere correspondant
+	 * 
+	 * @return
+	 */
+	public String gotoRelatedEntity() {
+			
+		/*
+		 * L'implémentation ci dessous doit être exécuté dans chaque redéfiniton de la méthode
+		 */		 
+										
+		// Mise à jour de l'entité courante selon le contexte du Formulaire 
+		defaultVue.setEntiteCouranteOfPageContext();
+		
+		// Determine vers quelle page ou Formulaire l'on doit se diriger
+		String v$navigation = defaultVue.getNavigationMgr().getRelatedDestination();
+
+		return v$navigation;
+				
+	}	
 	
+	/**
+	 * Ensemble de traitements de permettant de mettre les IHMs dans l'état adéquat par rapport à l'entité courante
+	 * Ces traitements sont à priori communs aux actions  AJOUT, MODIFICATION, COPIE, AFFICHAGE
+	 * 
+	 */
+	public void coherenceIHM(){
+		
+	}
+	
+	/***
+	 * Méthode générique devant la plupart du temps etre redéfinie par la classe concrète 
+	 * Utiliser par tous les boutons ou lien permettant de faire la sélection 
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public  String makeSelection(){
+				
+		/**
+		 * Cette implémentation est basique 
+		 * Il sera souvent probable de mettre le formulaire de destination dans un contexte particulier 
+		 * Dans ce cas cette méthode devra etre redéfinie 	
+		 */		
+		
+		// Determine vers quelle page ou Formulaire l'on doit se diriger
+		String v$navigation = null;
+				
+		// Récupération du formulaire de destination 
+		v$navigation = defaultVue.getNavigationMgr().getSelectionDestination();
+		
+		
+		/*
+		 * Récuperation du controleur 
+		 * NB: 
+		 * 	1-Cette méthode suppose que le controleur est bel et bien dans le Scope Session
+		 * 	2-Par ailleurs il devrait normalement déja existé du fait du passage de paramètres dans la page web
+		 */
+		GeveeCtrl<BaseEntity, BaseEntity> v$controleur  =    (GeveeCtrl<BaseEntity, BaseEntity>) FacesUtil.getSessionMapValue(GeveeToolBox.getManagedBeanName(v$navigation));
+		
+		
+		// Raffraîchissement des données de la page
+		refreshData(v$controleur);
+							
+		// Retour à la page adéquate	
+		return v$navigation;			
+		
+	}
+	
+	/**
+	 * 	
+	 * Raffraîchie les données d'un formulaire à partir de l'entité de recherche 
+	 * @param p$controleur	: Contoleur dont l'on veut raffraîchir les données
+	 */
+	@SuppressWarnings("unchecked")
+	public void refreshData(GeveeCtrl p$controleur){
+		
+		try {			
+			p$controleur.naviguer(p$controleur.getDefaultVue().getEntiteRecherche());	
+		} 
+		catch (Exception e) {
+			getLogger().error(e.getMessage(), e);
+		}
+	}
+	
+	/***
+	 * Effectue une recherche par critère pour la navigation vers cette entité
+	 * Cette implémentation intègre la pagination 
+	 * Méthode appelé par des controleurs désireux de naviguer vers cette entité 
+	 * 
+	 * @param p$critere : Critère de recherche
+	 * @throws CframeException 
+	 * @throws ServiceLocatorException 
+	 */		
+	public void  naviguer(T p$critere) throws ServiceLocatorException, Exception {
+					
+		List<T> v$liste = new ArrayList<T>();
+		
+//		try{
+
+			//defaultVue.getTableMgr().setTotalRecherche(0); PAS CORRECT
+			
+			// Désactivation de la pagination
+			p$critere.setOffset(-1);
+			p$critere.setMaxRow(-1);
+			
+			// Nombre total d'éléménts de la requete de Recherche
+			//defaultVue.getTableMgr().setTotalRecherche(getEntitySvco().compterParCritere(defaultVue.getEntiteRecherche())); PAS CORRECT
+			long v$total = getEntitySvco().rechercherParCritere(p$critere).size();
+			
+			// Définition de la plage pour la pagination
+			p$critere.setOffset(1);
+			p$critere.setMaxRow(pasPagination);
+			
+			// Mise à jour de la liste de pagination 
+			//defaultVue.setListePagination(ToolBox.getListePagination(defaultVue.getTableMgr().getTotalRecherche(), pasPagination));	PAS CORRECT
+			List<SelectItem> v$pagination = getListePagination(v$total, pasPagination);
+							
+			v$liste = rechercherParCritere(p$critere);
+			
+			// MAJ du critère de recherche
+			defaultVue.setEntiteRecherche(p$critere);
+			
+			// Mise  à jour du Gestionnaire de table
+			defaultVue.getTableMgr().setTotalRecherche(v$total);
+			defaultVue.setListePagination(v$pagination);
+			defaultVue.getTableMgr().setListeRecherche(v$liste);
+			
+			// Mise à jour de la date de la dernière recherche
+			setTimeOfLastSearch();
+			
+	}	
 }

@@ -74,6 +74,5 @@ public class TracCtrl extends GeveeCtrl<TabTrac, TabTrac>{
 	public static String getNomManagedBean() {
 		return nomManagedBean;
 	}
-
-
+	
 }

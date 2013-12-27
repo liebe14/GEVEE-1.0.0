@@ -96,4 +96,39 @@ public class GeveeToolBox {
 	public static Locale getCurrentLocale(){
 		return (Locale) FacesUtil.getApplicationMapValue(CoreConstants.CURRENT_LOCALE);
 	}
+	
+	/**
+	 * Obtention du nom d'un bean managé a partir du nom de la page
+	 * 
+	 * @param p$nomPage	:	Nom de la page
+	 * @return
+	 */
+	public static String getManagedBeanName(String p$nomPage){
+		
+		String v$beanName =  null;
+		
+		if(p$nomPage == null || p$nomPage.trim().isEmpty())
+			return v$beanName;
+			
+		int v$index = p$nomPage.lastIndexOf(CoreConstants.SUFFIXE_NVGT_LISTE);
+		
+		if(v$index == -1){
+			v$index = p$nomPage.lastIndexOf(CoreConstants.SUFFIXE_NVGT_DETAILS);
+			
+			if(v$index == -1 ){
+				v$index = p$nomPage.lastIndexOf(CoreConstants.SUFFIXE_NVGT_EDITION);
+			}
+		}
+		
+		if(v$index > 0){
+			v$beanName = p$nomPage.substring(0, v$index);
+			
+			String v$string = v$beanName.substring(0, 1);
+			v$beanName = v$beanName.replaceFirst(v$string, v$string.toLowerCase()).concat(CoreConstants.SUFFIXE_MANAGED_BEAN);			
+		}
+	
+		return v$beanName;
+	}
+
+	
 }

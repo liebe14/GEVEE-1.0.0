@@ -241,4 +241,14 @@ public abstract class GeveeVue <T extends BaseEntity> {
 		return v$entity;
 	}	
 	
+	/**
+	 * Mise à jour de l'entité courante en fonction de la page (LISTE, DETAILS, EDITION)
+	 */
+	public void setEntiteCouranteOfPageContext(){
+		
+		// Mise à jour de l'entité courante selon le contexte du Formulaire 
+		if(getNavigationMgr().isFromListe())
+			setEntiteCourante(getTableMgr().getEntiteSelectionne());
+	}
+	
 }
