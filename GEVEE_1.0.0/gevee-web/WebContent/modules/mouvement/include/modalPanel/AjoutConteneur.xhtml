@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_con"  autosized="true" minWidth="620" minHeight="100"  >
+			
+				<f:facet name="header">
+					<h:outputText value="Ajouter conteneur" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form>
+					
+				<h:panelGrid columns="2" width="100%"  style="border:2px solid #{richSkin.panelBorderColor};"   >
+																		
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+					
+						<h:outputText value="#{locale.numcon}" title="#{locale.numcon}"  />
+						<h:panelGroup>
+							<h:inputText id="inp_numcon"  immediate="true" value="#{ordCtrl.conteneur.numCon}" 
+								style="width: 100%"  required="true" title="#{locale.numcon}" 
+								requiredMessage="Valeur obligatoire" >
+								<a4j:support event="onchange" ajaxSingle="true" />
+								<rich:message for="inp_numcon" errorClass="msg_error" />
+							</h:inputText>	
+						</h:panelGroup>
+						
+						<h:outputText value="Type de conteneur "  />
+						<h:selectOneMenu id="typ_con" value="#{ordCtrl.conteneur.enuTypCon}" style="width: 100%"
+								title="Type de conteneur"  immediate="true">
+							<f:selectItems  value="#{ordCtrl.defaultVue.listeTypeCon['map']}"/>
+							<a4j:support event="onchange" ajaxSingle="true" />						
+						</h:selectOneMenu>
+						
+						<h:outputText value="Aconier "  />
+						<h:selectOneMenu id="acon" value="#{ordCtrl.conteneur.enuAco}" style="width: 100%"
+								title="Aconier"  immediate="true">
+							<f:selectItems  value="#{ordCtrl.defaultVue.listeAconier['map']}"/>
+							<a4j:support event="onchange" ajaxSingle="true" />						
+						</h:selectOneMenu>
+						
+						<h:outputText value="Poids "  />
+						<h:panelGroup>
+							<h:inputText id="inpt_poids"  value="#{ordCtrl.conteneur.valPoi}" style="width: 100%"	>
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:inputText>
+						</h:panelGroup>	
+					
+						<h:outputText value="Volume"  />
+						<h:panelGroup>
+							<h:inputText id="inpt_vol"  value="#{ordCtrl.conteneur.valVol}" style="width: 100%"	>
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:inputText>
+						</h:panelGroup>
+																														
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+					
+						<h:outputText value="#{locale.numplo1}"  />
+						<h:panelGroup>
+							<h:inputText id="inpt_plo1"  value="#{ordCtrl.conteneur.numPlo1}" style="width: 100%"	immediate="true">
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:inputText>
+						</h:panelGroup>
+						
+						<h:outputText value="#{locale.numplo2}"  />
+						<h:panelGroup>
+							<h:inputText id="inpt_plo2"  value="#{ordCtrl.conteneur.numPlo2}" style="width: 100%"	immediate="true">
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:inputText>
+						</h:panelGroup>
+						
+						<h:outputText value="Marchandise "  />
+						<h:selectOneMenu id="mar" value="#{ordCtrl.conteneur.enuTypMar}" style="width: 100%"
+								title="Marchandise"  immediate="true">
+							<f:selectItems  value="#{ordCtrl.defaultVue.listeTypeMar['map']}"/>
+							<a4j:support event="onchange" ajaxSingle="true" />						
+						</h:selectOneMenu>
+						
+						<h:outputText value="#{locale.numcom}"  />
+						<h:panelGroup>
+							<h:inputText id="inpt_numcom"  value="#{ordCtrl.conteneur.numCom}" style="width: 100%"	immediate="true">
+								<a4j:support event="onchange" ajaxSingle="true" />
+							</h:inputText>
+						</h:panelGroup>
+						
+						<h:outputText value="" />
+						<h:panelGroup>
+							<a4j:commandButton  value="Ajouter" action="#{ordCtrl.ajouterConteneur}" rendered="#{! ordCtrl.defaultVue.navigationMgr.enModification}" reRender="pnel_main" oncomplete="#{rich:component('mpnl_con')}.hide();return true;" />
+							<a4j:commandButton  value="Annuler"  action="null" rendered="#{! ordCtrl.defaultVue.navigationMgr.enModification}" oncomplete="#{rich:component('mpnl_con')}.hide();return false;"/>
+						</h:panelGroup>
+						
+					</h:panelGrid>
+													
+				</h:panelGrid>
+				
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>

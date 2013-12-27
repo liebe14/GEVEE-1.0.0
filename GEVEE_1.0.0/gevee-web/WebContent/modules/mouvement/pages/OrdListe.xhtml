@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<f:view locale="#{localeCtrl.actual}" />
+   	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		<ui:param name="managedBean" value="#{sessionScope[ordCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des ordres de transport" />
+				
+		<!-- Crit�res standards de recherche -->
+		<ui:define name="standardFilter"  >
+			
+			<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+				<h:panelGrid columns="2" width="100%" border="0" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+					
+					<h:outputText value="#{locale.numordtrans} " />
+					<h:panelGroup>
+						<h:inputText value="#{entiteRecherche.numOrdTra}" style="width: 20%" title="#{locale.numordtrans}" />
+					</h:panelGroup>		
+					
+					<h:outputText value="#{locale.lieuenl}:" />	
+					<h:panelGroup>
+						<h:inputText id="lieuenl" value="#{ordCtrl.defaultVue.entiteRecherche.tabLieuEnlev.libLieu}" style="width: 60%"  onclick="#{rich:component('suggest')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggest" for="lieuenl" suggestionAction="#{ordCtrl.autoCompleteLieuEnlev}" var="valeur" 
+							fetchValue="#{valeur.libLieu}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Code"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codLieu}" />
+							</h:column>												
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.libelle}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.libLieu}" />
+							</h:column>
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+					
+					<h:outputText value="#{locale.lieudecha}:" />	
+					<h:panelGroup>
+						<h:inputText id="lieudecha" value="#{ordCtrl.defaultVue.entiteRecherche.tabLieuDecha.libLieu}" style="width: 60%"  onclick="#{rich:component('suggestion')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggestion" for="lieudecha" suggestionAction="#{ordCtrl.autoCompleteLieuDecha}" var="valeur" 
+							fetchValue="#{valeur.libLieu}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Code"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codLieu}" />
+							</h:column>												
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.libelle}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.libLieu}" />
+							</h:column>
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+										
+				</h:panelGrid>	
+											
+				</h:panelGrid>	
+									 																																													
+		</ui:define>
+		
+		<!-- Colonnes sp�cifiques � l'entit� -->
+		<ui:define name="specificColumns"  >
+						
+			<rich:column label="#{locale.numordtrans}" sortBy="#{entity.numOrdTra}" filterBy="#{entity.numOrdTra}" width="200" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numordtrans}" />
+				</f:facet>
+				<h:outputText value="#{entity.numOrdTra}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.numdossier}" sortBy="#{entity.numDoss}" filterBy="#{entity.numDoss}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numdossier}" />
+				</f:facet>
+				<h:outputText value="#{entity.numDoss}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.lieuenl}" sortBy="#{entity.tabLieuEnlev.libLieu}" filterBy="#{entity.tabLieuEnlev.libLieu}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.lieuenl}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabLieuEnlev.libLieu}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.lieudecha}" sortBy="#{entity.tabLieuDecha.libLieu}" filterBy="#{entity.tabLieuDecha.libLieu}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.lieudecha}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabLieuDecha.libLieu}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.dateenlev}" sortBy="#{entity.dateEnlev}" filterBy="#{entity.dateEnlev}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.dateenlev}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateEnlev}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>	
+			
+			<rich:column label="#{locale.datedecha}" sortBy="#{entity.dateDecha}" filterBy="#{entity.dateDecha}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.datedecha}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateDecha}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>	
+			
+			<rich:column label="#{locale.activite}" sortBy="#{entity.LEnuAct}" filterBy="#{entity.LEnuAct}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.activite}" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuAct}" />				
+			</rich:column>	
+			
+			<rich:column label="Poids total" sortBy="#{entity.valPoiTot}" filterBy="#{entity.valPoiTot}"  >
+				<f:facet name="header">
+					<h:outputText value="Poids total" />
+				</f:facet>
+				<h:outputText value="#{entity.valPoiTot}" />				
+			</rich:column>
+			
+			<rich:column label="Nombre de colis" sortBy="#{entity.valColTot}" filterBy="#{entity.valColTot}"  >
+				<f:facet name="header">
+					<h:outputText value="Nombre de colis" />
+				</f:facet>
+				<h:outputText value="#{entity.valColTot}" />				
+			</rich:column>	
+			
+		</ui:define>	
+									
+	</ui:composition>
+	
+</html>

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+    <f:view locale="#{localeCtrl.actual}" />
+  	<ui:composition template="/shared/templates/templateFormulaireDetails.xhtml">
+	
+		<ui:param name="managedBean" value="#{sessionScope[ordCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un ordre de transport "  />
+		
+		<ui:define name="ecranPrincipalContenu">
+		
+			<!--  Zone Infos sur l'ordre de transport -->	
+			<h:panelGroup>
+				<fieldset>
+				<legend> <h:outputText value="#{locale.infogenerale}" styleClass="legend" /> </legend>
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColMiddle" rowClasses="pngdRow">
+			   			 
+			   			 <h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+							
+							<h:outputText value="#{locale.numordtrans}"  />
+						    <h:inputText id="inpt_numord"  value="#{entiteCourante.numOrdTra}" style="width: 95%" readonly="true"/>
+			   				
+			   				<h:outputText value="#{locale.activite}"  />
+							<h:inputText id="inpt_act"  value="#{entiteCourante.LEnuAct}" style="width: 95%" readonly="true"/>
+			   				
+			   				<h:outputText value="Poids total"  />
+							<h:inputText id="inpt_poids"  value="#{entiteCourante.valPoiTot}" style="width: 95%" readonly="true"/>
+							
+							<h:outputText value="Nombre de colis"  />
+							<h:inputText id="inpt_nbre"  value="#{entiteCourante.valColTot}" style="width: 95%"	readonly="true"/>
+			   				
+			   			 </h:panelGrid>
+			   			 
+			   			 <h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
+						 
+						 	<h:outputText value="#{locale.lieuenl}" />
+							<h:panelGroup>
+								<h:inputText id="inpt_codlieuenl" value="#{ordCtrl.defaultVue.entiteCourante.tabLieuEnlev.codLieu}" style="width: 20%" 
+									required="false"
+									readonly="true" 
+									title="Code" disabled="false">
+								</h:inputText>	
+								<h:inputText id="inpt_liblieuenl" value="#{ordCtrl.defaultVue.entiteCourante.tabLieuEnlev.libLieu}" style="width: 40%" 
+									required="false"
+									readonly="true"  
+									title="#{locale.libelle}" disabled="false"> 
+								</h:inputText>
+							</h:panelGroup>
+							
+							<h:outputText value="#{locale.lieudecha}" />
+							<h:panelGroup>
+							<h:inputText id="inpt_codlieudecha" value="#{ordCtrl.defaultVue.entiteCourante.tabLieuDecha.codLieu}" style="width: 20%" 
+								required="false"
+								readonly="true" 
+								title="Code" disabled="false">
+							</h:inputText>	
+							<h:inputText id="inpt_liblieudecha" value="#{ordCtrl.defaultVue.entiteCourante.tabLieuDecha.libLieu}" style="width: 40%" 
+									required="false"
+									readonly="true"  
+									title="#{locale.libelle}" disabled="false"> 
+							</h:inputText>
+							</h:panelGroup>
+							
+							<h:outputText value="#{locale.dateenlev}" />
+							<h:inputText value="#{entiteCourante.dateEnlev}" readonly="true" style="width: 30%" title="#{locale.dateenlev}"  >
+								<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+							</h:inputText>						
+							
+							<h:outputText value="#{locale.datedecha}" />
+							<h:inputText value="#{entiteCourante.dateDecha}" readonly="true" style="width: 30%" title="#{locale.datedecha}"  >
+								<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+							</h:inputText>
+													
+							<h:outputText value="Observations "  />
+							<h:inputTextarea  id="inpt_obs"  value="#{entiteCourante.libObs}" style="width: 95%" readonly="true"/>
+													 	
+						 </h:panelGrid>
+						 
+			   		</h:panelGrid>
+			    
+				</fieldset>
+			</h:panelGroup>	
+			
+			<rich:separator height="5px" width="100%"/>		
+			
+			<h:panelGroup>
+				<fieldset>
+					<legend> <h:outputText value="Liste des conteneurs de l'ordre" styleClass="legend" /> </legend>
+						
+						<rich:panel  id="pnel_table_conteneur" >
+			 	 	
+			 	 		<h:panelGroup rendered="true" >
+			 	 		
+			 	 			<h:outputText value="Liste des conteneurs de l'ordre (#{defaultVue.conteneurMgr.rowCount})  " />	
+			 	 			<rich:extendedDataTable id="tble_table_conteneur" value="#{defaultVue.conteneurMgr.dataModel}"  var="entity" width="100%"  height="300px"  				
+								rows="#{defaultVue.conteneurMgr.rows}"  
+								onRowClick="selectedRow=this;" 
+								selection="#{defaultVue.conteneurMgr.selection}"				
+								tableState="#{defaultVue.conteneurMgr.tableState}" 
+								selectionMode="#{defaultVue.conteneurMgr.selectionMode}" 
+								cellpadding="0" cellspacing="0" border="0">
+								
+						<rich:column label="#{locale.numcon}"  visible="true" rendered="true"  width="150">
+							<f:facet name="header">
+								<h:outputText value="#{locale.numcon}" title="#{locale.numcon}" />
+							</f:facet>
+							<h:outputText value="#{entity.numCon}" />				
+						</rich:column>
+						
+						<rich:column label="Type conteneur"  visible="true" rendered="true"  width="150">
+							<f:facet name="header">
+								<h:outputText value="Type conteneur" title="Type conteneur" />
+							</f:facet>
+							<h:outputText value="#{entity.LEnuTypCon}" />				
+						</rich:column>
+						
+						<rich:column label="Aconier"  visible="true" rendered="true"  width="150">
+							<f:facet name="header">
+								<h:outputText value="Aconier" title="Aconier" />
+							</f:facet>
+							<h:outputText value="#{entity.LEnuAco}" />				
+						</rich:column>
+						
+						<rich:column label="#{locale.numplo1}"  visible="true" rendered="true" width="150" >
+							<f:facet name="header">
+								<h:outputText value="#{locale.numplo1}" title="#{locale.numplo1}" />
+							</f:facet>
+							<h:outputText value="#{entity.numPlo1}" />				
+						</rich:column>
+						
+						<rich:column label="#{locale.numplo2}"  visible="true" rendered="true" width="150" >
+							<f:facet name="header">
+								<h:outputText value="#{locale.numplo2}" title="#{locale.numplo2}" />
+							</f:facet>
+							<h:outputText value="#{entity.numPlo2}" />				
+						</rich:column>
+						
+						<rich:column label="Poids"  visible="true" rendered="true" width="100" >
+							<f:facet name="header">
+								<h:outputText value="Poids" title="Poids" />
+							</f:facet>
+							<h:outputText value="#{entity.valPoi}" />				
+						</rich:column>
+						
+						<rich:column label="Volume"  visible="true" rendered="true"  width="100">
+							<f:facet name="header">
+								<h:outputText value="Volume" title="Volume" />
+							</f:facet>
+							<h:outputText value="#{entity.valVol}" />				
+						</rich:column>
+						
+						<rich:column label="Marchandise"  visible="true" rendered="true" width="150" >
+							<f:facet name="header">
+								<h:outputText value="Marchandise" title="Marchandise" />
+							</f:facet>
+							<h:outputText value="#{entity.LEnuTypMar}" />				
+						</rich:column>
+						
+						<rich:column label="#{locale.numcom}"  visible="true" rendered="true" width="150" >
+							<f:facet name="header">
+								<h:outputText value="#{locale.numcom}" title="#{locale.numcom}" />
+							</f:facet>
+							<h:outputText value="#{entity.numCom}" />				
+						</rich:column>
+<!--								<f:facet name="header">-->
+<!--									<rich:columnGroup>-->
+<!--						                        	-->
+<!--			                            <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="#{locale.numcon}" />-->
+<!--			                            </rich:column>-->
+<!--			                            -->
+<!--			                            <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="Type conteneur" />-->
+<!--			                            </rich:column>-->
+<!--			                            -->
+<!--			                            <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="Aconier" />-->
+<!--			                            </rich:column>-->
+<!--			                            -->
+<!--			                             <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="#{locale.numplo1}" />-->
+<!--			                             </rich:column>-->
+<!--			                             -->
+<!--			                             <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="#{locale.numplo2}" />-->
+<!--			                             </rich:column>-->
+<!--			                            -->
+<!--			                            <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="Poids" />-->
+<!--			                            </rich:column>-->
+<!--			                            -->
+<!--			                            <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="Volume" />-->
+<!--			                            </rich:column>-->
+<!--			                            -->
+<!--			                             <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="Marchandise" />-->
+<!--			                             </rich:column>-->
+<!--			                             -->
+<!--			                             <rich:column breakBefore="false" width="10%">-->
+<!--			                                <h:outputText value="#{locale.numcom}" />-->
+<!--			                             </rich:column>-->
+<!--			                            -->
+<!--			                        </rich:columnGroup>-->
+<!--								</f:facet>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.numCon}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.LEnuTypCon}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.LEnuAco}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.numPlo1}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.numPlo2}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.valPoi}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.valVol}" />				-->
+<!--								</rich:column>-->
+<!--								-->
+<!--								<rich:column width="16%">-->
+<!--									<h:outputText value="#{entity.LEnuTypMar}" />				-->
+<!--								</rich:column>-->
+								
+							</rich:extendedDataTable>
+							
+			 	 		</h:panelGroup>
+			 	 		
+			 	 	</rich:panel>
+				
+				</fieldset>
+			</h:panelGroup>
+        
+		</ui:define>
+	</ui:composition>
+	
+</html>
