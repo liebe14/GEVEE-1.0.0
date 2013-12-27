@@ -1,0 +1,305 @@
+-- MySQL Administrator dump 1.4
+--
+-- ------------------------------------------------------
+-- Server version	5.0.24-community-nt
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+--
+-- Create schema gevee
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ gevee;
+USE gevee;
+
+--
+-- Table structure for table `gevee`.`tab_chau`
+--
+
+DROP TABLE IF EXISTS `tab_chau`;
+CREATE TABLE `tab_chau` (
+  `MAT_CHAU` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `DAT_DEL_CNI` varchar(255) default NULL,
+  `DAT_VAL_CNI` varchar(255) default NULL,
+  `DAT_VAL_PERM` varchar(255) default NULL,
+  `LIB_INF` varchar(255) default NULL,
+  `LIB_NOM` varchar(255) default NULL,
+  `LIB_PRE` varchar(255) default NULL,
+  `LIB_TEL` varchar(255) default NULL,
+  `NUM_CNI` varchar(255) default NULL,
+  `NUM_PERM` varchar(255) default NULL,
+  PRIMARY KEY  (`MAT_CHAU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_chau`
+--
+
+/*!40000 ALTER TABLE `tab_chau` DISABLE KEYS */;
+INSERT INTO `tab_chau` (`MAT_CHAU`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`DAT_DEL_CNI`,`DAT_VAL_CNI`,`DAT_VAL_PERM`,`LIB_INF`,`LIB_NOM`,`LIB_PRE`,`LIB_TEL`,`NUM_CNI`,`NUM_PERM`) VALUES 
+ ('05S024','1.00','2013','2000','20131217000000000000','20131226000000000000','20151210000000000000','RAS','Beauclair','Nanfack','77 01 04 70 / 99 65 74 82','0849379428','097867675Z65'),
+ ('657BZF','1.00','2013','2000','20131203000000000000','20131211000000000000','20131211000000000000','RAS','Fouoneme','Daniel','98 78 65 32 / 90 90 90 90','7743498049°','8809278');
+/*!40000 ALTER TABLE `tab_chau` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_cli`
+--
+
+DROP TABLE IF EXISTS `tab_cli`;
+CREATE TABLE `tab_cli` (
+  `COD_CLI` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `LIB_ADR` varchar(255) default NULL,
+  `LIB_FAX` varchar(255) default NULL,
+  `LIB_LOC` varchar(255) default NULL,
+  `LIB_NOM` varchar(255) default NULL,
+  `LIB_PRE` varchar(255) default NULL,
+  `LIB_TEL` varchar(255) default NULL,
+  PRIMARY KEY  (`COD_CLI`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_cli`
+--
+
+/*!40000 ALTER TABLE `tab_cli` DISABLE KEYS */;
+INSERT INTO `tab_cli` (`COD_CLI`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`LIB_ADR`,`LIB_FAX`,`LIB_LOC`,`LIB_NOM`,`LIB_PRE`,`LIB_TEL`) VALUES 
+ ('09897S98984','1.00','2013','2000','DOUALA - AKWA','8420','DOUALA','NANFACK','Beuclair','77010470'),
+ ('90987','1.00','2013','2000','RAS','8794HE','BAFOUSSAM','Fouomene','Daniel','74099050');
+/*!40000 ALTER TABLE `tab_cli` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_con`
+--
+
+DROP TABLE IF EXISTS `tab_con`;
+CREATE TABLE `tab_con` (
+  `COD_CON` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `ENU_ACO` varchar(255) default NULL,
+  `ENU_TYP_CON` varchar(255) default NULL,
+  `ENU_TYP_MAR` varchar(255) default NULL,
+  `NUM_COM` varchar(255) default NULL,
+  `NUM_CON` varchar(255) default NULL,
+  `NUM_PLO1` varchar(255) default NULL,
+  `NUM_PLO2` varchar(255) default NULL,
+  `VAL_POI` varchar(255) default NULL,
+  `VAL_VOL` decimal(19,2) default NULL,
+  `NUM_ORD_TRA` varchar(255) default NULL,
+  PRIMARY KEY  (`COD_CON`),
+  KEY `FKCE44B598DB16A379` (`NUM_ORD_TRA`),
+  CONSTRAINT `FKCE44B598DB16A379` FOREIGN KEY (`NUM_ORD_TRA`) REFERENCES `tab_ord` (`NUM_ORD_TRA`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_con`
+--
+
+/*!40000 ALTER TABLE `tab_con` DISABLE KEYS */;
+INSERT INTO `tab_con` (`COD_CON`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`ENU_ACO`,`ENU_TYP_CON`,`ENU_TYP_MAR`,`NUM_COM`,`NUM_CON`,`NUM_PLO1`,`NUM_PLO2`,`VAL_POI`,`VAL_VOL`,`NUM_ORD_TRA`) VALUES 
+ ('001/BZ_1000','1.00','2013','2000','2005','2004','2001','009','1000','89','89','2647T34','364.00','001/BZ'),
+ ('001/BZ_5609','1.00','2013','2000','2000','2005','2001','543','5609','53','78','653','886.00','001/BZ'),
+ ('05JK/6456_002','1.00','2013','2000','2000','2004','2001','OUISYE','002','23','22','89T54','583.00','05JK/6456'),
+ ('05JK/6456_003','1.00','2013','2000','2002','2003','2001','743HJ83','003','6464','673','676T3','9897.00','05JK/6456'),
+ ('434_001','1.00','2013','2000','2006','2004','2001','234','001','987','23','986T','765.00','434'),
+ ('434_002','1.00','2013','2000','2000','2001','2000','98YR6','002','89','103','766T4','9087.00','434'),
+ ('434_003','1.00','2013','2000','2001','2002','2001','T4','003','34','43','434','343.00','434'),
+ ('635_001','1.00','2013','2000','2005','2004','2001','989J8782','001','98','42','7576','987.00','635'),
+ ('635_002','1.00','2013','2000','2000','2003','2002','RE455','002','43','34','23','545.00','635');
+INSERT INTO `tab_con` (`COD_CON`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`ENU_ACO`,`ENU_TYP_CON`,`ENU_TYP_MAR`,`NUM_COM`,`NUM_CON`,`NUM_PLO1`,`NUM_PLO2`,`VAL_POI`,`VAL_VOL`,`NUM_ORD_TRA`) VALUES 
+ ('89_001','1.00','2013','2000','2003','2004','2001','Com098','001','3445','45','998T23','344.00','89'),
+ ('987TREF/6476_002123','1.00','2013','2000','2006','2000','2001','45NH34','002123','23','32','898','78789.00','987TREF/6476'),
+ ('987TREF/6476_0023','1.00','2013','2000','2001','2004','2001','994','0023','3','4','90T63','12.00','987TREF/6476'),
+ ('987TREF/6476_89HEG','1.00','2013','2000','2003','2002','2001','87','89HEG','90','35','98','789.00','987TREF/6476'),
+ ('RAS78893_54FD','1.00','2013','2000','2001','2001','2001','4546','54FD','345','54','545','546.00','RAS78893'),
+ ('RAS78893_9875RH','1.00','2013','2000','2000','2000','2001','n43','9875RH','45','45','34','545.00','RAS78893');
+/*!40000 ALTER TABLE `tab_con` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_lieu`
+--
+
+DROP TABLE IF EXISTS `tab_lieu`;
+CREATE TABLE `tab_lieu` (
+  `COD_LIEU` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `LIB_LIEU` varchar(255) default NULL,
+  PRIMARY KEY  (`COD_LIEU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_lieu`
+--
+
+/*!40000 ALTER TABLE `tab_lieu` DISABLE KEYS */;
+INSERT INTO `tab_lieu` (`COD_LIEU`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`LIB_LIEU`) VALUES 
+ ('DIT','1.00','2013','2000','Douala International Terminal'),
+ ('PARC09092','1.00','2013','2000','Parc à vide Armateur');
+/*!40000 ALTER TABLE `tab_lieu` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_ord`
+--
+
+DROP TABLE IF EXISTS `tab_ord`;
+CREATE TABLE `tab_ord` (
+  `NUM_ORD_TRA` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `DAT_DECHA` varchar(255) default NULL,
+  `DAT_ENLEV` varchar(255) default NULL,
+  `ENU_ACT` varchar(255) default NULL,
+  `LIB_OBS` varchar(255) default NULL,
+  `NUM_DOSS` varchar(255) default NULL,
+  `VAL_COL_TOT` decimal(19,2) default NULL,
+  `VAL_POI_TOT` varchar(255) default NULL,
+  `COD_LIEU_DECHA` varchar(255) default NULL,
+  `COD_LIEU_ENLEV` varchar(255) default NULL,
+  PRIMARY KEY  (`NUM_ORD_TRA`),
+  KEY `FKCE44E2F755CABD1C` (`COD_LIEU_ENLEV`),
+  KEY `FKCE44E2F755B86CC3` (`COD_LIEU_DECHA`),
+  CONSTRAINT `FKCE44E2F755B86CC3` FOREIGN KEY (`COD_LIEU_DECHA`) REFERENCES `tab_lieu` (`COD_LIEU`),
+  CONSTRAINT `FKCE44E2F755CABD1C` FOREIGN KEY (`COD_LIEU_ENLEV`) REFERENCES `tab_lieu` (`COD_LIEU`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_ord`
+--
+
+/*!40000 ALTER TABLE `tab_ord` DISABLE KEYS */;
+INSERT INTO `tab_ord` (`NUM_ORD_TRA`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`DAT_DECHA`,`DAT_ENLEV`,`ENU_ACT`,`LIB_OBS`,`NUM_DOSS`,`VAL_COL_TOT`,`VAL_POI_TOT`,`COD_LIEU_DECHA`,`COD_LIEU_ENLEV`) VALUES 
+ ('001/BZ','1.00','2013','2000','20131210000000000000','20131211000000000000','02','RAS',NULL,'8.00','46T35','PARC09092','DIT'),
+ ('05JK/6456','1.00','2013','2000','20141217000000000000','20131225000000000000','02','RAS',NULL,'12.00','987T553','PARC09092','DIT'),
+ ('434','1.00','2013','2000','20131213000000000000','20131226000000000000','02','RAS',NULL,'234.00','43','PARC09092','DIT'),
+ ('635','1.00','2013','2000','20141210000000000000','20131227000000000000','01','RAS',NULL,'3654989.00','6536T567','PARC09092','DIT'),
+ ('89','1.00','2013','2000','20131227000000000000','20131209000000000000','02','RAS',NULL,'23.00','988T','DIT','PARC09092'),
+ ('987TREF/6476','1.00','2013','2000','20131221000000000000','20131212000000000000','01','RAS',NULL,'9.00','7673T566','PARC09092','DIT'),
+ ('RAS78893','1.00','2013','2000','20131221000000000000','20131216000000000000','02','',NULL,'94.00','64','PARC09092','DIT');
+/*!40000 ALTER TABLE `tab_ord` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_rem`
+--
+
+DROP TABLE IF EXISTS `tab_rem`;
+CREATE TABLE `tab_rem` (
+  `NUM_PARC` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `DAT_MIS_CIR` varchar(255) default NULL,
+  `ENU_MAR` varchar(255) default NULL,
+  `LIB_ETA_FON` varchar(255) default NULL,
+  `NBR_ESS` int(11) default NULL,
+  `NUM_CHA` varchar(255) default NULL,
+  `NUM_MAT` varchar(255) default NULL,
+  `ENU_FAM` varchar(255) default NULL,
+  PRIMARY KEY  (`NUM_PARC`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_rem`
+--
+
+/*!40000 ALTER TABLE `tab_rem` DISABLE KEYS */;
+INSERT INTO `tab_rem` (`NUM_PARC`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`DAT_MIS_CIR`,`ENU_MAR`,`LIB_ETA_FON`,`NBR_ESS`,`NUM_CHA`,`NUM_MAT`,`ENU_FAM`) VALUES 
+ ('REM01','1.00','2013','2000','20081111000000000000','01','Bon Etat',2,'CH89077','LT890Z','100'),
+ ('REM02','1.00','2013','2000','20111215000000000000','03','EN PANNE',2,'CH098','CE7893FT','100');
+/*!40000 ALTER TABLE `tab_rem` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_trac`
+--
+
+DROP TABLE IF EXISTS `tab_trac`;
+CREATE TABLE `tab_trac` (
+  `NUM_PARC` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `DAT_MIS_CIR` varchar(255) default NULL,
+  `ENU_MAR` varchar(255) default NULL,
+  `LIB_ETA_FON` varchar(255) default NULL,
+  `NBR_ESS` int(11) default NULL,
+  `NUM_CHA` varchar(255) default NULL,
+  `NUM_MAT` varchar(255) default NULL,
+  `ENU_FAM` varchar(255) default NULL,
+  `LIB_CAP` varchar(255) default NULL,
+  PRIMARY KEY  (`NUM_PARC`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_trac`
+--
+
+/*!40000 ALTER TABLE `tab_trac` DISABLE KEYS */;
+INSERT INTO `tab_trac` (`NUM_PARC`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`DAT_MIS_CIR`,`ENU_MAR`,`LIB_ETA_FON`,`NBR_ESS`,`NUM_CHA`,`NUM_MAT`,`ENU_FAM`,`LIB_CAP`) VALUES 
+ ('TRA01','1.00','2013','2000','20131210000000000000','03','BON',1,'CH987AZ','LT9836WB','101','978767G'),
+ ('TRA02','1.00','2013','2000','20131217000000000000','0\'','PANNE',2,'CH097B','LTOF7V','101','CAP9493');
+/*!40000 ALTER TABLE `tab_trac` ENABLE KEYS */;
+
+
+--
+-- Table structure for table `gevee`.`tab_usr`
+--
+
+DROP TABLE IF EXISTS `tab_usr`;
+CREATE TABLE `tab_usr` (
+  `COD_USR` varchar(255) NOT NULL,
+  `BOO_ACT` decimal(19,2) default NULL,
+  `COD_EXE_FIS` varchar(255) default NULL,
+  `ETAT_ENT` varchar(255) default NULL,
+  `BOO_SEX` varchar(255) default NULL,
+  `COD_PWD` varchar(255) default NULL,
+  `DAT_EMBCH` varchar(255) default NULL,
+  `DAT_EXP_PWD` varchar(255) default NULL,
+  `LIB_ADR` varchar(255) default NULL,
+  `LIB_FON` varchar(255) default NULL,
+  `LIB_NOM` varchar(255) default NULL,
+  `LIB_PRE` varchar(255) default NULL,
+  PRIMARY KEY  (`COD_USR`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `gevee`.`tab_usr`
+--
+
+/*!40000 ALTER TABLE `tab_usr` DISABLE KEYS */;
+INSERT INTO `tab_usr` (`COD_USR`,`BOO_ACT`,`COD_EXE_FIS`,`ETAT_ENT`,`BOO_SEX`,`COD_PWD`,`DAT_EMBCH`,`DAT_EXP_PWD`,`LIB_ADR`,`LIB_FON`,`LIB_NOM`,`LIB_PRE`) VALUES 
+ ('admin','0.00','2013','2000','F','gevee','20131221000000000000','20131221000000000000','Yaoundé-calafatas','RH','mego','papix'),
+ ('dany','1.00','2013','2000','M','dany','20131206000000000000','20140130000000000000','Douala-Bepanda','PHD Student','Fouomene','daniel'),
+ ('liebes','1.00','2013','2000','M','liebe14','20131221205951000426','20131221205951000378','Douala-Chococho',NULL,'nameChange','beauclair');
+/*!40000 ALTER TABLE `tab_usr` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
