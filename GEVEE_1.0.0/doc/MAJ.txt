@@ -2,9 +2,10 @@
 
 1. Localisation du texte avec accent (voir exple dans une autre entité)
 2. Formatage de la date jj/MM/AAAA (voir exple dans une autre entité)
-3. Implémenter la methode findById dans les Dao , et rechercherParCritere dans les sisv et svco ceci pour les filtres de recherche,
+3. Implémenter la methode findByExample dans les Dao , et rechercherParCritere dans les sisv et svco ceci pour les filtres de recherche,
    se limiter à 2 voir 3 champs de recherches (voir exple dans une autre entité)
 4. Formulaire ListeChauffeur : toutes les colonnes n'ont pas de zone de recherche : completer
 5. Formulaire ListeClient : aggrementer les colonnes avec d'autres information telleques : telephone , localité
 6. Création d'un lieu : Ajouter un champs checkbox permettant de renseigner si un lieu est un PARC, ajouter un textArea description
 7. Dans certains formulaire de détail il ya le caractére } qui apparait devant le code
+8. Refonte de l'IHM
