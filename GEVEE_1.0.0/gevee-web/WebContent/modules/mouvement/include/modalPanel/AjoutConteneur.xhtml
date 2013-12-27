@@ -95,8 +95,8 @@
 						
 						<h:outputText value="" />
 						<h:panelGroup>
-							<a4j:commandButton  value="Ajouter" action="#{ordCtrl.ajouterConteneur}" rendered="#{! ordCtrl.defaultVue.navigationMgr.enModification}" reRender="pnel_main" oncomplete="#{rich:component('mpnl_con')}.hide();return true;" />
-							<a4j:commandButton  value="Annuler"  action="null" rendered="#{! ordCtrl.defaultVue.navigationMgr.enModification}" oncomplete="#{rich:component('mpnl_con')}.hide();return false;"/>
+							<a4j:commandButton  value="Ajouter" action="#{ordCtrl.ajouterConteneur}" reRender="pnel_main" oncomplete="#{rich:component('mpnl_con')}.hide();return true;" />
+							<a4j:commandButton  value="Annuler"  action="null"  oncomplete="#{rich:component('mpnl_con')}.hide();return false;"/>
 						</h:panelGroup>
 						
 					</h:panelGrid>
