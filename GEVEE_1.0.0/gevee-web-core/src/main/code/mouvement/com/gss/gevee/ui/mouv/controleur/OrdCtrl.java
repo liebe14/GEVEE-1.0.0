@@ -365,6 +365,7 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 	public String ajouter(){
 		
 		((OrdVue)defaultVue).getConteneurMgr().clear();
+		mapCon.clear();
 		
 		// Determine vers quelle page ou formulaire l'on doit se diriger
 		String v$navigation = null;
