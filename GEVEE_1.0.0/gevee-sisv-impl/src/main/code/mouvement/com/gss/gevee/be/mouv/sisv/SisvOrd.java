@@ -65,14 +65,4 @@ public class SisvOrd extends BaseSisv<TabOrd, String> implements ISisvOrd{
 			throw sbr;
 		}
 	}
-	
-	//On ré-implemente le creer
-	public <X extends BaseEntity> X creer(X p$entite) throws GeveePersistenceException  {
-		TabCon conteneur = (TabCon)p$entite;
-		String codCon = conteneur.getTabOrdTran().getNumOrdTra()+"_"+conteneur.getNumCon();
-		conteneur.setCodCon(codCon);
-		return (X) daoOrd.save(conteneur);
-	}
-
-
 }

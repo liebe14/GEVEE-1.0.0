@@ -1,13 +1,18 @@
 package com.gss.gevee.be.core.sisv.base;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
+import com.gss.gevee.be.core.base.DateTools;
+import com.gss.gevee.be.core.base.GeveeBaseEntity;
 import com.gss.gevee.be.core.dao.base.IBaseDao;
+import com.gss.gevee.be.core.enums.EnuEtat;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
 
 public abstract class BaseSisv<T extends BaseEntity, ID extends Serializable>
@@ -27,6 +32,18 @@ implements IBaseSisv<T, ID>{
 	public abstract BaseLogger getLogger();
 	
 	public <X extends BaseEntity> X creer(X p$entite) throws GeveePersistenceException  {
+		
+		//fais un teste si l'entité existe déjà
+		X entRech = getBaseDao().findById(p$entite, p$entite.getId());
+		if(entRech != null){
+			throw new GeveePersistenceException("Erreur : Cette entité existe déjà");
+		}
+		//Fixe l'état de l'entité à créer
+		((GeveeBaseEntity) p$entite).setEtatEnt(EnuEtat.CREE.getValue());
+		//On précise que l'entité est actif
+		((GeveeBaseEntity) p$entite).setBooAct(BigDecimal.ONE);
+		//On fixe l'année de vréation de l'entité
+		((GeveeBaseEntity) p$entite).setCodExeFis(DateTools.getYear(DateTools.formatDate(new Date())));
 		return getBaseDao().save(p$entite);
 	}
 
