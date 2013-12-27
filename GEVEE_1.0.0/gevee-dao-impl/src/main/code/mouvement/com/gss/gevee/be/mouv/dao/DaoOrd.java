@@ -97,5 +97,5 @@ public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
 			throw sdr;
 		}
 	}
-
+	
 }
