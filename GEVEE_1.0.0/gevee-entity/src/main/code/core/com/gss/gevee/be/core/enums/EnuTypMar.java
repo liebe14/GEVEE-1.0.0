@@ -7,7 +7,9 @@ import java.util.TreeMap;
 
 public enum EnuTypMar {
 
-	NONAME("2001", "No_name");
+	AUTRE("2000", "Autre"),
+	CACAO("2001", "Cacao"),
+	MALT("2002", "Malt");
 
 	/**
 	 * Valeur de l'énumération

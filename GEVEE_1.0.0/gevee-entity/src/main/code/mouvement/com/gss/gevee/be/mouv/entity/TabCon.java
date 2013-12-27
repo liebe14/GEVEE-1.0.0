@@ -4,15 +4,19 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.gss.gevee.be.core.base.GeveeBaseEntity;
 import com.gss.gevee.be.core.enums.EnuAco;
 import com.gss.gevee.be.core.enums.EnuTypCon;
 import com.gss.gevee.be.core.enums.EnuTypMar;
 
+@Entity
+@Table(name="TAB_CON")
 public class TabCon extends GeveeBaseEntity{
 	
 	private static final long serialVersionUID = 1L;
@@ -57,7 +61,7 @@ public class TabCon extends GeveeBaseEntity{
 	@Column(name = "ENU_ACO")
 	private String enuAco;
 	
-	//Marchandise
+	//Numéro commande
 	@Column(name = "NUM_COM")
 	private String numCom;
 	

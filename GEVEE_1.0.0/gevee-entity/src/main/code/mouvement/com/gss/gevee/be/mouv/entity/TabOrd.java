@@ -2,18 +2,25 @@ package com.gss.gevee.be.mouv.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.gss.gevee.be.core.base.DateTools;
 import com.gss.gevee.be.core.base.GeveeBaseEntity;
 import com.gss.gevee.be.core.enums.EnuActivite;
 import com.gss.gevee.be.ref.entity.TabLieu;
 
+@Entity
+@Table(name="TAB_ORD")
 public class TabOrd extends GeveeBaseEntity{
 
 	private static final long serialVersionUID = 1L;
@@ -60,6 +67,16 @@ public class TabOrd extends GeveeBaseEntity{
 	// nombre de colis total
 	@Column(name = "VAL_COL_TOT")
 	private BigDecimal valColTot;
+	
+	// Observations
+	@Column(name = "LIB_OBS")
+	private String libObs;
+	
+	/**
+	 * Liste des conteneurs
+	 */
+	@Transient
+	private List<TabCon> listCon = new ArrayList<TabCon>();
 	
 	
 	@Override
@@ -215,6 +232,22 @@ public class TabOrd extends GeveeBaseEntity{
 
 	public BigDecimal getValColTot() {
 		return valColTot;
+	}
+
+	public void setLibObs(String libObs) {
+		this.libObs = libObs;
+	}
+
+	public String getLibObs() {
+		return libObs;
+	}
+
+	public void setListCon(List<TabCon> listCon) {
+		this.listCon = listCon;
+	}
+
+	public List<TabCon> getListCon() {
+		return listCon;
 	}
 
 }
