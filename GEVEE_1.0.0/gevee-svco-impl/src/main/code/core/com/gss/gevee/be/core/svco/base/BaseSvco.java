@@ -2,16 +2,13 @@ package com.gss.gevee.be.core.svco.base;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.ejb.SessionContext;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
-import com.gss.gevee.be.core.base.DateTools;
 import com.gss.gevee.be.core.base.GeveeBaseEntity;
-import com.gss.gevee.be.core.enums.EnuEtat;
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.sisv.base.IBaseSisv;
@@ -39,17 +36,19 @@ public abstract class BaseSvco <T extends BaseEntity> implements IBaseSvco<T>{
 	
 	public <X extends BaseEntity> X creer(X p$entite) throws GeveeAppException {
 		try {
-			//fais un teste si l'entité existe déjà
-			X entRech = getBaseSisv().rechercher(p$entite, p$entite.getId());
-			if(entRech != null){
-				throw new GeveeAppException("Erreur : Cette entité existe déjà");
-			}
-			//Fixe l'état de l'entité à créer
-			((GeveeBaseEntity) p$entite).setEtatEnt(EnuEtat.CREE.getValue());
-			//On précise que l'entité est actif
-			((GeveeBaseEntity) p$entite).setBooAct(BigDecimal.ONE);
-			//On fixe l'année de vréation de l'entité
-			((GeveeBaseEntity) p$entite).setCodExeFis(DateTools.getYear(DateTools.formatDate(new Date())));
+			//on raméne ces instructions au niveau du sisv
+			
+//			//fais un teste si l'entité existe déjà
+//			X entRech = getBaseSisv().rechercher(p$entite, p$entite.getId());
+//			if(entRech != null){
+//				throw new GeveeAppException("Erreur : Cette entité existe déjà");
+//			}
+//			//Fixe l'état de l'entité à créer
+//			((GeveeBaseEntity) p$entite).setEtatEnt(EnuEtat.CREE.getValue());
+//			//On précise que l'entité est actif
+//			((GeveeBaseEntity) p$entite).setBooAct(BigDecimal.ONE);
+//			//On fixe l'année de vréation de l'entité
+//			((GeveeBaseEntity) p$entite).setCodExeFis(DateTools.getYear(DateTools.formatDate(new Date())));
 			return getBaseSisv().creer(p$entite);			
 		} catch (GeveePersistenceException e) {
 			rollbackTransactionContext();

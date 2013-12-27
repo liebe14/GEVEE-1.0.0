@@ -13,10 +13,13 @@ import javax.ejb.TransactionManagementType;
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
 import com.gss.gevee.be.core.exception.GeveeAppException;
+import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
 import com.gss.gevee.be.core.sisv.base.IBaseSisv;
 import com.gss.gevee.be.core.svco.base.BaseSvco;
+import com.gss.gevee.be.mouv.entity.TabCon;
 import com.gss.gevee.be.mouv.entity.TabOrd;
+import com.gss.gevee.be.mouv.sisv.ISisvCon;
 import com.gss.gevee.be.mouv.sisv.ISisvOrd;
 
 @Stateless
@@ -25,6 +28,10 @@ public class SvcoOrd extends BaseSvco<TabOrd> implements IRemoteOrd, ILocalOrd{
 
 	@EJB
 	ISisvOrd sisvOrd;
+	
+	@EJB
+	ISisvCon sisvCon;
+
 
 	@Resource
 	SessionContext session;
@@ -71,6 +78,36 @@ public class SvcoOrd extends BaseSvco<TabOrd> implements IRemoteOrd, ILocalOrd{
 			e.printStackTrace();
 			GeveeAppException sdr = new GeveeAppException(e);
 			throw sdr;
+		}
+	}
+	
+	public <X extends BaseEntity> X creer(X p$entite) throws GeveeAppException {
+		try {
+			//Récupére la liste des conteneurs de l'ordre
+			List<TabCon> listeCon = ((TabOrd)p$entite).getListCon();
+			//On enregistre l'ordre
+			TabOrd ordSave = (TabOrd) sisvOrd.creer(p$entite);
+			if(listeCon != null && listeCon.size() > 0){
+				//On parcour la liste des conteneurs, on fixe le code du conteneur puis on l'enregistre
+				for(TabCon conCour : listeCon){
+					String codCon = ((TabOrd)p$entite).getNumOrdTra()+"_"+conCour.getNumCon();
+					conCour.setCodCon(codCon);
+					conCour.setTabOrdTran((TabOrd)p$entite);
+					sisvCon.creer(conCour);
+				}
+			}
+			return (X) ordSave;			
+		} catch (GeveePersistenceException e) {
+			rollbackTransactionContext();
+			e.printStackTrace();
+			GeveeAppException sbr = new GeveeAppException(e);
+			throw sbr;
+		} catch (Exception e) {
+			rollbackTransactionContext();
+			String message =  e.getMessage();
+			GeveeAppException sysEx =  new GeveeAppException(message, e);
+			getLogger().error(message, sysEx);
+			throw sysEx;
 		}
 	}
 
