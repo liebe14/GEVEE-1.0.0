@@ -9,7 +9,7 @@
  </context-param>
  <context-param>
   <param-name>javax.faces.CONFIG_FILES</param-name>
-  <param-value>/WEB-INF/faces-config.xml,/modules/admin/config/faces-config.xml,/modules/referentiel/config/faces-config.xml</param-value>
+  <param-value>/WEB-INF/faces-config.xml,/modules/admin/config/faces-config.xml,/modules/referentiel/config/faces-config.xml,/modules/mouvement/config/faces-config.xml</param-value>
  </context-param>
  <context-param>
   <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
