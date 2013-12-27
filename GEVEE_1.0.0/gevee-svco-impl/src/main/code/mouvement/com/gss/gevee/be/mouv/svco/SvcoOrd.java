@@ -1,6 +1,7 @@
 package com.gss.gevee.be.mouv.svco;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import javax.ejb.TransactionManagementType;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
+import com.gss.gevee.be.core.base.DateTools;
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
@@ -83,10 +85,16 @@ public class SvcoOrd extends BaseSvco<TabOrd> implements IRemoteOrd, ILocalOrd{
 	
 	public <X extends BaseEntity> X creer(X p$entite) throws GeveeAppException {
 		try {
-			//Récupére la liste des conteneurs de l'ordre
-			List<TabCon> listeCon = ((TabOrd)p$entite).getListCon();
+			TabOrd ordToSave = (TabOrd)p$entite;
+			//On fabrique le numero de dossier de l'ordre 
+			//num dossier = N°Ordre/Mois/Année
+			String numDoss = ordToSave.getNumOrdTra()+"/"+DateTools.getMonth(DateTools.formatDate(new Date()))
+							+"/"+DateTools.getYear(DateTools.formatDate(new Date()));
 			//On enregistre l'ordre
-			TabOrd ordSave = (TabOrd) sisvOrd.creer(p$entite);
+			ordToSave.setNumDoss(numDoss);
+			TabOrd ordSave = (TabOrd) sisvOrd.creer(ordToSave);
+			//Récupére la liste des conteneurs de l'ordre
+			List<TabCon> listeCon = ordToSave.getListCon();
 			if(listeCon != null && listeCon.size() > 0){
 				//On parcour la liste des conteneurs, on fixe le code du conteneur puis on l'enregistre
 				for(TabCon conCour : listeCon){
