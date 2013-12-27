@@ -13,7 +13,6 @@ import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
 import com.gss.gevee.be.core.sisv.base.BaseSisv;
 import com.gss.gevee.be.mouv.dao.IDaoOrd;
-import com.gss.gevee.be.mouv.entity.TabCon;
 import com.gss.gevee.be.mouv.entity.TabOrd;
 
 @Stateless
