@@ -308,9 +308,26 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 			
 			// Par contre Si nous sommes en modification sur le Formulaire d'Edition
 			else{
-
+				//Récupére la liste de tous les conteneurs en modification
+				List<TabCon> listCon = ((OrdVue)defaultVue).getConteneurMgr().getListeRecherche();
+				//Charge la liste dans un map
+				Map<String, TabCon> mapConMod = new HashMap<String, TabCon>();
+				for(TabCon conCurrent : listCon){
+					mapConMod.put(conCurrent.getNumCon(), conCurrent);
+				}
+				// Recherche des conteneurs de l'ordre déjà exixtant
+				List<TabCon> liste = MouvSvcoDelegaute.getSvcoCon().rechercherParNumOrd(defaultVue.getEntiteCourante().getNumOrdTra());
+				//On parcour la liste des conteneurs exixtant et on les retire du map
+				for(TabCon conToRemove : liste){
+					if(mapConMod.containsKey(conToRemove.getNumCon())){
+						mapConMod.remove(conToRemove.getNumCon());
+					}
+				}
+				List<TabCon> newCon = new ArrayList<TabCon>(mapConMod.values());
+				defaultVue.getEntiteCourante().setListCon(newCon);
+				
 				// Set la liste des conteneurs de l'ordre de transport
-				defaultVue.getEntiteCourante().setListCon(((OrdVue)defaultVue).getConteneurMgr().getListeRecherche());
+//				defaultVue.getEntiteCourante().setListCon(((OrdVue)defaultVue).getConteneurMgr().getListeRecherche());
 				
 				// Consommation de l'EJB distant pour la création 
 				defaultVue.setEntiteCourante((TabOrd) getEntitySvco().modifier(defaultVue.getEntiteCourante()));
@@ -333,6 +350,8 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 			getLogger().debug("DEBUG enregistrer : liste = " + liste.size());
 			((OrdVue)defaultVue).getConteneurMgr().clear();
 			((OrdVue)defaultVue).getConteneurMgr().add(liste);
+			
+			mapCon.clear();
 
 			// Coherence IHM avant affichage du formulaire de consultation
 //			coherenceIHM();
@@ -397,6 +416,7 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 	 */
 	public String annulerEdition(){
 		try {
+			mapCon.clear();
 			// Determine vers quelle page ou Formulaire l'on doit se diriger
 			String v$navigation = null;
 			
@@ -435,6 +455,67 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 		}
 		return null;
 	}
+	
+	/**
+	 * Permet de Naviguer vers le formulaire d'Edition afin de pouvoir modifier une entité 
+	 * 	
+	 * @return
+	 */
+	public String modifier(){
+		
+		mapCon.clear();
+		// Determine vers quelle page ou formulaire l'on doit se diriger
+		String v$navigation = null;
+			
+		// Mise à jour du Contexte : En Modification 
+		defaultVue.getNavigationMgr().setEnModification(true);
+		
+		// Mise à jour de l'entité courante selon le contexte du Formulaire 
+		if(defaultVue.getNavigationMgr().isFromListe())
+			defaultVue.setEntiteCourante(defaultVue.getTableMgr().getEntiteSelectionne());
+		
+		
+		// Sauvegarde de l'entité courante 
+		defaultVue.setEntiteTemporaire(defaultVue.getEntiteCourante());
+		
+		// Clone de l'Entité courante avant Modification
+		defaultVue.setEntiteCourante(defaultVue.clone(defaultVue.getEntiteCourante()));
+		
+							
+		// Si nous sommes en Consultation ==> sur le formulaire Details
+		// Donc l'entité courante est déja connue
+		if(defaultVue.getNavigationMgr().isFromDetails()){
+									
+			// Mise à jour de la navigation : Vers le formulaire d'Edition
+			v$navigation =  getMemoEntite().concat(CoreConstants.SUFFIXE_NVGT_EDITION);			
+		}
+		
+		// Par contre si nous sommes sur le formulaire Liste 
+		else if(defaultVue.getNavigationMgr().isFromListe()){
+						
+			// Par simple Prudence, on dit si l'entite existe
+			if(defaultVue.getEntiteCourante() != null){
+												
+				// Mise à jour de la navigation : Vers le formulaire d'Edition
+				v$navigation =  getMemoEntite().concat(CoreConstants.SUFFIXE_NVGT_EDITION);				
+			}
+		}
+		// Recherche des conteneurs de l'ordre
+		try {
+			List<TabCon> liste = MouvSvcoDelegaute.getSvcoCon().rechercherParNumOrd(defaultVue.getEntiteCourante().getNumOrdTra());
+			getLogger().debug("DEBUG enregistrer : liste = " + liste.size());
+			((OrdVue)defaultVue).getConteneurMgr().clear();
+			((OrdVue)defaultVue).getConteneurMgr().add(liste);
+		} catch (GeveeAppException e) {
+			e.printStackTrace();
+		} catch (ServiceLocatorException e) {
+			e.printStackTrace();
+		}
+		
+		
+		// Retour à la page adéquate
+		return v$navigation;
+	}	
 	
 
 }
