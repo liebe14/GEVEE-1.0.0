@@ -118,5 +118,35 @@ public class SvcoOrd extends BaseSvco<TabOrd> implements IRemoteOrd, ILocalOrd{
 			throw sysEx;
 		}
 	}
+	
+	public <X extends BaseEntity> X modifier(X p$entite) throws GeveeAppException {
+		try {
+			//Récupére la liste des conteneurs de l'ordre
+			List<TabCon> listeCon = ((TabOrd)p$entite).getListCon();
+			if(listeCon != null && listeCon.size() > 0){
+				//On parcour la liste des conteneurs, on fixe le code du conteneur puis on l'enregistre
+				for(TabCon conCour : listeCon){
+					String codCon = ((TabOrd)p$entite).getNumOrdTra()+"_"+conCour.getNumCon();
+					conCour.setCodCon(codCon);
+					conCour.setTabOrdTran((TabOrd)p$entite);
+					sisvCon.creer(conCour);
+				}
+			}
+			return getBaseSisv().modifier(p$entite);
+		} catch (GeveePersistenceException sdr) {
+			sdr.printStackTrace();
+			rollbackTransactionContext();
+			GeveeAppException sbr = new GeveeAppException(sdr);
+			throw sbr;
+		} catch (Exception e) {
+			
+			rollbackTransactionContext();
+			String message = e.getMessage() + " !";
+			GeveeAppException sysEx =  new GeveeAppException(message, e);
+			getLogger().error(message, sysEx);
+			throw sysEx;
+			
+		}
+	}
 
 }
