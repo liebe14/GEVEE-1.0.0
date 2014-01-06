@@ -11,7 +11,10 @@ import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.svco.base.IBaseSvco;
 import com.gss.gevee.be.mouv.entity.TabCon;
 import com.gss.gevee.be.mouv.entity.TabOrd;
+import com.gss.gevee.be.ref.entity.TabCli;
 import com.gss.gevee.be.ref.entity.TabLieu;
+import com.gss.gevee.be.util.EntFichier;
+import com.gss.gevee.be.util.OutputType;
 import com.gss.gevee.ui.core.base.CoreConstants;
 import com.gss.gevee.ui.core.base.FacesUtil;
 import com.gss.gevee.ui.core.base.GeveeCtrl;
@@ -49,6 +52,14 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 		// Ensemble des traitements standards
 		Map<String, Traitement> v$mapTrt = new TreeMap<String, Traitement>(
 				MouvTrt.getTrtStandards(v$codeEntite));
+		
+		// generer le tableau d'amortissement
+		Traitement v$traitementTabAmor = new Traitement(
+				MouvTrt.GENERER_ORD_TRANS);
+		v$traitementTabAmor.setModalType(Traitement.MODAL_SPECIAL);
+		v$traitementTabAmor.setMethode("genererOrdTrans");
+		v$mapTrt.put(v$traitementTabAmor.getKey(), v$traitementTabAmor);
+		
 		listeTraitements = Traitement.getOrderedTrt(v$mapTrt);
 		return listeTraitements;
 	}
@@ -103,6 +114,12 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 
 			TabLieu v$entite = (TabLieu) p$entite;
 			defaultVue.getEntiteCourante().setTabLieuDecha(v$entite);
+		}
+		
+		if (v$propriete.equals("tabClient")) {
+
+			TabCli v$entite = (TabCli) p$entite;
+			defaultVue.getEntiteCourante().setTabClient(v$entite);
 		}
 	}
 		
@@ -516,6 +533,81 @@ public class OrdCtrl extends GeveeCtrl<TabOrd, TabOrd>{
 		// Retour à la page adéquate
 		return v$navigation;
 	}	
+	
+	/**
+	 * Génére un ordre de transport
+	 * 
+	 * @return un message  sur l'état de l'opération
+	 */
+	@SuppressWarnings("finally")
+	public String genererOrdTrans() {
+
+		// Determine vers quelle page ou Formulaire l'on doit se diriger
+		String v$navigation = null;
+
+		// Message d'information
+		String v$msgDetails = "GENERATION_SUCCES";
+
+		try {
+			OrdVue v$vue = (OrdVue) defaultVue;
+
+			// Mise à jour de l'entité courante selon le contexte du Formulaire
+			defaultVue.setEntiteCouranteOfPageContext();
+
+			// Sauvegarde de l'entité avant traitement specifique
+			defaultVue.setEntiteTemporaire(defaultVue.getEntiteCourante());
+
+			// Spécification du type de génération du fichier
+			OutputType outputType = OutputType.PDF;
+
+			// Consommation du service distant
+			TabOrd ordCourant = defaultVue.getEntiteCourante();
+			EntFichier v$fichier = MouvSvcoDelegaute.getSvcoOrd().genererEtatOrdTrans(ordCourant);
+
+			// création de dossier et fichiers temporaires et affichage de
+			// l'état généré
+			v$navigation = preview(v$fichier, outputType.getExtension());
+			
+			// L'on remplace l'ancienne entité de la liste par la nouvelle issue
+			// du résultat du traitement spécifiques
+			 defaultVue.getTableMgr().replace(defaultVue.getEntiteTemporaire(),
+					 defaultVue.getEntiteCourante());
+
+			// Si nous sommes en Consultation ==> sur le formulaire Details
+			if (defaultVue.getNavigationMgr().isFromDetails()) {
+				// Traitements particuliers
+			}
+
+			// Par contre si nous sommes sur le formulaire Liste
+			else if (defaultVue.getNavigationMgr().isFromListe()) {
+				// Traitements particuliers
+			}
+			FacesUtil.addInfoMessage("GENERATION_SUCCES", v$msgDetails);
+
+		} catch (GeveeAppException e) {
+			// Aucune navigation possible
+			v$navigation = null;
+
+			// Message utilisateur
+			FacesUtil
+					.addWarnMessage("TRAITEMENT_ALL_ECHEC", e.getMessage());
+			getLogger().error(e.getMessage(), e);
+		} catch (Exception e) {
+			// Aucune navigation possible
+			e.printStackTrace();
+			v$navigation = null;
+			// Message utilisateur
+			FacesUtil
+					.addWarnMessage(
+							"TRAITEMENT_ALL_ECHEC","TRAITEMENT_ALL_ECHEC_INCONNU");
+			getLogger().error(e.getMessage(), e);
+		} finally {
+			// Retour à la page adéquate
+			return v$navigation;
+		}
+
+	}
+
 	
 
 }

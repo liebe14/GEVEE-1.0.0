@@ -1,5 +1,7 @@
 package com.gss.gevee.ui.core.base;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,8 +10,11 @@ import java.util.List;
 import java.util.Map;
 
 import javax.faces.component.html.HtmlInputHidden;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.SelectItem;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 
 import org.richfaces.component.html.ContextMenu;
 import org.richfaces.component.html.HtmlToolBar;
@@ -20,6 +25,7 @@ import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.svco.base.IBaseSvco;
+import com.gss.gevee.be.util.EntFichier;
 
 public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 	
@@ -30,6 +36,13 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 	public GeveeVue<T> defaultVue;
 	
 	private String memoEntite;
+	
+	/**
+	 * Opération spécifique à appliquer sur l'entite 
+	 * (Annuler, Rejeter, Valider, ...)
+	 * 
+	 */
+	protected String actionSpecifique;
 	
 	/**
 	 * @return the listeTraitements
@@ -136,6 +149,21 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 	public void setDefaultVue(GeveeVue<T> defaultVue) {
 		this.defaultVue = defaultVue;
 	}
+	
+	/**
+	 * @return the actionSpecifique
+	 */
+	public String getActionSpecifique() {
+		return actionSpecifique;
+	}
+
+
+	/**
+	 * @param actionSpecifique the actionSpecifique to set
+	 */
+	public void setActionSpecifique(String actionSpecifique) {
+		this.actionSpecifique = actionSpecifique;
+	}	
 	
 	public String getMemoEntite() {
 		
@@ -1242,4 +1270,106 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 			setTimeOfLastSearch();
 			
 	}	
+	
+	/**
+	 * Permet de créer le répertoire temporaires dans lequel stocké le fichier à prévisualiser
+	 * 
+	 * @param p$fichier		: Entité fichier à générer pour prévisualisation
+	 * @param fileExtension	: Extension du fichier à générer
+	 * @return
+	 * @throws Exception 
+	 */
+	protected  String preview(EntFichier p$fichier, String fileExtension) throws Exception{
+		
+		// Determine vers quelle page ou formulaire l'on doit se diriger
+		String v$navigation = null;
+		
+		String generatedFileName = "";
+		
+		// Si le fichier existe 
+		if(p$fichier != null){
+			
+			//Récupération de l'ID de la session
+			String sessionId = ((HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false)).getId();
+			
+			//Creation du repertoire Reports devant contenir tous les états
+			String reportsPath = ((ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext())			
+									.getRealPath(File.separator+"Reports");	// Répertoire temporaire de création des fichiers
+			
+			File reportsDir = new File(reportsPath);
+			if(reportsDir.mkdir()) {
+				//System.out.println("le repertoire des etats a bien été créé");
+			}
+			else {
+				//System.out.println("le repertoire des etats existe peut-être déjà, il n'a pas été créé");
+				//throw new Exception("Echec de la Prévisualisation de fichier =====> Impossible de créer le repertoire temporaire Reports");
+			
+			}
+			
+			//Création dans le repertoire Reports, du repertoire temporaire correspondant à la session courante 
+			String sessionDirPath = reportsPath+File.separator+sessionId;
+			File v$sessionDir = new File(sessionDirPath);	
+			if(v$sessionDir.mkdir()) {
+				//System.out.println("le repertoire de session "+sessionDirPath+" a bien été créé");
+			}
+			else {
+				//System.out.println("le repertoire de session "+sessionDirPath+" existe peut-être déjà, il n'a pas été créé");	
+				//throw new Exception("Echec de la Prévisualisation de fichier =====> Impossible de créer le repertoire temporaire correspondant à la session courante de l'utilisateur");
+			}
+			
+			v$sessionDir.deleteOnExit();
+			
+			//Création du fichier temporaire qui permettra d'obtenir le nom du fichier (temporaire) à donner à l'état
+			File generatedFile;
+			try {
+				String extension = "."+fileExtension;
+				generatedFile = File.createTempFile("Eta", extension,  v$sessionDir);
+				generatedFile.deleteOnExit();
+				generatedFileName = generatedFile.getName();
+				//String generatedFileAbsPath = generatedFile.getAbsolutePath(); //chemin absolu, pourra être utilisé à souhait
+							
+				p$fichier.setUri(sessionDirPath+File.separator+generatedFileName);
+			} 
+			catch (IOException e) {
+				throw e;
+			}			
+									
+			// Download du Fichier		
+			try {
+			 
+				 //String path = EntFichier.createTempFile(v$fichier);
+				 String path = EntFichier.writeFile(p$fichier);
+				 
+				 // Chemin relatif (par rapport à la position de la ViewDocument) du fichier pdf généré
+				 path = "../../Reports/"+sessionId+"/"+generatedFileName;
+				 
+				 //System.out.println("chemin du fichier généré : "+path);
+				 
+				 // Injection du chemin relatif du fichier généré dans le scope session
+				 FacesUtil.setSessionMapValue("fileToPreviewPath", path);
+
+				 // Injection de la règle de navigation connduisant à la page à partir de laquelle se fait la prévisualisation
+				 String v$nomPage = getHidden().getValue().toString();
+				 if(v$nomPage.contains(CoreConstants.SUFFIXE_NVGT_EDITION))
+					 v$nomPage = v$nomPage.replace(CoreConstants.SUFFIXE_NVGT_EDITION, CoreConstants.SUFFIXE_NVGT_DETAILS);
+				 FacesUtil.setSessionMapValue("pageBeforePreview", v$nomPage);
+				 
+				 // Navigation vers la page de prévisualisation du document
+				 v$navigation = "ViewDocument";
+				 
+				 return v$navigation;
+			 } 
+			 catch (GeveeAppException e) {
+				throw e;
+			 } 
+			
+		}
+		else{
+			throw new Exception("generer ordre transport");
+		}
+
+		
+	}	
+
+
 }

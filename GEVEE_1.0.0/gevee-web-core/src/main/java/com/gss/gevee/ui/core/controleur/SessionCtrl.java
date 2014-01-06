@@ -120,11 +120,14 @@ public class SessionCtrl {
 		String v$navigation = null;
 		try {
 			TabUsr	usr = AdminSvcoDeleguate.getSvcoUsr().authenticate(defaultVue.getLogin(), defaultVue.getPassword());
-			if(usr != null && usr.getCodUsr() != null){
+			if(usr != null && usr.getCodUsr() != null && !usr.getPwdExpire()){
 				// Navigation vers le formulaire d'acceuil
 				defaultVue.setUser(usr);
 				v$navigation = "AcceuilDeBase";
-			}else{
+			}else if(usr.getPwdExpire()){
+				FacesUtil.addWarnMessage("Votre mot de passe a expiré : veuillez contacter l'administrateur", "Votre mot de passe a expiré : veuillez contacter l'administrateur");
+			}
+			else{
 				FacesUtil.addWarnMessage("Login/Mot de passe incorrect", "Login/Mot de passe incorrect");
 			}
 		} catch (GeveeAppException e) {

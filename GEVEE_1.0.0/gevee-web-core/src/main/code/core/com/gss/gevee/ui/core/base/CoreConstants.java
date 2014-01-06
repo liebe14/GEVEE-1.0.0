@@ -70,5 +70,7 @@ public class CoreConstants {
    public static final String DEPLOIEMENT_SANS_EAR = "0";
    public static final String DEPLOIEMENT_AVEC_EAR = "1";
 
+   public static final String FILE_PATH_SEPARATOR = "_";
+   public static final String NUMBER_FORMAT = "#,###.###";
     
 }
