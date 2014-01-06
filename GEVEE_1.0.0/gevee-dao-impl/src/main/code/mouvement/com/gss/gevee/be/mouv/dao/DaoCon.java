@@ -43,6 +43,7 @@ public class DaoCon extends BaseDao<TabCon, String> implements IDaoCon{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public <X extends BaseEntity> List<X> findAll(X entity)
 		throws GeveePersistenceException {
 		try{
@@ -63,6 +64,7 @@ public class DaoCon extends BaseDao<TabCon, String> implements IDaoCon{
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public <X extends BaseEntity> List<X> findByExample(X entity)
 	throws GeveePersistenceException {
 		String clauseWhere = "1=1 ";
@@ -92,6 +94,7 @@ public class DaoCon extends BaseDao<TabCon, String> implements IDaoCon{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public  List<TabCon> findByNumOrd(String numOrd)
 	throws GeveePersistenceException {
