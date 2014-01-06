@@ -2,12 +2,14 @@ package com.gss.gevee.be.core.util.locator;
 
 import java.util.ResourceBundle;
 
+import com.gss.gevee.be.util.ReportNames;
+
 public class ResourceLocator {
 	
 	/***
-	 * configuration du répertoire de stockage du fichier resource "SdsConfig"
+	 * configuration du répertoire de stockage du fichier resource "Config"
 	 */
-	private static String BUNDLE_PATH_NAME = "com.gss.gevee.SdsConfig";
+	private static String BUNDLE_PATH_NAME = "com.gss.gevee.Config";
 	
 	/****
 	 * Proriété de configuration du chemin de stockage des fichiers détat compilé Jasper
@@ -28,6 +30,15 @@ public class ResourceLocator {
 	static{
 		rb = ResourceBundle
 		.getBundle(BUNDLE_PATH_NAME);
+	}
+	
+	public static String getReportModel(ReportNames reportName){
+		try{
+			return rb.getString(REPORT_PATH_NAME) + reportName.getReportName() + ".jasper";	
+		}
+		catch(Exception e){
+			return null;
+		}
 	}
 	
 	public static String getReportModel(String reportName){

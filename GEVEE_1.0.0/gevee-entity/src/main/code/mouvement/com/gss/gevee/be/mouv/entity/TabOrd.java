@@ -17,6 +17,7 @@ import javax.persistence.Transient;
 import com.gss.gevee.be.core.base.DateTools;
 import com.gss.gevee.be.core.base.GeveeBaseEntity;
 import com.gss.gevee.be.core.enums.EnuActivite;
+import com.gss.gevee.be.ref.entity.TabCli;
 import com.gss.gevee.be.ref.entity.TabLieu;
 
 @Entity
@@ -33,6 +34,11 @@ public class TabOrd extends GeveeBaseEntity{
 	@Id
 	@Column(name = "NUM_ORD_TRA")
 	private String numOrdTra;
+	
+	//lieu d'enlèvement
+	@ManyToOne
+	@JoinColumn(name = "COD_CLI")
+	private TabCli tabClient;
 	
 	//Activité
 	@Column(name = "ENU_ACT")
@@ -71,6 +77,9 @@ public class TabOrd extends GeveeBaseEntity{
 	// Observations
 	@Column(name = "LIB_OBS")
 	private String libObs;
+	
+	@Column(name = "BOO_CLO")
+	private BigDecimal booEstClo;
 	
 	/**
 	 * Liste des conteneurs
@@ -114,12 +123,22 @@ public class TabOrd extends GeveeBaseEntity{
 		} catch (Exception e) {
 		}
 		
+		try {
+			if (this.getTabClient() != null
+					&& (this.getTabClient().getCodCli() == null || this
+							.getTabClient().getCodCli().trim().isEmpty()))
+				this.setTabClient(null);
+		} catch (Exception e) {
+		}
+
+		
 	}
 
 	@Override
 	public void initData() {
 		tabLieuEnlev = (tabLieuEnlev == null ? new TabLieu() : tabLieuEnlev);
 		tabLieuDecha = (tabLieuDecha == null ? new TabLieu() : tabLieuDecha);
+		tabClient = (tabClient == null ? new TabCli() : tabClient);
 	}
 
 	public void setNumOrdTra(String numOrdTra) {
@@ -248,6 +267,22 @@ public class TabOrd extends GeveeBaseEntity{
 
 	public List<TabCon> getListCon() {
 		return listCon;
+	}
+
+	public void setTabClient(TabCli tabClient) {
+		this.tabClient = tabClient;
+	}
+
+	public TabCli getTabClient() {
+		return tabClient;
+	}
+
+	public void setBooEstClo(BigDecimal booEstClo) {
+		this.booEstClo = booEstClo;
+	}
+
+	public BigDecimal getBooEstClo() {
+		return booEstClo;
 	}
 
 }

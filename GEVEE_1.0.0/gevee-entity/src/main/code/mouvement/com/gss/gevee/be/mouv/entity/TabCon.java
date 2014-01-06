@@ -1,7 +1,6 @@
 package com.gss.gevee.be.mouv.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,7 +54,7 @@ public class TabCon extends GeveeBaseEntity{
 	
 	// Volume 
 	@Column(name = "VAL_VOL")
-	private BigDecimal valVol;
+	private String valVol;
 
 	//Aconier
 	@Column(name = "ENU_ACO")
@@ -171,11 +170,11 @@ public class TabCon extends GeveeBaseEntity{
 		return valPoi;
 	}
 
-	public void setValVol(BigDecimal valVol) {
+	public void setValVol(String valVol) {
 		this.valVol = valVol;
 	}
 
-	public BigDecimal getValVol() {
+	public String getValVol() {
 		return valVol;
 	}
 

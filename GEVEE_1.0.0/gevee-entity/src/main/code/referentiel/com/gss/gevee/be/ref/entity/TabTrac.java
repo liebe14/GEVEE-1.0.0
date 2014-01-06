@@ -15,6 +15,10 @@ public class TabTrac extends TabAccVoi{
 	
 	private static final long serialVersionUID = 1L;
 	
+	public TabTrac(){
+		
+	}
+	
 	@Override
 	public String getEntityCode() {
 		return "Trac";
