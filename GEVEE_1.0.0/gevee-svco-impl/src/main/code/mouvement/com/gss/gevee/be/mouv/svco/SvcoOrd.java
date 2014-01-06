@@ -23,6 +23,7 @@ import com.gss.gevee.be.mouv.entity.TabCon;
 import com.gss.gevee.be.mouv.entity.TabOrd;
 import com.gss.gevee.be.mouv.sisv.ISisvCon;
 import com.gss.gevee.be.mouv.sisv.ISisvOrd;
+import com.gss.gevee.be.util.EntFichier;
 
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
@@ -83,6 +84,7 @@ public class SvcoOrd extends BaseSvco<TabOrd> implements IRemoteOrd, ILocalOrd{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public <X extends BaseEntity> X creer(X p$entite) throws GeveeAppException {
 		try {
 			TabOrd ordToSave = (TabOrd)p$entite;
@@ -146,6 +148,28 @@ public class SvcoOrd extends BaseSvco<TabOrd> implements IRemoteOrd, ILocalOrd{
 			getLogger().error(message, sysEx);
 			throw sysEx;
 			
+		}
+	}
+	@Override
+	public EntFichier  genererEtatOrdTrans(TabOrd ord)
+	throws GeveeAppException {
+		try {
+			return sisvOrd.genererEtatOrdTrans(ord);
+		} catch (GeveeSystemException e) {
+			e.printStackTrace();
+			GeveeAppException sdr = new GeveeAppException(e);
+			throw sdr;
+		}
+	}
+	
+	@Override
+	public TabOrd cloturer(TabOrd tabOrd) throws GeveeAppException {
+		try {
+			return sisvOrd.cloturer(tabOrd);
+		} catch (GeveeSystemException e) {
+			e.printStackTrace();
+			GeveeAppException sdr = new GeveeAppException(e);
+			throw sdr;
 		}
 	}
 
