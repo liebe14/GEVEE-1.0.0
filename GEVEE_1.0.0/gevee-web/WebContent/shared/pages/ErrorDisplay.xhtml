@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+  <f:view locale="#{localeCtrl.actual}" />          
+	<ui:composition template="/shared/templates/templateAvecMenus.xhtml">
+	
+	
+		<!-- Masquons la barre d'actions -->
+		<ui:define name="barreActions">			
+			
+		</ui:define>	
+			
+		<!-- Masquons l'entete  -->
+		<ui:define name="entete">
+			
+		</ui:define>
+		
+		<!-- Masquons les barres de menus  -->
+		<ui:define name="barres">
+		            			
+		</ui:define>
+		
+		<!-- Defintion de la barre d'information  -->	
+		<ui:define name="barreMessage">
+			<rich:messages id="msgs_barreMessage" style="height:2px;font-size:x-small;" showSummary="true" showDetail="true" errorClass="msg_error" infoClass="msg_infos" >
+			</rich:messages>
+		</ui:define>		
+		
+				
+		<!-- Masquons le contenu du formulaire -->	
+		<ui:define name="contenuFormulaire">
+			
+						
+			<table width="100%"  align="center"  > 
+				<tr>
+					<td height="600px" width="100%" align="center" valign="middle">
+					
+						<h:panelGrid  columns="2" width="100%"  >
+							<h:graphicImage value="/shared/images/error-128x128.png" />
+							<h:outputText value="#{locale.erreurderniertraitement}" style="text-align:center;color:#FE896B;font-size:xx-large;text-decoration:none;font-weight:normal;"/>
+						</h:panelGrid>
+					
+					</td>					
+				</tr>	
+			</table>
+				
+			
+		</ui:define>
+			
+	</ui:composition>
+</html>

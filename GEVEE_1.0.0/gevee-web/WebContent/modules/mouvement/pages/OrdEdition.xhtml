@@ -37,6 +37,37 @@
 						<rich:message for="inpt_numord" errorClass="msg_error" />							
 					</h:panelGroup>	
 					
+					<h:outputText value="Client" />
+					<h:panelGroup>
+					<h:inputText id="inpt_client" value="#{ordCtrl.defaultVue.entiteCourante.tabClient.codCli}" style="width: 20%" 
+						required="false"
+						readonly="true" 
+						title="Code" disabled="false">
+						<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>	
+					<h:inputText id="inpt_linnom" value="#{ordCtrl.defaultVue.entiteCourante.tabClient.libNom}" style="width: 40%" 
+							required="false"
+							readonly="true"  
+							title="#{locale.libelle}" disabled="false"> 
+							<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>
+					<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+					<h:panelGroup>
+						<a4j:commandButton   value="..." action="#{ordCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+         						<f:setPropertyActionListener value="OrdEdition" target="#{cliCtrl.defaultVue.navigationMgr.selectionSource}" />
+         						<!-- MAJ de la destination en mode Selection   --> 
+           						<f:setPropertyActionListener value="true" target="#{cliCtrl.defaultVue.navigationMgr.enSelection}" />  
+           						<!-- Nom du Controlleur de l'entite source  --> 
+          						<f:setPropertyActionListener value="ordCtrl" target="#{cliCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+          						<f:setPropertyActionListener value="CliListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+          						<!-- Nom de la propriete a selectionner -->							         						             						
+          						<f:setPropertyActionListener value="tabClient" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+		             	</a4j:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+					
 					
 					<h:outputText value="#{locale.activite}"  />
 					<h:selectOneMenu id="inpt_act" value="#{entiteCourante.enuAct}" style="width: 100%"
@@ -192,9 +223,9 @@
 							<h:outputText value="#{entity.LEnuTypCon}" />				
 						</rich:column>
 						
-						<rich:column label="Aconier"  visible="true" rendered="true"  width="150">
+						<rich:column label="Acconier"  visible="true" rendered="true"  width="150">
 							<f:facet name="header">
-								<h:outputText value="Aconier" title="Aconier" />
+								<h:outputText value="Acconier" title="Acconier" />
 							</f:facet>
 							<h:outputText value="#{entity.LEnuAco}" />				
 						</rich:column>

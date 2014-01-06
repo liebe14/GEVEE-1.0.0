@@ -28,6 +28,9 @@
 							<h:outputText value="#{locale.numordtrans}"  />
 						    <h:inputText id="inpt_numord"  value="#{entiteCourante.numOrdTra}" style="width: 95%" readonly="true"/>
 			   				
+			   				<h:outputText value="#{locale.numdossier}"  />
+						    <h:inputText id="inpt_numdoss"  value="#{entiteCourante.numDoss}" style="width: 95%" readonly="true"/>
+			   				
 			   				<h:outputText value="#{locale.activite}"  />
 							<h:inputText id="inpt_act"  value="#{entiteCourante.LEnuAct}" style="width: 95%" readonly="true"/>
 			   				
@@ -40,7 +43,21 @@
 			   			 </h:panelGrid>
 			   			 
 			   			 <h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
-						 
+						 	
+						 	<h:outputText value="Client" />
+							<h:panelGroup>
+								<h:inputText id="inpt_codcli" value="#{ordCtrl.defaultVue.entiteCourante.tabClient.codCli}" style="width: 20%" 
+									required="false"
+									readonly="true" 
+									title="Code" disabled="false">
+								</h:inputText>	
+								<h:inputText id="inpt_libcli" value="#{ordCtrl.defaultVue.entiteCourante.tabClient.libNom}" style="width: 40%" 
+									required="false"
+									readonly="true"  
+									title="#{locale.libelle}" disabled="false"> 
+								</h:inputText>
+							</h:panelGroup>
+							
 						 	<h:outputText value="#{locale.lieuenl}" />
 							<h:panelGroup>
 								<h:inputText id="inpt_codlieuenl" value="#{ordCtrl.defaultVue.entiteCourante.tabLieuEnlev.codLieu}" style="width: 20%" 
@@ -122,9 +139,9 @@
 							<h:outputText value="#{entity.LEnuTypCon}" />				
 						</rich:column>
 						
-						<rich:column label="Aconier"  visible="true" rendered="true"  width="150">
+						<rich:column label="Acconier"  visible="true" rendered="true"  width="150">
 							<f:facet name="header">
-								<h:outputText value="Aconier" title="Aconier" />
+								<h:outputText value="Acconier" title="Acconier" />
 							</f:facet>
 							<h:outputText value="#{entity.LEnuAco}" />				
 						</rich:column>

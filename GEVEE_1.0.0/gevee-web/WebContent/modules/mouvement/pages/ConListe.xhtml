@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<f:view locale="#{localeCtrl.actual}" />
+   	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		<ui:param name="managedBean" value="#{sessionScope[conCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des conteneurs" />
+				
+		<!-- Crit�res standards de recherche -->
+		<ui:define name="standardFilter"  >
+			
+			<h:panelGrid columns="2" width="100%" border="0" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				
+				<h:outputText value="#{locale.numordtrans} " />
+				<h:panelGroup>
+					<h:inputText value="#{entiteRecherche.tabOrdTran.numOrdTra}" style="width: 20%" title="#{locale.numordtrans}" />
+				</h:panelGroup>	
+				
+				<h:outputText value="#{locale.numcon} " />
+				<h:panelGroup>
+					<h:inputText value="#{entiteRecherche.numCon}" style="width: 20%" title="#{locale.numcon}" />
+				</h:panelGroup>	
+				
+			</h:panelGrid>
+											
+		</ui:define>
+		
+		<!-- Colonnes sp�cifiques � l'entit� -->
+		<ui:define name="specificColumns"  > 
+						
+			<rich:column label="#{locale.ordnum}" sortBy="#{entity.tabOrdTran.numOrdTra}" filterBy="#{entity.tabOrdTran.numOrdTra}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.ordnum}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabOrdTran.numOrdTra}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.numcon}" sortBy="#{entity.numCon}" filterBy="#{entity.numCon}"  >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numcon}" />
+				</f:facet>
+				<h:outputText value="#{entity.numCon}" />				
+			</rich:column>	
+			
+			<rich:column label="Type conteneur" sortBy="#{entity.LEnuTypCon}" filterBy="#{entity.LEnuTypCon}"  width="150">
+				<f:facet name="header">
+					<h:outputText value="Type conteneur" title="Type conteneur" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuTypCon}" />				
+			</rich:column>
+			
+			<rich:column label="Acconier"  sortBy="#{entity.LEnuAco}" filterBy="#{entity.LEnuAco}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Acconier" title="Acconier" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuAco}" />				
+			</rich:column>
+			
+			<rich:column label="#{locale.numplo1}"  sortBy="#{entity.numPlo1}" filterBy="#{entity.numPlo1}"  width="100" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numplo1}" title="#{locale.numplo1}" />
+				</f:facet>
+				<h:outputText value="#{entity.numPlo1}" />				
+			</rich:column>
+			
+			<rich:column label="#{locale.numplo2}"  sortBy="#{entity.numPlo2}" filterBy="#{entity.numPlo2}" width="100" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numplo2}" title="#{locale.numplo2}" />
+				</f:facet>
+				<h:outputText value="#{entity.numPlo2}" />				
+			</rich:column>
+			
+			<rich:column label="Poids"  sortBy="#{entity.valPoi}" filterBy="#{entity.valPoi}" width="100" >
+				<f:facet name="header">
+					<h:outputText value="Poids" title="Poids" />
+				</f:facet>
+				<h:outputText value="#{entity.valPoi}" />				
+			</rich:column>
+			
+			<rich:column label="Volume"   sortBy="#{entity.valVol}" filterBy="#{entity.valVol}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Volume" title="Volume" />
+				</f:facet>
+				<h:outputText value="#{entity.valVol}" />				
+			</rich:column>
+			
+			<rich:column label="Marchandise"   sortBy="#{entity.LEnuTypMar}" filterBy="#{entity.LEnuTypMar}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="Marchandise" title="Marchandise" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuTypMar}" />				
+			</rich:column>
+			
+			<rich:column label="#{locale.numcom}"   sortBy="#{entity.numCom}" filterBy="#{entity.numCom}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numcom}" title="#{locale.numcom}" />
+				</f:facet>
+				<h:outputText value="#{entity.numCom}" />				
+			</rich:column>
+			
+		</ui:define>	
+									
+	</ui:composition>
+	
+</html>

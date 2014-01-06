@@ -7,6 +7,11 @@
   <managed-bean-class>com.gss.gevee.ui.mouv.controleur.OrdCtrl</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>conCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.mouv.controleur.ConCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
  <navigation-rule>
   <from-view-id>*</from-view-id>
   <navigation-case>
@@ -21,6 +26,11 @@
   <navigation-case>
    <from-outcome>OrdListe</from-outcome>
    <to-view-id>/modules/mouvement/pages/OrdListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ConListe</from-outcome>
+   <to-view-id>/modules/mouvement/pages/ConListe.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
  </navigation-rule> 

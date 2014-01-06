@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+  <f:view locale="#{localeCtrl.actual}" />     
+
+   	<ui:composition template="/shared/templates/templatePourFormulaire.xhtml">
+		
+	<!-- Defintion de l'entete  -->
+		<ui:define name="entete">
+			<h:outputText value="#{locale.docpreview}" />			
+		</ui:define>
+		
+		<!-- Construction des barres de Menus  --> 
+		<ui:define name="barres"> 
+		
+                <rich:toolBar  > 
+                
+                 	<rich:toolBarGroup >
+                 	               	                	
+                 		<rich:dropDownMenu value="Actions de base" direction="bottom-right" jointPoint="bl" submitMode="ajax"  >
+	            						 
+	            			             			              			             			             			 	            			            			 	                 		
+	                 	</rich:dropDownMenu>	                 	
+                 	
+                 		<rich:dropDownMenu value="#{locale.actionspec}"    >
+	            					            			 	            			                  		
+	                 	</rich:dropDownMenu>
+	                 	
+                 		<rich:dropDownMenu value="Aide" >
+	            			<rich:menuItem value="...">	            			     		
+	            			 </rich:menuItem>            			 	                 		
+	                 	</rich:dropDownMenu>	                 	
+	                 		                 		                 	                 	
+                 	</rich:toolBarGroup>
+                            	
+					 <rich:toolBarGroup  location="right">					 
+					    <rich:dropDownMenu value="Note rapide"   >	                 		
+	                 	</rich:dropDownMenu>					 	 
+					 </rich:toolBarGroup>					 	 				                                                 
+                
+                
+                </rich:toolBar>	
+               
+               <rich:toolBar itemSeparator="line"   >
+                	
+                </rich:toolBar>                
+				
+		</ui:define>
+		
+		
+	<!-- Definition du contenu du Formulaire  -->
+		<ui:define name="contenuFormulaire">
+						
+			<!--<iframe width="100%" height="550px" src="http://www.rhapsodyofrealities.org/rordocs/dailyror/french/ror8.pdf" scrolling="yes"   />-->
+			<iframe src="#{sessionScope.fileToPreviewPath}" width="100%" height="570" align="middle" ></iframe>
+			<!--
+			<object type="application/pdf" name="PDF" id="PDF">
+				<param name="src" value="ETAT_MINISTERE.pdf" />
+			</object> 
+			
+			<script type="text/javascript">
+				PDF.SetShowToolBar("false"); 
+				PDF.SetShowScrollbar("true");
+				PDF.SetPageMode("none"); 
+				PDF.setZoom(80%); 
+			</script>
+			-->																				
+		</ui:define>			
+		
+		<!-- Masquons la barre d'actions --> 
+		<ui:define name="barreActions">			
+			<rich:toolBar  >
+								
+				<rich:toolBarGroup location="right" >
+					<h:commandButton value="Terminer" action="#{requestCtrl.pageBeforePreview}"   immediate="true" />
+				</rich:toolBarGroup>
+												
+			</rich:toolBar>
+		</ui:define>
+		
+		<!-- Definition des modal panels  -->	
+		<ui:define name="tranversalFormModalPanel">
+				
+		</ui:define>				
+												
+	</ui:composition>
+</html>

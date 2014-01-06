@@ -25,6 +25,12 @@
 	            </rich:menuItem>
 	            
 	            <rich:menuSeparator />
+	            
+	            <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{conCtrl.openHomePage}"
+	                        ajaxSingle="true">
+	                        <h:outputText value="Conteneur" />       
+	            </rich:menuItem>
 
 			</rich:dropDownMenu>	
 			        			           			  		

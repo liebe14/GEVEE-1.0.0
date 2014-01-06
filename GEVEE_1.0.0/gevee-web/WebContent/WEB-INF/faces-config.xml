@@ -18,6 +18,11 @@
   </managed-property>
  </managed-bean>
  <managed-bean>
+  <managed-bean-name>requestCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.core.controleur.RequestCtrl</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
   <managed-bean-name>localeCtrl</managed-bean-name>
   <managed-bean-class>com.gss.gevee.ui.core.base.LocaleCtrl</managed-bean-class>
   <managed-bean-scope>application</managed-bean-scope>
@@ -41,6 +46,11 @@
   <navigation-case>
    <from-outcome>ChangePassword</from-outcome>
    <to-view-id>/shared/include/connexion/ChangePassword.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ViewDocument</from-outcome>
+   <to-view-id>/shared/pages/ViewDocument.xhtml</to-view-id>
+   <redirect/>
   </navigation-case>
  </navigation-rule>
  <application>

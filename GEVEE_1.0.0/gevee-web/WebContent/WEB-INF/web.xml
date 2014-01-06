@@ -2,7 +2,20 @@
 <web-app id="WebApp_ID" version="2.5"
  xmlns="http://java.sun.com/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <description>Facelets StarterKit</description>
  <display-name>gevee-web</display-name>
+ <context-param>
+  <param-name>com.sun.faces.validateXml</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <context-param>
+  <param-name>com.sun.faces.verifyObjects</param-name>
+  <param-value>false</param-value>
+ </context-param>
+ <context-param>
+  <param-name>facelets.DEVELOPMENT</param-name>
+  <param-value>false</param-value>
+ </context-param>
  <context-param>
   <param-name>facelets.REFRESH_PERIOD</param-name>
   <param-value>2</param-value>
@@ -19,10 +32,22 @@
   <param-name>org.ajax4jsf.SKIN</param-name>
   <param-value>classic</param-value>
  </context-param>
+ <context-param>
+  <param-name>org.ajax4jsf.handleViewExpiredOnClient</param-name>
+  <param-value>true</param-value>
+ </context-param>
  <filter>
   <display-name>Ajax4jsf Filter</display-name>
   <filter-name>ajax4jsf</filter-name>
   <filter-class>org.ajax4jsf.Filter</filter-class>
+  <init-param>
+   <param-name>createTempFiles</param-name>
+   <param-value>false</param-value>
+  </init-param>
+  <init-param>
+   <param-name>maxRequestSize</param-name>
+   <param-value>5000000</param-value>
+  </init-param>
  </filter>
  <filter-mapping>
   <filter-name>ajax4jsf</filter-name>
@@ -39,7 +64,18 @@
   <servlet-name>Faces Servlet</servlet-name>
   <url-pattern>*.jsf</url-pattern>
  </servlet-mapping>
+ <session-config>
+  <session-timeout>60</session-timeout>
+ </session-config>
  <welcome-file-list>
   <welcome-file>/index.html</welcome-file>
  </welcome-file-list>
+ <error-page>
+  <error-code>500</error-code>
+  <location>/shared/pages/ErrorDisplay.xhtml</location>
+ </error-page>
+ <error-page>
+  <exception-type>java.lang.Throwable</exception-type>
+  <location>/shared/pages/ErrorDisplay.xhtml</location>
+ </error-page>
 </web-app>
