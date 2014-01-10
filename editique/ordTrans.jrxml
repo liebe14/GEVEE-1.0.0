@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ordTrans" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<queryString language="xPath">
+		<![CDATA[/*/*/*]]>
+	</queryString>
+	<field name="numOrd" class="java.lang.String">
+		<fieldDescription><![CDATA[numOrd]]></fieldDescription>
+	</field>
+	<field name="numDos" class="java.lang.String">
+		<fieldDescription><![CDATA[numDos]]></fieldDescription>
+	</field>
+	<field name="enuAct" class="java.lang.String">
+		<fieldDescription><![CDATA[enuAct]]></fieldDescription>
+	</field>
+	<field name="valPoiTot" class="java.lang.String">
+		<fieldDescription><![CDATA[valPoiTot]]></fieldDescription>
+	</field>
+	<field name="nbrCol" class="java.lang.String">
+		<fieldDescription><![CDATA[nbrCol]]></fieldDescription>
+	</field>
+	<field name="lieuEnlev" class="java.lang.String">
+		<fieldDescription><![CDATA[lieuEnlev]]></fieldDescription>
+	</field>
+	<field name="lieuDecha" class="java.lang.String">
+		<fieldDescription><![CDATA[lieuDecha]]></fieldDescription>
+	</field>
+	<field name="datEnlev" class="java.lang.String">
+		<fieldDescription><![CDATA[datEnlev]]></fieldDescription>
+	</field>
+	<field name="datDecha" class="java.lang.String">
+		<fieldDescription><![CDATA[datDecha]]></fieldDescription>
+	</field>
+	<field name="libObs" class="java.lang.String">
+		<fieldDescription><![CDATA[libObs]]></fieldDescription>
+	</field>
+	<field name="numCon" class="java.lang.String">
+		<fieldDescription><![CDATA[numCon]]></fieldDescription>
+	</field>
+	<field name="enuTypCon" class="java.lang.String">
+		<fieldDescription><![CDATA[enuTypCon]]></fieldDescription>
+	</field>
+	<field name="enuAco" class="java.lang.String">
+		<fieldDescription><![CDATA[enuAco]]></fieldDescription>
+	</field>
+	<field name="numPlo1" class="java.lang.String">
+		<fieldDescription><![CDATA[numPlo1]]></fieldDescription>
+	</field>
+	<field name="numPlo2" class="java.lang.String">
+		<fieldDescription><![CDATA[numPlo2]]></fieldDescription>
+	</field>
+	<field name="valPoi" class="java.lang.String">
+		<fieldDescription><![CDATA[valPoi]]></fieldDescription>
+	</field>
+	<field name="valVol" class="java.lang.String">
+		<fieldDescription><![CDATA[valVol]]></fieldDescription>
+	</field>
+	<field name="enuMar" class="java.lang.String">
+		<fieldDescription><![CDATA[enuMar]]></fieldDescription>
+	</field>
+	<field name="numCom" class="java.lang.String">
+		<fieldDescription><![CDATA[numCom]]></fieldDescription>
+	</field>
+	<field name="client" class="java.lang.String">
+		<fieldDescription><![CDATA[client]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="213" splitType="Stretch">
+			<image>
+				<reportElement key="image" x="0" y="0" width="256" height="64"/>
+				<imageExpression class="java.lang.String"><![CDATA["Logo_gss.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement key="staticText" x="106" y="0" width="406" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GLOBAL SERVICES SARL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="215" y="37" width="180" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[TRANSPORT ET LOGISTIQUE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText" x="363" y="64" width="132" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman"/>
+				</textElement>
+				<text><![CDATA[ORDRE DE TRANSPORT N°]]></text>
+			</staticText>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField" x="495" y="64" width="57" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numOrd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" x="77" y="113" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[Numéro du dossier : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="171" y="113" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numDos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-2" x="77" y="138" width="45" height="18"/>
+				<textElement/>
+				<text><![CDATA[Activité :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="121" y="138" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{enuAct}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-3" x="77" y="162" width="56" height="18"/>
+				<textElement/>
+				<text><![CDATA[Poids total : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-4" x="77" y="186" width="84" height="20"/>
+				<textElement/>
+				<text><![CDATA[Nombre de colis :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="134" y="162" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{valPoiTot}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="161" y="186" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{nbrCol}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-5" x="279" y="93" width="100" height="18"/>
+				<textElement/>
+				<text><![CDATA[Lieu d'enlèvement :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-6" x="279" y="118" width="116" height="17"/>
+				<textElement/>
+				<text><![CDATA[Lieu de déchargement :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-7" x="279" y="142" width="95" height="19"/>
+				<textElement/>
+				<text><![CDATA[Date d'enlèvement :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-8" x="279" y="166" width="116" height="18"/>
+				<textElement/>
+				<text><![CDATA[Date de déchargement :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-9" x="279" y="186" width="63" height="21"/>
+				<textElement/>
+				<text><![CDATA[Observation :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="377" y="93" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lieuEnlev}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="393" y="118" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{lieuDecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="374" y="142" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{datEnlev}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="395" y="166" width="100" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{datDecha}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="342" y="186" width="151" height="18"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{libObs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="77" y="93" width="44" height="20"/>
+				<textElement/>
+				<text><![CDATA[Client : ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="115" y="93" width="156" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{client}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle-2" x="0" y="1" width="555" height="26" backcolor="#9999FF"/>
+			</rectangle>
+			<staticText>
+				<reportElement key="staticText-10" x="1" y="1" width="69" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[N° conteneur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-11" x="77" y="1" width="79" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Type conteneur]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-12" x="156" y="1" width="65" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Acconier]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-13" x="220" y="1" width="71" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Marchandise]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-14" x="291" y="1" width="72" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[N° commande]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-1" x="73" y="1" width="1" height="26"/>
+			</line>
+			<line>
+				<reportElement key="line-2" x="156" y="1" width="1" height="26"/>
+			</line>
+			<line>
+				<reportElement key="line-3" x="219" y="1" width="1" height="26"/>
+			</line>
+			<line>
+				<reportElement key="line-4" x="291" y="1" width="1" height="26"/>
+			</line>
+			<line>
+				<reportElement key="line-5" x="363" y="1" width="1" height="26"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-15" x="364" y="1" width="50" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Poids]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-6" x="414" y="1" width="1" height="26"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-16" x="415" y="1" width="43" height="26"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Volume]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-7" x="459" y="1" width="1" height="26"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-17" x="461" y="1" width="47" height="23"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Plomb1]]></text>
+			</staticText>
+			<line>
+				<reportElement key="line-8" x="508" y="1" width="1" height="26"/>
+			</line>
+			<staticText>
+				<reportElement key="staticText-18" x="508" y="-1" width="46" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Plomb2]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="28" splitType="Stretch">
+			<rectangle>
+				<reportElement key="rectangle-3" x="0" y="0" width="555" height="28"/>
+			</rectangle>
+			<line>
+				<reportElement key="line-9" x="73" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-10" x="156" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-11" x="219" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-12" x="291" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-13" x="363" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-14" x="414" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-15" x="459" y="0" width="1" height="28"/>
+			</line>
+			<line>
+				<reportElement key="line-16" x="508" y="0" width="1" height="28"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="4" y="0" width="70" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numCon}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="79" y="0" width="79" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{enuTypCon}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="158" y="0" width="65" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{enuAco}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="223" y="0" width="70" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{enuMar}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="293" y="0" width="72" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numCom}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="366" y="0" width="50" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{valPoi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0" isBlankWhenNull="true">
+				<reportElement key="textField" x="416" y="0" width="46" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{valVol}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="461" y="0" width="44" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numPlo1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="510" y="0" width="45" height="28"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{numPlo2}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="21" splitType="Stretch">
+			<textField pattern="EEEEE, dd MMMMM yyyy à HH:mm:ss">
+				<reportElement x="42" y="8" width="179" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="3" y="8" width="68" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<text><![CDATA[Edité le]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="256" y="8" width="141" height="10"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<text><![CDATA[Rapport généré par Gevee]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="452" y="8" width="74" height="10"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page "+$V{PAGE_NUMBER}+"/"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="526" y="8" width="40" height="10"/>
+				<textElement>
+					<font fontName="Times New Roman" size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

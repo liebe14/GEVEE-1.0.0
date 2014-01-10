@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><com.gss.gevee.be.mouv.serializer.SrlOrdTran>
+  <srlOrdTran>
+    <com.gss.gevee.be.mouv.serializer.SrlOrdTranElt>
+      <numOrd>087726</numOrd>
+      <numDos>087726/12/2013</numDos>
+      <enuAct>Export</enuAct>
+      <valPoiTot>6878T62</valPoiTot>
+      <nbrCol>785738.00</nbrCol>
+      <lieuEnlev>Douala International Terminal</lieuEnlev>
+      <lieuDecha>Parc à vide Armateur</lieuDecha>
+      <datEnlev>19/12/2013</datEnlev>
+      <datDecha>29/12/2013</datDecha>
+      <libObs>RAS</libObs>
+      <numCon>001</numCon>
+      <enuTypCon>20&apos; OPEN TOP</enuTypCon>
+      <enuAco>Necotrans</enuAco>
+      <numPlo1>777</numPlo1>
+      <numPlo2>TRE-T7762</numPlo2>
+      <valPoi>876T65</valPoi>
+      <valVol>877938.00</valVol>
+      <enuMar>Pièces détachées</enuMar>
+      <numCom>45689</numCom>
+	  <client>SOSUCAM</client>
+    </com.gss.gevee.be.mouv.serializer.SrlOrdTranElt>
+  </srlOrdTran>
+</com.gss.gevee.be.mouv.serializer.SrlOrdTran>
