@@ -14,6 +14,7 @@ import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
 import com.gss.gevee.be.core.sisv.base.BaseSisv;
 import com.gss.gevee.be.mouv.dao.IDaoDep;
+import com.gss.gevee.be.mouv.entity.TabCon;
 import com.gss.gevee.be.mouv.entity.TabDep;
 
 @Stateless
@@ -84,7 +85,6 @@ public class SisvDep extends BaseSisv<TabDep, String> implements ISisvDep{
 	@Override
 	public  TabDep cloturer(TabDep tabDep) throws GeveeSystemException {
 		try {
-			tabDep.setBooEstClo(BigDecimal.ONE);
 			return super.modifier(tabDep);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
@@ -96,7 +96,6 @@ public class SisvDep extends BaseSisv<TabDep, String> implements ISisvDep{
 	@Override
 	public  TabDep receptionner(TabDep tabDep) throws GeveeSystemException {
 		try {
-			tabDep.setBooEstRecep(BigDecimal.ONE);
 			return super.modifier(tabDep);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
@@ -104,5 +103,17 @@ public class SisvDep extends BaseSisv<TabDep, String> implements ISisvDep{
 			throw sbr;
 		}
 	}
+	
+	@Override
+	public  List<TabCon> rechercherConParEtatEnt(String etatEnt) throws GeveeSystemException {
+		try {
+			return daoDep.findConByEtatEnt(etatEnt); 
+		} catch (GeveePersistenceException e) {
+			e.printStackTrace();
+			GeveeSystemException sbr = new GeveeSystemException(e);
+			throw sbr;
+		}
+	}
+	
 
 }

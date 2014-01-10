@@ -1,7 +1,6 @@
 package com.gss.gevee.be.mouv.sisv;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -83,7 +82,6 @@ public class SisvMouv extends BaseSisv<TabMouv, String> implements ISisvMouv{
 	@Override
 	public  TabMouv valider(TabMouv tabMouv) throws GeveeSystemException {
 		try {
-			tabMouv.setBooEstVal(BigDecimal.ONE);
 			return super.modifier(tabMouv);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
@@ -91,4 +89,5 @@ public class SisvMouv extends BaseSisv<TabMouv, String> implements ISisvMouv{
 			throw sbr;
 		}
 	}
+	
 }
