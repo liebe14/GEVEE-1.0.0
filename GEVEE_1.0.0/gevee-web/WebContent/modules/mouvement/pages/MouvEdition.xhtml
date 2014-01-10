@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+    <f:view locale="#{localeCtrl.actual}" />
+  	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+  	
+  		<ui:param name="managedBean" value="#{sessionScope[mouvCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un mouvement" />
+						
+		<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+
+		<h:panelGroup>
+		<fieldset>
+			<legend> <h:outputText value="#{locale.infodep}" styleClass="legend" /> </legend>
+		 		<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+						
+						<h:outputText value="#{locale.refdep}" />
+						<h:inputText id="inpt_refdep" value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.codRefDep}" style="width: 40%" 
+								required="true"
+								readonly="true"  
+								title="#{locale.refdep}" disabled="false" >
+								<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						
+						<h:outputText value="#{locale.numordtrans}" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.tabOrdTran.numOrdTra}" style="width: 40%" readonly="true"  title="#{locale.numordtrans}"/>
+						
+						<h:outputText value="Client" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.tabOrdTran.tabClient.libNom}" style="width: 40%" readonly="true"  title="Client"/>
+						
+						<h:outputText value="#{locale.numcon}" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.numCon}" style="width: 40%" readonly="true"  title="#{locale.numcon}"/>
+						
+						<h:outputText value="Marchandise" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.LEnuTypMar}" style="width: 40%" readonly="true"  title="Marchandise"/>
+						
+						<h:outputText value="Type conteneur" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.LEnuTypCon}" style="width: 40%" readonly="true"  title="Type conteneur"/>
+						
+					</h:panelGrid>
+						
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+						
+						<h:outputText value="Acconier" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.LEnuAco}" style="width: 40%" readonly="true"  title="Acconier"/>
+						
+						<h:outputText value="#{locale.lieuenl}" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.tabOrdTran.tabLieuEnlev.libLieu}" style="width: 40%" readonly="true"  title="#{locale.lieuenl}"/>
+						
+						<h:outputText value="#{locale.lieudecha}" />											
+						<h:inputText  value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.tabOrdTran.tabLieuDecha.libLieu}" style="width: 40%" readonly="true"  title="#{locale.lieudecha}"/>
+						
+						<h:outputText value="#{locale.dateenlev}" />
+						<h:inputText value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.tabOrdTran.dateEnlev}" readonly="true" style="width: 30%" title="#{locale.dateenlev}"  >
+							<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						</h:inputText>
+						
+						<h:outputText value="#{locale.datedecha}" />
+						<h:inputText value="#{mouvCtrl.defaultVue.entiteCourante.tabDep.tabCon.tabOrdTran.dateDecha}" readonly="true" style="width: 30%" title="#{locale.datedecha}"  >
+							<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						</h:inputText>
+						
+					</h:panelGrid>
+					
+				</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>
+		
+		<h:panelGroup>
+		<fieldset>
+			<legend> <h:outputText value="#{locale.infogenerale}" styleClass="legend" /> </legend>
+			<h:panelGrid columns="3" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+				
+					<h:panelGroup>
+						<h:outputText value="#{locale.refmouv}" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:inputText id="inpt_refmouv" value="#{mouvCtrl.defaultVue.entiteCourante.codRefMouv}"
+							style="width: 60%" required="true"
+							requiredMessage="Valeur obligatoire"
+							title="#{locale.refmouv}" disabled="false" 
+							readonly="#{defaultVue.navigationMgr.enModification}">
+							<a4j:support event="onchange" ajaxSingle="true" />	
+						</h:inputText>
+						<rich:message for="inpt_refmouv" errorClass="msg_error" />
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<h:outputText value="Type de mouvement" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:selectOneMenu id="typmouv" value="#{mouvCtrl.defaultVue.entiteCourante.enuTypMouv}" style="width: 60%"
+								title="Type de mouvement"  immediate="true" required="true" requiredMessage="Valeur obligatoire">
+							<f:selectItems  value="#{mouvCtrl.defaultVue.listeTypemouv['map']}"/>
+							<a4j:support event="onchange" ajaxSingle="true" />						
+						</h:selectOneMenu>
+						<rich:message for="typmouv" errorClass="msg_error" />
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<h:outputText value="Sens du mouvement" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:selectOneMenu id="sensmouv" value="#{mouvCtrl.defaultVue.entiteCourante.enuSensMouv}" style="width: 60%"
+								title="Sens du mouvement"  immediate="true" required="true" requiredMessage="Valeur obligatoire">
+							<f:selectItems  value="#{mouvCtrl.defaultVue.listeSensMouv['map']}"/>
+							<a4j:support event="onchange" ajaxSingle="true" />						
+						</h:selectOneMenu>
+						<rich:message for="sensmouv" errorClass="msg_error" />
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<h:outputText value="Etat du conteneur" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:selectOneMenu id="etatcon" value="#{mouvCtrl.defaultVue.entiteCourante.enuEtatCon}" style="width: 60%"
+								title="Etat du conteneur"  immediate="true" required="true" requiredMessage="Valeur obligatoire">
+							<f:selectItems  value="#{mouvCtrl.defaultVue.listeEtatCon['map']}"/>
+							<a4j:support event="onchange" ajaxSingle="true" />						
+						</h:selectOneMenu>
+						<rich:message for="etatcon" errorClass="msg_error" />
+					</h:panelGroup>
+					
+					<h:outputText value="#{locale.lieudep}" />
+					<h:panelGroup>
+					<h:inputText id="inpt_codlieudep" value="#{mouvCtrl.defaultVue.entiteCourante.tabLieuDepar.codLieu}" style="width: 20%" 
+						required="true"
+						readonly="true" 
+						title="Code" disabled="false">
+						<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>	
+					<h:inputText id="inpt_liblieudep" value="#{mouvCtrl.defaultVue.entiteCourante.tabLieuDepar.libLieu}" style="width: 40%" 
+							required="false"
+							readonly="true"  
+							title="#{locale.libelle}" disabled="false"> 
+							<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>
+					<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+					<h:panelGroup>
+						<a4j:commandButton   value="..." action="#{mouvCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+         						<f:setPropertyActionListener value="MouvEdition" target="#{lieuCtrl.defaultVue.navigationMgr.selectionSource}" />
+         						<!-- MAJ de la destination en mode Selection   --> 
+           						<f:setPropertyActionListener value="true" target="#{lieuCtrl.defaultVue.navigationMgr.enSelection}" />  
+           						<!-- Nom du Controlleur de l'entite source  --> 
+          						<f:setPropertyActionListener value="mouvCtrl" target="#{lieuCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+          						<f:setPropertyActionListener value="LieuListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+          						<!-- Nom de la propriete a selectionner -->							         						             						
+          						<f:setPropertyActionListener value="tabLieuDepar" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+		             	</a4j:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+				
+				<h:outputText value="#{locale.lieudes}" />
+				<h:panelGroup>
+					<h:inputText id="inpt_codlieudes" value="#{mouvCtrl.defaultVue.entiteCourante.tabLieuArriv.codLieu}" style="width: 20%" 
+						required="true"
+						readonly="true" 
+						title="Code" disabled="false">
+						<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>	
+					<h:inputText id="inpt_liblieudes" value="#{mouvCtrl.defaultVue.entiteCourante.tabLieuArriv.libLieu}" style="width: 40%" 
+							required="false"
+							readonly="true"  
+							title="#{locale.libelle}" disabled="false"> 
+							<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>
+					<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+					<h:panelGroup>
+						<a4j:commandButton   value="..." action="#{mouvCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+         						<f:setPropertyActionListener value="MouvEdition" target="#{lieuCtrl.defaultVue.navigationMgr.selectionSource}" />
+         						<!-- MAJ de la destination en mode Selection   --> 
+           						<f:setPropertyActionListener value="true" target="#{lieuCtrl.defaultVue.navigationMgr.enSelection}" />  
+           						<!-- Nom du Controlleur de l'entite source  --> 
+          						<f:setPropertyActionListener value="mouvCtrl" target="#{lieuCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+          						<f:setPropertyActionListener value="LieuListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+          						<!-- Nom de la propriete a selectionner -->							         						             						
+          						<f:setPropertyActionListener value="tabLieuArriv" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+		             	</a4j:commandButton>
+					</h:panelGroup>
+				</h:panelGroup>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+				
+					<h:outputText value="Chauffeur" />
+					<h:panelGroup>
+						<h:inputText id="inpt_matchau" value="#{mouvCtrl.defaultVue.entiteCourante.tabChau.matChau}" style="width: 20%" 
+							required="true"
+							readonly="true" 
+							title="Matricule" disabled="false">
+							<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>	
+						<h:inputText id="inpt_nomchau" value="#{mouvCtrl.defaultVue.entiteCourante.tabChau.libNom}" style="width: 40%" 
+								required="false"
+								readonly="true"  
+								title="Nom" disabled="false"> 
+								<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+						<h:panelGroup>
+							<a4j:commandButton   value="..." action="#{mouvCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+	           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+	         						<f:setPropertyActionListener value="MouvEdition" target="#{chauCtrl.defaultVue.navigationMgr.selectionSource}" />
+	         						<!-- MAJ de la destination en mode Selection   --> 
+	           						<f:setPropertyActionListener value="true" target="#{chauCtrl.defaultVue.navigationMgr.enSelection}" />  
+	           						<!-- Nom du Controlleur de l'entite source  --> 
+	          						<f:setPropertyActionListener value="mouvCtrl" target="#{chauCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+	          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+	          						<f:setPropertyActionListener value="ChauListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+	          						<!-- Nom de la propriete a selectionner -->							         						             						
+	          						<f:setPropertyActionListener value="tabChau" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+			             	</a4j:commandButton>
+						</h:panelGroup>
+					</h:panelGroup>
+					
+					<h:outputText value="Tracteur" />
+					<h:panelGroup>
+						<h:inputText id="inpt_numtrac" value="#{mouvCtrl.defaultVue.entiteCourante.tabTrac.numParc}" style="width: 20%" 
+							required="true"
+							readonly="true" 
+							title="#{locale.numparc}" disabled="false">
+							<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>	
+						<h:inputText id="inpt_nummat" value="#{mouvCtrl.defaultVue.entiteCourante.tabTrac.numMat}" style="width: 40%" 
+								required="false"
+								readonly="true"  
+								title="#{locale.numimma}" disabled="false"> 
+								<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+						<h:panelGroup>
+							<a4j:commandButton   value="..." action="#{mouvCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+	           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+	         						<f:setPropertyActionListener value="MouvEdition" target="#{tracCtrl.defaultVue.navigationMgr.selectionSource}" />
+	         						<!-- MAJ de la destination en mode Selection   --> 
+	           						<f:setPropertyActionListener value="true" target="#{tracCtrl.defaultVue.navigationMgr.enSelection}" />  
+	           						<!-- Nom du Controlleur de l'entite source  --> 
+	          						<f:setPropertyActionListener value="mouvCtrl" target="#{tracCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+	          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+	          						<f:setPropertyActionListener value="TracListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+	          						<!-- Nom de la propriete a selectionner -->							         						             						
+	          						<f:setPropertyActionListener value="tabTrac" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+			             	</a4j:commandButton>
+						</h:panelGroup>
+					</h:panelGroup>
+					
+					<h:outputText value="Remorque" />
+					<h:panelGroup>
+						<h:inputText id="inpt_numrem" value="#{mouvCtrl.defaultVue.entiteCourante.tabRem.numParc}" style="width: 20%" 
+							required="true"
+							readonly="true" 
+							title="#{locale.numparc}" disabled="false">
+							<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>	
+						<h:inputText id="inpt_nummatrem" value="#{mouvCtrl.defaultVue.entiteCourante.tabRem.numMat}" style="width: 40%" 
+								required="false"
+								readonly="true"  
+								title="#{locale.numimma}" disabled="false"> 
+								<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+						<h:panelGroup>
+							<a4j:commandButton   value="..." action="#{mouvCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+	           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+	         						<f:setPropertyActionListener value="MouvEdition" target="#{remCtrl.defaultVue.navigationMgr.selectionSource}" />
+	         						<!-- MAJ de la destination en mode Selection   --> 
+	           						<f:setPropertyActionListener value="true" target="#{remCtrl.defaultVue.navigationMgr.enSelection}" />  
+	           						<!-- Nom du Controlleur de l'entite source  --> 
+	          						<f:setPropertyActionListener value="mouvCtrl" target="#{remCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+	          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+	          						<f:setPropertyActionListener value="RemListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+	          						<!-- Nom de la propriete a selectionner -->							         						             						
+	          						<f:setPropertyActionListener value="tabRem" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+			             	</a4j:commandButton>
+						</h:panelGroup>
+					</h:panelGroup>
+					
+					<h:outputText value="#{locale.datedep}" />						
+					<rich:calendar value="#{mouvCtrl.defaultVue.entiteCourante.dateDepar}" inputStyle="width: 30%"  title="#{locale.datedep}" 
+							styleClass="selectDate"  datePattern="dd/MM/yyyy">
+						<a4j:support event="onchanged" ajaxSingle="true" />
+					</rich:calendar>
+					
+					<h:outputText value="#{locale.heuredep}" />
+					<h:inputText value="#{mouvCtrl.defaultVue.entiteCourante.heurDepar}"> 
+						<f:convertDateTime pattern="HH:mm"/> 
+					</h:inputText> 
+					
+					<h:outputText value="#{locale.datearriv}" />						
+					<rich:calendar value="#{mouvCtrl.defaultVue.entiteCourante.dateArriv}" inputStyle="width: 30%"  title="#{locale.datearriv}" 
+							styleClass="selectDate"  datePattern="dd/MM/yyyy">
+						<a4j:support event="onchanged" ajaxSingle="true" />
+					</rich:calendar>
+					
+					<h:outputText value="#{locale.heurearriv}" />
+					<h:inputText value="#{mouvCtrl.defaultVue.entiteCourante.heurArriv}"> 
+						<f:convertDateTime pattern="HH:mm"/> 
+					</h:inputText> 
+					
+			    </h:panelGrid>
+			
+			</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>																															
+	  </ui:define>	
+		
+	</ui:composition>
+	
+</html>

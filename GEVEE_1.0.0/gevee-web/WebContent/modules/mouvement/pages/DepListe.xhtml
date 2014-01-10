@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<f:view locale="#{localeCtrl.actual}" />
+   	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		<ui:param name="managedBean" value="#{sessionScope[depCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" #{locale.desdep}" />
+				
+		<!-- Crit�res standards de recherche -->
+		<ui:define name="standardFilter"  >
+			
+			<h:panelGrid columns="2" width="100%" border="0" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				
+				<h:outputText value="#{locale.refdep} " />
+				<h:panelGroup>
+					<h:inputText value="#{entiteRecherche.codRefDep}" style="width: 20%" title="#{locale.refdep}" />
+				</h:panelGroup>	
+				
+				<h:outputText value="#{locale.numordtrans}" />	
+				<h:panelGroup>
+					<h:inputText id="numord" value="#{depCtrl.defaultVue.entiteRecherche.tabCon.tabOrdTran.numOrdTra}" style="width: 60%"  onclick="#{rich:component('suggest')}.callSuggestion(true)" >
+						<a4j:support event="onblur" ajaxSingle="true"/>
+					</h:inputText>
+					<rich:suggestionbox id="suggest" for="numord" suggestionAction="#{depCtrl.autoCompleteOrd}" var="valeur" 
+						fetchValue="#{valeur.numOrdTra}" ajaxSingle="true"  >
+						
+						<f:facet name="nothingLabel">			
+		               		<h:outputText value="" />			
+		                </f:facet>	
+						
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{locale.numordtrans}"/>
+							</f:facet>												
+							<h:outputText value="#{valeur.numOrdTra}" />
+						</h:column>												
+						<h:column>
+							<f:facet name="header">
+								<h:outputText value="#{locale.numdossier}"/>
+							</f:facet>												
+							<h:outputText value="#{valeur.numDoss}" />
+						</h:column>
+																		
+					</rich:suggestionbox>																	
+				</h:panelGroup>
+				
+			</h:panelGrid>
+											
+		</ui:define>
+		
+		<!-- Colonnes sp�cifiques � l'entit� -->
+		<ui:define name="specificColumns"  > 
+						
+			<rich:column label="#{locale.refdep}" sortBy="#{entity.codRefDep}" filterBy="#{entity.codRefDep}" width="150" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.refdep}" />
+				</f:facet>
+				<h:outputText value="#{entity.codRefDep}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.numcon}" sortBy="#{entity.tabCon.numCon}" filterBy="#{entity.tabCon.numCon}"  width="150">
+				<f:facet name="header">
+					<h:outputText value="#{locale.numcon}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabCon.numCon}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.dateeffenlev}" sortBy="#{entity.dateEffEnlev}" filterBy="#{entity.dateEffEnlev}"  width="175">
+				<f:facet name="header">
+					<h:outputText value="#{locale.dateeffenlev}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateEffEnlev}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>
+			
+			<rich:column label="#{locale.dateeffdecha}" sortBy="#{entity.dateEffDecha}" filterBy="#{entity.dateEffDecha}" width="175" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.dateeffdecha}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateEffDecha}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>
+			
+			<rich:column label="#{locale.dateestretour}" sortBy="#{entity.dateEstRet}" filterBy="#{entity.dateEstRet}" width="175" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.dateestretour}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateEstRet}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>
+			
+			<rich:column label="Caution" sortBy="#{entity.valCau}" filterBy="#{entity.valCau}" width="100" >
+				<f:facet name="header">
+					<h:outputText value="Caution" />
+				</f:facet>
+				<h:outputText value="#{entity.valCau}" />				
+			</rich:column>
+			
+			<rich:column label="#{locale.detention}" sortBy="#{entity.valDet}" filterBy="#{entity.valDet}" width="100" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.detention}" />
+				</f:facet>
+				<h:outputText value="#{entity.valDet}" />				
+			</rich:column>
+			
+		</ui:define>	
+		
+		 <!-- Definition des modal panels  -->	
+		<ui:define name="modalPanel">			
+			<ui:include src="/modules/mouvement/include/modalPanel/Receptionner.xhtml" />
+		</ui:define>
+									
+	</ui:composition>
+	
+</html>

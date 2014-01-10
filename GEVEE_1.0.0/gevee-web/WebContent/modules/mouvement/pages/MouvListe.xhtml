@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<f:view locale="#{localeCtrl.actual}" />
+   	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		<ui:param name="managedBean" value="#{sessionScope[mouvCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des mouvements" />
+				
+		<!-- Crit�res standards de recherche -->
+		<ui:define name="standardFilter"  >
+			
+			<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+				<h:panelGrid columns="2" width="100%" border="0" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+					
+					<h:outputText value="#{locale.refdep} " />
+					<h:panelGroup>
+						<h:inputText id="refdep" value="#{mouvCtrl.defaultVue.entiteRecherche.tabDep.codRefDep}" style="width: 60%"  onclick="#{rich:component('suggestdep')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggestdep" for="refdep" suggestionAction="#{mouvCtrl.autoCompleteRefDep}" var="valeur" 
+							fetchValue="#{valeur.codRefDep}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.refdep}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codRefDep}" />
+							</h:column>												
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+					
+					<h:outputText value="Type de mouvement" />
+					<h:selectOneMenu id="typcon" value="#{mouvCtrl.defaultVue.entiteRecherche.enuTypMouv}" style="width: 60%"
+							title="Type de mouvement"  immediate="true">
+						<f:selectItems  value="#{mouvCtrl.defaultVue.listeTypemouv['map']}"/>
+						<a4j:support event="onchange" ajaxSingle="true" />						
+					</h:selectOneMenu>
+					
+					<h:outputText value="Matricule chauffeur" />	
+					<h:panelGroup>
+						<h:inputText id="matchau" value="#{mouvCtrl.defaultVue.entiteRecherche.tabChau.matChau}" style="width: 60%"  onclick="#{rich:component('suggestchau')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggestchau" for="matchau" suggestionAction="#{mouvCtrl.autoCompleteChau}" var="valeur" 
+							fetchValue="#{valeur.matChau}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Matricule"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.matChau}" />
+							</h:column>												
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Nom"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.libNom}" />
+							</h:column>
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+										
+				</h:panelGrid>	
+				
+				<h:panelGrid columns="2" width="100%" border="0" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+				
+					<h:outputText value="#{locale.lieudep}" />	
+					<h:panelGroup>
+						<h:inputText id="lieudep" value="#{mouvCtrl.defaultVue.entiteRecherche.tabLieuDepar.libLieu}" style="width: 60%"  onclick="#{rich:component('suggestlieudep')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggestlieudep" for="lieudep" suggestionAction="#{mouvCtrl.autoCompleteLieuDep}" var="valeur" 
+							fetchValue="#{valeur.libLieu}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							 
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Code"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codLieu}" />
+							</h:column>												
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.libelle}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.libLieu}" />
+							</h:column>
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+					
+					<h:outputText value="#{locale.lieudes}" />	
+					<h:panelGroup>
+						<h:inputText id="lieudes" value="#{mouvCtrl.defaultVue.entiteRecherche.tabLieuArriv.libLieu}" style="width: 60%"  onclick="#{rich:component('suggeslieudes')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggeslieudes" for="lieudes" suggestionAction="#{mouvCtrl.autoCompleteLieuArriv}" var="valeur" 
+							fetchValue="#{valeur.libLieu}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Code"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codLieu}" />
+							</h:column>												
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.libelle}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.libLieu}" />
+							</h:column>
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+				
+				  </h:panelGrid>
+											
+				</h:panelGrid>	
+									 																																													
+		</ui:define>
+		
+		<!-- Colonnes sp�cifiques � l'entit� -->
+		<ui:define name="specificColumns"  >
+						
+			<rich:column label="#{locale.refmouv}" sortBy="#{entity.codRefMouv}" filterBy="#{entity.codRefMouv}" width="100" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.refmouv}" />
+				</f:facet>
+				<h:outputText value="#{entity.codRefMouv}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.numcon}" sortBy="#{entity.tabDep.tabCon.numCon}" filterBy="#{entity.tabDep.tabCon.numCon}" width="100" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.numcon}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabDep.tabCon.numCon}" />				
+			</rich:column>	
+			
+			<rich:column label="Etat conteneur" sortBy="#{entity.LEnuEtatCon}" filterBy="#{entity.LEnuEtatCon}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Etat du conteneur" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuEtatCon}" />				
+			</rich:column>
+			
+			<rich:column label="Type mouvement" sortBy="#{entity.LEnuTypMouv}" filterBy="#{entity.LEnuTypMouv}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Type de mouvement" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuTypMouv}" />				
+			</rich:column>
+			
+			<rich:column label="Sens mouvement" sortBy="#{entity.LEnuSensMouv}" filterBy="#{entity.LEnuSensMouv}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Sens du mouvement" />
+				</f:facet>
+				<h:outputText value="#{entity.LEnuSensMouv}" />				
+			</rich:column>
+			
+			<rich:column label="Chauffeur" sortBy="#{entity.tabChau.libNom}" filterBy="#{entity.tabChau.libNom}"  width="125">
+				<f:facet name="header">
+					<h:outputText value="Chauffeur" />
+				</f:facet>
+				<h:outputText value="#{entity.tabChau.libNom}" />				
+			</rich:column>	
+			
+			<rich:column label="Tracteur" sortBy="#{entity.tabTrac.numMat}" filterBy="#{entity.tabTrac.numMat}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Tracteur" />
+				</f:facet>
+				<h:outputText value="#{entity.tabTrac.numMat}" />				
+			</rich:column>	
+			
+			<rich:column label="Remorque" sortBy="#{entity.tabRem.numMat}" filterBy="#{entity.tabRem.numMat}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="Remorque" />
+				</f:facet>
+				<h:outputText value="#{entity.tabRem.numMat}" />				
+			</rich:column>
+			
+			<rich:column label="#{locale.lieudep}" sortBy="#{entity.tabLieuDepar.libLieu}" filterBy="#{entity.tabLieuDepar.libLieu}"  width="150">
+				<f:facet name="header">
+					<h:outputText value="#{locale.lieudep}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabLieuDepar.libLieu}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.lieudes}" sortBy="#{entity.tabLieuArriv.libLieu}" filterBy="#{entity.tabLieuArriv.libLieu}"  width="150">
+				<f:facet name="header">
+					<h:outputText value="#{locale.lieudes}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabLieuArriv.libLieu}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.datedep}" sortBy="#{entity.dateDepar}" filterBy="#{entity.dateDepar}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="#{locale.datedep}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateDepar}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>	
+			
+			<rich:column label="#{locale.datearriv}" sortBy="#{entity.dateArriv}" filterBy="#{entity.dateArriv}"  width="100">
+				<f:facet name="header">
+					<h:outputText value="#{locale.datearriv}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateArriv}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>	
+			
+		</ui:define>	
+									
+	</ui:composition>
+	
+</html>

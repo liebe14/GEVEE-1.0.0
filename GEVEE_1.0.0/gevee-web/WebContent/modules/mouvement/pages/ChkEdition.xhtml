@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+    <f:view locale="#{localeCtrl.actual}" />
+  	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+  	
+  		<ui:param name="managedBean" value="#{sessionScope[chkCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" d'un chekpoint" />
+						
+		<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+
+		<h:panelGroup>
+		<fieldset>
+			<legend> <h:outputText value="Information sur le mouvement" styleClass="legend" /> </legend>
+		 		<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+						
+						<h:outputText value="#{locale.refmouv}" />
+						<h:inputText id="inpt_refmouv" value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.codRefMouv}" style="width: 40%" 
+								readonly="true"  
+								title="#{locale.refmouv}" disabled="false" >
+								<a4j:support event="onchange" ajaxSingle="true" />
+						</h:inputText>
+						
+						<h:outputText value="Type de mouvement" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.LEnuTypMouv}" style="width: 40%" readonly="true"  title="Type de mouvement"/>
+						
+						<h:outputText value="Sens du mouvement" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.LEnuSensMouv}" style="width: 40%" readonly="true"  title="Sens du mouvement"/>
+						
+						<h:outputText value="Etat du conteneur" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.LEnuEtatCon}" style="width: 40%" readonly="true"  title="#{locale.numcon}"/>
+						
+					</h:panelGrid>
+						
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+						
+						<h:outputText value="#{locale.lieudep}" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.tabLieuDepar.libLieu}" style="width: 40%" readonly="true"  title="#{locale.lieudep}"/>
+						
+						<h:outputText value="#{locale.lieudes}" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.tabLieuArriv.libLieu}" style="width: 40%" readonly="true"  title="#{locale.lieudes}"/>
+						
+						<h:outputText value="#{locale.datedep}" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.dateDepar}" style="width: 40%" readonly="true"  title="#{locale.datedep}">
+							<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						</h:inputText>
+						
+						<h:outputText value="#{locale.datearriv}" />											
+						<h:inputText  value="#{chkCtrl.defaultVue.entiteCourante.tabMouv.dateArriv}" style="width: 40%" readonly="true"  title="#{locale.datearriv}">
+							<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						</h:inputText>
+						
+					</h:panelGrid>
+				</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>
+		
+		<h:panelGroup>
+		<fieldset>
+			<legend> <h:outputText value="#{locale.infogenerale}" styleClass="legend" /> </legend>
+			<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+				
+					<h:panelGroup>
+						<h:outputText value="#{locale.refchk}" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:inputText id="inpt_refchk" value="#{chkCtrl.defaultVue.entiteCourante.codRefChk}"
+							style="width: 60%" 
+							required="true"
+							requiredMessage="Valeur obligatoire"
+							title="#{locale.refchk}" disabled="false" 
+							readonly="#{defaultVue.navigationMgr.enModification}">
+							<a4j:support event="onchange" ajaxSingle="true" />	
+						</h:inputText>
+						<rich:message for="inpt_refchk" errorClass="msg_error" />
+					</h:panelGroup>
+					
+					<h:panelGroup>
+						<h:outputText value="#{locale.lieuarret}" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+					<h:inputText id="inpt_codlieuarret" value="#{chkCtrl.defaultVue.entiteCourante.tabLieu.codLieu}" style="width: 20%" 
+						readonly="true" 
+						required="true" requiredMessage="Valeur obligatoire"
+						title="Code" disabled="false">
+						<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>	
+					<h:inputText id="inpt_liblieuarret" value="#{chkCtrl.defaultVue.entiteCourante.tabLieu.libLieu}" style="width: 40%" 
+							readonly="true"  
+							title="#{locale.libelle}" disabled="false"> 
+							<a4j:support event="onchange" ajaxSingle="true" />
+					</h:inputText>
+					<!--  Selection d'une Entite avec envoi des parametres correspondants  -->
+					<h:panelGroup>
+						<a4j:commandButton   value="..." action="#{chkCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+         						<f:setPropertyActionListener value="ChkEdition" target="#{lieuCtrl.defaultVue.navigationMgr.selectionSource}" />
+         						<!-- MAJ de la destination en mode Selection   --> 
+           						<f:setPropertyActionListener value="true" target="#{lieuCtrl.defaultVue.navigationMgr.enSelection}" />  
+           						<!-- Nom du Controlleur de l'entite source  --> 
+          						<f:setPropertyActionListener value="chkCtrl" target="#{lieuCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+          						<f:setPropertyActionListener value="LieuListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+          						<!-- Nom de la propriete a selectionner -->							         						             						
+          						<f:setPropertyActionListener value="tabLieu" target="#{defaultVue.navigationMgr.selectionPropertyName}" />            						             						          						             				            					      						
+		             	</a4j:commandButton>
+					</h:panelGroup>
+					<rich:message for="inpt_codlieuarret" errorClass="msg_error" />
+				</h:panelGroup>
+				
+				<h:outputText value="#{locale.datearret}" />						
+				<rich:calendar value="#{chkCtrl.defaultVue.entiteCourante.dateChk}" inputStyle="width: 30%"  title="#{locale.datearret}" 
+						styleClass="selectDate"  datePattern="dd/MM/yyyy">
+					<a4j:support event="onchanged" ajaxSingle="true" />
+				</rich:calendar>
+				
+				<h:outputText value="Commentaire" />
+				<h:inputTextarea id="inpt_comm" value="#{chkCtrl.defaultVue.entiteCourante.libCom}" style="width: 60%" 
+					title="Commentaire"  >
+					<a4j:support event="onchange" ajaxSingle="true" />
+				</h:inputTextarea>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+				
+				</h:panelGrid>
+				
+			</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>																															
+	  </ui:define>	
+		
+	</ui:composition>
+	
+</html>

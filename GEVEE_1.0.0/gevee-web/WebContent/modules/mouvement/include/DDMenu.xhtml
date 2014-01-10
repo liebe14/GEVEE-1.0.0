@@ -14,24 +14,56 @@
 				<f:facet name="label">
 					<h:panelGrid cellpadding="0" cellspacing="0" columns="2"
 						style="vertical-align:middle">
-						<h:outputText value="Mouvement" title="gestion des mouvements"/>
+						<h:outputText value="Mouvement" title="gestion des conteneurs et des mouvements"/>
 					</h:panelGrid>
 				</f:facet>
 				
-               <rich:menuItem submitMode="ajax" rendered="true" 
-	                        action="#{ordCtrl.openHomePage}"
-	                        ajaxSingle="true">
-	                        <h:outputText value="Ordre de transport" />       
-	            </rich:menuItem>
+				<rich:menuGroup value="gestion des conteneurs" rendered="true">
+				
+					<rich:menuItem submitMode="ajax" rendered="true" 
+                       action="#{ordCtrl.openHomePage}"
+                       ajaxSingle="true">
+                       <h:outputText value="Ordre de transport" />       
+	           		</rich:menuItem>
 	            
+	               <rich:menuSeparator />
+	            
+		            <rich:menuItem submitMode="ajax" rendered="true" 
+	                       action="#{conCtrl.openHomePage}"
+	                       ajaxSingle="true">
+	                       <h:outputText value="Conteneur" />       
+		            </rich:menuItem>
+                
+                </rich:menuGroup>
+                
 	            <rich:menuSeparator />
 	            
-	            <rich:menuItem submitMode="ajax" rendered="true" 
-	                        action="#{conCtrl.openHomePage}"
+	            <rich:menuGroup value="gestion des mouvements" rendered="true">
+				
+					 <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{depCtrl.openHomePage}"
 	                        ajaxSingle="true">
-	                        <h:outputText value="Conteneur" />       
-	            </rich:menuItem>
-
+	                        <h:outputText value="#{locale.dep}" />       
+		            </rich:menuItem>
+		            
+		             <rich:menuSeparator />
+		            
+		            <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{mouvCtrl.openHomePage}"
+	                        ajaxSingle="true">
+	                        <h:outputText value="Mouvement" />       
+		            </rich:menuItem>
+		            
+		            <rich:menuSeparator />
+		            
+		            <rich:menuItem submitMode="ajax" rendered="true" 
+	                        action="#{chkCtrl.openHomePage}"
+	                        ajaxSingle="true">
+	                        <h:outputText value="Chekpoint" />       
+		            </rich:menuItem>
+                
+                </rich:menuGroup>
+	            
 			</rich:dropDownMenu>	
 			        			           			  		
    		</ui:composition>

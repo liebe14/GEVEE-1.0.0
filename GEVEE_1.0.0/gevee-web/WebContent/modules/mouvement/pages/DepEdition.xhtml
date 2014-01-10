@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+    <f:view locale="#{localeCtrl.actual}" />
+  	<ui:composition template="/shared/templates/templateFormulaireEdition.xhtml">
+  	
+  		<ui:param name="managedBean" value="#{sessionScope[depCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" #{locale.dundep}" />
+						
+		<!-- Definition du contenu de l'ecran principal  -->
+		<ui:define name="ecranPrincipalContenu">
+
+		<h:panelGroup>
+		<fieldset>
+			<legend> <h:outputText value="Information sur le conteneur" styleClass="legend" /> </legend>
+		 		<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+						
+						<h:panelGroup>
+							<h:outputText value="#{locale.numcon}" />
+							<ui:include src="/shared/include/required.xhtml" />
+						</h:panelGroup>
+						<h:panelGroup>				          					
+		  					<h:inputText id="inpt_numcon" value="#{depCtrl.defaultVue.entiteCourante.tabCon.numCon}" style="width: 40%" 
+									required="true"
+									readonly="true"  
+									title="#{locale.numcon}" disabled="false" >
+									<a4j:support event="onchange" ajaxSingle="true" />
+							</h:inputText>
+							<rich:message for="inpt_numcon" errorClass="msg_error" />
+          					<!-- Selection d'une Entite avec envoi des parametres correspondants  -->
+           					<a4j:commandButton   value="..." action="#{depCtrl.makeSelection}" ajaxSingle="true" immediate="true" disabled="false" >   	
+           						<!-- Regle de Navigation permettant de revenir a la page source   -->           					          							
+         						<f:setPropertyActionListener value="DepEdition" target="#{conCtrl.defaultVue.navigationMgr.selectionSource}" />
+         						<!-- MAJ de la destination en mode Selection   --> 
+           						<f:setPropertyActionListener value="true" target="#{conCtrl.defaultVue.navigationMgr.enSelection}" />  
+           						<!-- Nom du Controlleur de la l'entite source  --> 
+          						<f:setPropertyActionListener value="depCtrl" target="#{conCtrl.defaultVue.navigationMgr.selectionBeanCtrlName}" /> 
+          						<!-- Regle de Navigation permettant d'atteindre le formulaire de destination  -->   
+          						<f:setPropertyActionListener value="ConListe" target="#{defaultVue.navigationMgr.selectionDestination}" />	
+          						<!-- Nom de la propriete a selectionner -->							         						             						
+          						<f:setPropertyActionListener value="tabCon" target="#{defaultVue.navigationMgr.selectionPropertyName}" />
+          						<!-- Filtre de la destination en mode Selection   --> 
+           						<f:setPropertyActionListener value="#{depCtrl.enuEtat}" target="#{conCtrl.defaultVue.entiteRecherche.etatEnt}" />
+             				</a4j:commandButton>																												
+						</h:panelGroup>	
+						
+						<h:outputText value="#{locale.numordtrans}" />											
+						<h:inputText  value="#{depCtrl.defaultVue.entiteCourante.tabCon.tabOrdTran.numOrdTra}" style="width: 40%" readonly="true"  title="#{locale.numordtrans}"/>
+						
+						<h:outputText value="Client" />											
+						<h:inputText  value="#{depCtrl.defaultVue.entiteCourante.tabCon.tabOrdTran.tabClient.libNom}" style="width: 40%" readonly="true"  title="#{locale.numordtrans}"/>
+						
+						<h:outputText value="Marchandise" />											
+						<h:inputText  value="#{depCtrl.defaultVue.entiteCourante.tabCon.LEnuTypMar}" style="width: 40%" readonly="true"  title="#{locale.numordtrans}"/>
+						
+						<h:outputText value="Type conteneur" />											
+						<h:inputText  value="#{depCtrl.defaultVue.entiteCourante.tabCon.LEnuTypCon}" style="width: 40%" readonly="true"  title="#{locale.numordtrans}"/>
+						
+						<h:outputText value="Acconier" />											
+						<h:inputText  value="#{depCtrl.defaultVue.entiteCourante.tabCon.LEnuAco}" style="width: 40%" readonly="true"  title="#{locale.numordtrans}"/>
+						
+						<h:outputText value="#{locale.dateenlev}" />
+						<h:inputText value="#{depCtrl.defaultVue.entiteCourante.tabCon.tabOrdTran.dateEnlev}" readonly="true" style="width: 30%" title="#{locale.dateenlev}"  >
+							<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						</h:inputText>
+						
+						<h:outputText value="#{locale.datedecha}" />
+						<h:inputText value="#{depCtrl.defaultVue.entiteCourante.tabCon.tabOrdTran.dateDecha}" readonly="true" style="width: 30%" title="#{locale.datedecha}"  >
+							<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						</h:inputText>
+						
+					</h:panelGrid>
+						
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+						
+					</h:panelGrid>
+					
+				</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>
+		
+		<h:panelGroup>
+		<fieldset>
+			<legend> <h:outputText value="#{locale.infogenerale}" styleClass="legend" /> </legend>
+			<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+				
+					<h:panelGroup>
+						<h:outputText value="#{locale.refdep}" />
+						<ui:include src="/shared/include/required.xhtml" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:inputText id="inpt_refdep" value="#{depCtrl.defaultVue.entiteCourante.codRefDep}"
+							style="width: 40%" required="true"
+							requiredMessage="Valeur obligatoire"
+							title="#{locale.refdep}" disabled="false" 
+							rendered="#{! depCtrl.defaultVue.navigationMgr.enModification}">
+							<a4j:support event="onchange" ajaxSingle="true" />	
+						</h:inputText>
+						<rich:message for="inpt_refdep" errorClass="msg_error" />
+					</h:panelGroup>
+					
+					<h:outputText value="#{locale.dateeffenlev}" />						
+					<rich:calendar value="#{depCtrl.defaultVue.entiteCourante.dateEffEnlev}" inputStyle="width: 30%"  title="#{locale.dateeffenlev}" 
+							styleClass="selectDate"  datePattern="dd/MM/yyyy">
+						<a4j:support event="onchanged" ajaxSingle="true" />
+					</rich:calendar>
+					
+					<h:outputText value="#{locale.dateestretour}" />						
+					<rich:calendar value="#{depCtrl.defaultVue.entiteCourante.dateEstRet}" inputStyle="width: 30%"  title="#{locale.dateestretour}" 
+							styleClass="selectDate"  datePattern="dd/MM/yyyy">
+						<a4j:support event="onchanged" ajaxSingle="true" />
+					</rich:calendar>
+					
+					<h:outputText value="Cautionner ?" />
+					<h:selectBooleanCheckbox value="#{depCtrl.defaultVue.entiteCourante.BEstCau}" >
+						<a4j:support ajaxSingle="true"  event="onchange" reRender="mnt_cau1,mnt_cau2"/>
+					</h:selectBooleanCheckbox>
+					
+					<h:panelGroup id="mnt_cau1">
+						<h:outputText value="Montant caution" rendered="#{depCtrl.defaultVue.entiteCourante.BEstCau}"/>
+					</h:panelGroup>
+					<h:panelGroup id="mnt_cau2">
+						<h:inputText id="inpt_cau" value="#{depCtrl.defaultVue.entiteCourante.valCau}"  styleClass="money"  rendered="#{depCtrl.defaultVue.entiteCourante.BEstCau}"
+							 required="false" style="width: 20%" 
+							  title="Montant caution"
+							 converterMessage="#{msg['erreur.conversion.entiere']}"  >
+						</h:inputText>
+					</h:panelGroup>
+					
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdLColRightDynamic" cellspacing="10" >
+					
+			    </h:panelGrid>
+			
+			</h:panelGrid>
+		</fieldset>
+		</h:panelGroup>																															
+	  </ui:define>	
+		
+	</ui:composition>
+	
+</html>

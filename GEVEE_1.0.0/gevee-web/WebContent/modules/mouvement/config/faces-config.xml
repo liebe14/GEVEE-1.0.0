@@ -12,6 +12,21 @@
   <managed-bean-class>com.gss.gevee.ui.mouv.controleur.ConCtrl</managed-bean-class>
   <managed-bean-scope>session</managed-bean-scope>
  </managed-bean>
+ <managed-bean>
+  <managed-bean-name>depCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.mouv.controleur.DepCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>mouvCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.mouv.controleur.MouvCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+  <managed-bean>
+  <managed-bean-name>chkCtrl</managed-bean-name>
+  <managed-bean-class>com.gss.gevee.ui.mouv.controleur.ChkCtrl</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
  <navigation-rule>
   <from-view-id>*</from-view-id>
   <navigation-case>
@@ -31,6 +46,48 @@
   <navigation-case>
    <from-outcome>ConListe</from-outcome>
    <to-view-id>/modules/mouvement/pages/ConListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>DepDetails</from-outcome>
+   <to-view-id>/modules/mouvement/pages/DepDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>DepEdition</from-outcome>
+   <to-view-id>/modules/mouvement/pages/DepEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>DepListe</from-outcome>
+   <to-view-id>/modules/mouvement/pages/DepListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+   <navigation-case>
+   <from-outcome>MouvDetails</from-outcome>
+   <to-view-id>/modules/mouvement/pages/MouvDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>MouvEdition</from-outcome>
+   <to-view-id>/modules/mouvement/pages/MouvEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>MouvListe</from-outcome>
+   <to-view-id>/modules/mouvement/pages/MouvListe.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ChkDetails</from-outcome>
+   <to-view-id>/modules/mouvement/pages/ChkDetails.xhtml</to-view-id>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ChkEdition</from-outcome>
+   <to-view-id>/modules/mouvement/pages/ChkEdition.xhtml</to-view-id>
+   <redirect/>
+  </navigation-case>
+  <navigation-case>
+   <from-outcome>ChkListe</from-outcome>
+   <to-view-id>/modules/mouvement/pages/ChkListe.xhtml</to-view-id>
    <redirect/>
   </navigation-case>
  </navigation-rule> 

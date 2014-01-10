@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+ 	<f:view locale="#{localeCtrl.actual}" />
+   	<ui:composition template="/shared/templates/templateFormulaireListe.xhtml">
+		<ui:param name="managedBean" value="#{sessionScope[chkCtrl.nomManagedBean2]}" />
+		<ui:param name="entetePage" value=" des chekpoints" />
+				
+		<!-- Crit�res standards de recherche -->
+		<ui:define name="standardFilter"  >
+			
+			<h:panelGrid columns="2" width="100%"  columnClasses="pngdColMiddle" rowClasses="pngdRow" >
+				<h:panelGrid columns="2" width="100%" border="0" columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
+					
+					<h:outputText value="#{locale.refmouv} " />
+					<h:panelGroup>
+						<h:inputText id="refdep" value="#{chkCtrl.defaultVue.entiteRecherche.tabMouv.codRefMouv}" style="width: 60%"  onclick="#{rich:component('suggestmouv')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggestmouv" for="refdep" suggestionAction="#{chkCtrl.autoCompleteMouv}" var="valeur" 
+							fetchValue="#{valeur.codRefMouv}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			 
+			                </f:facet>	
+							
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.refmouv}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codRefMouv}" />
+							</h:column>												
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+					
+					<h:outputText value="#{locale.lieuarret}" />	
+					<h:panelGroup>
+						<h:inputText id="lieuarret" value="#{chkCtrl.defaultVue.entiteRecherche.tabLieu.libLieu}" style="width: 60%"  onclick="#{rich:component('suggestlieu')}.callSuggestion(true)" >
+							<a4j:support event="onblur" ajaxSingle="true"/>
+						</h:inputText>
+						<rich:suggestionbox id="suggestlieu" for="lieuarret" suggestionAction="#{chkCtrl.autoCompleteLieu}" var="valeur" 
+							fetchValue="#{valeur.libLieu}" ajaxSingle="true"  >
+							
+							<f:facet name="nothingLabel">			
+			               		<h:outputText value="" />			
+			                </f:facet>	
+							 
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="Code"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.codLieu}" />
+							</h:column>												
+							<h:column>
+								<f:facet name="header">
+									<h:outputText value="#{locale.libelle}"/>
+								</f:facet>												
+								<h:outputText value="#{valeur.libLieu}" />
+							</h:column>
+																			
+						</rich:suggestionbox>																	
+					</h:panelGroup>
+										
+				</h:panelGrid>	
+				
+			</h:panelGrid>	
+									 																																													
+		</ui:define>
+		
+		<!-- Colonnes sp�cifiques � l'entit� -->
+		<ui:define name="specificColumns"  >
+						
+			<rich:column label="#{locale.refchk}" sortBy="#{entity.codRefChk}" filterBy="#{entity.codRefChk}" width="200" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.refchk}" />
+				</f:facet>
+				<h:outputText value="#{entity.codRefChk}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.refmouv}" sortBy="#{entity.tabMouv.codRefMouv}" filterBy="#{entity.tabMouv.codRefMouv}" width="200" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.refmouv}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabMouv.codRefMouv}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.lieuarret}" sortBy="#{entity.tabLieu.libLieu}" filterBy="#{entity.tabLieu.libLieu}" width="200" >
+				<f:facet name="header">
+					<h:outputText value="#{locale.lieuarret}" />
+				</f:facet>
+				<h:outputText value="#{entity.tabLieu.libLieu}" />				
+			</rich:column>	
+			
+			<rich:column label="#{locale.datearret}" sortBy="#{entity.dateChk}" filterBy="#{entity.dateChk}"  width="200">
+				<f:facet name="header">
+					<h:outputText value="#{locale.datearret}" />
+				</f:facet>
+				<h:outputText value="#{entity.dateChk}" >	
+					<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+				</h:outputText>			
+			</rich:column>	
+			
+			<rich:column label="Commentaire" sortBy="#{entity.libCom}" filterBy="#{entity.libCom}" width="200" >
+				<f:facet name="header">
+					<h:outputText value="Commentaire" />
+				</f:facet>
+				<h:outputText value="#{entity.libCom}" />				
+			</rich:column>	
+			
+		</ui:define>	
+									
+	</ui:composition>
+	
+</html>

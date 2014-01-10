@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_receptionner"  autosized="true" minWidth="620" minHeight="100"  >
+			
+				<f:facet name="header">
+					<h:outputText value="Receptionner conteneur" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form>
+					
+				<h:panelGrid columns="2" width="100%"  style="border:2px solid #{richSkin.panelBorderColor};"   >
+																		
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+					
+						<h:outputText value="#{locale.nomreceptioniste}" title="#{locale.nomreceptioniste}"  />
+						<h:panelGroup>
+							<h:inputText id="inp_nomrecep"  immediate="true" value="#{depCtrl.defaultVue.entiteCourante.libRecep}" 
+								style="width: 100%"  required="true" title="#{locale.nomreceptioniste}" 
+								requiredMessage="Valeur obligatoire" >
+								<a4j:support event="onchange" ajaxSingle="true" />
+								<rich:message for="inp_nomrecep" errorClass="msg_error" />
+							</h:inputText>	
+						</h:panelGroup>
+						
+						<h:outputText value="#{locale.contactrecep}"  />
+						<h:inputTextarea value="#{depCtrl.defaultVue.entiteCourante.libAddRecep}" style="width: 100%" title="#{locale.contactrecep}"/>
+						
+						<h:outputText value="#{locale.daterecep}" />						
+						<rich:calendar value="#{depCtrl.defaultVue.entiteCourante.dateRecep}" inputStyle="width: 30%"  title="#{locale.daterecep}" 
+								styleClass="selectDate"  datePattern="dd/MM/yyyy">
+							<a4j:support event="onchanged" ajaxSingle="true" />
+						</rich:calendar>
+						
+						<h:outputText value="Relevage du vide ?" />
+						<h:selectBooleanCheckbox value="#{depCtrl.defaultVue.entiteCourante.BRelVid}" >
+							<a4j:support ajaxSingle="true"  event="onchange" reRender="datrel1,datrel2"/>
+						</h:selectBooleanCheckbox>
+						
+						<h:panelGroup id="datrel1">
+							<h:outputText value="Date relevage TC vide" rendered="#{depCtrl.defaultVue.entiteCourante.BRelVid}"/>
+						</h:panelGroup>
+						<h:panelGroup id="datrel2">
+							<rich:calendar value="#{depCtrl.defaultVue.entiteCourante.dateRelVid}" inputStyle="width: 30%"  title="Date relevage TC vide" 
+								styleClass="selectDate"  datePattern="dd/MM/yyyy" rendered="#{depCtrl.defaultVue.entiteCourante.BRelVid}">
+							<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>
+						</h:panelGroup>
+																								
+					</h:panelGrid>
+					
+				</h:panelGrid>
+				
+				<h:panelGroup>
+					<a4j:commandButton  value="Ajouter" action="#{depCtrl.receptionner}" reRender="pnel_main" oncomplete="#{rich:component('mpnl_receptionner')}.hide();return true;" />
+					<a4j:commandButton  value="Annuler"  action="null"  oncomplete="#{rich:component('mpnl_receptionner')}.hide();return false;"/>
+				</h:panelGroup>
+				
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>
