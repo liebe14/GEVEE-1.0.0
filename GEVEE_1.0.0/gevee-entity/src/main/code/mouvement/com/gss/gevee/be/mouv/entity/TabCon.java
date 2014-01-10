@@ -101,7 +101,8 @@ public class TabCon extends GeveeBaseEntity{
 
 	@Override
 	public void initData() {
-		tabOrdTran = (tabOrdTran == null ? new TabOrd() : tabOrdTran);		
+		tabOrdTran = (tabOrdTran == null ? new TabOrd() : tabOrdTran);	
+		tabOrdTran.initData();
 	}
 
 	public void setCodCon(String codCon) {

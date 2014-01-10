@@ -46,6 +46,9 @@ public class TabChk extends GeveeBaseEntity{
 	
 	@Column(name = "BOO_VAL")
 	private BigDecimal booEstVal;
+	
+	@Column(name = "LIB_COM")
+	private String libCom;
 
 	@Override
 	public String getEntityCode() {
@@ -147,6 +150,14 @@ public class TabChk extends GeveeBaseEntity{
 
 	public BigDecimal getBooEstVal() {
 		return booEstVal;
+	}
+
+	public void setLibCom(String libCom) {
+		this.libCom = libCom;
+	}
+
+	public String getLibCom() {
+		return libCom;
 	}
 
 }

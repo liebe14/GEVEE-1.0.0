@@ -11,9 +11,9 @@ public enum EnuTypCon {
 
 	DRY_40("2001", "40' DRY"),
 	
-	REEFER_20("2002", "20' Reefer"),
+	REEFER_20("2002", "20' REEFER"),
 	
-	REEFER_40("2003", "40' reefer"),
+	REEFER_40("2003", "40' REEFER"),
 	
 	OPENTOP_20("2004", "20' OPEN TOP"),
 	

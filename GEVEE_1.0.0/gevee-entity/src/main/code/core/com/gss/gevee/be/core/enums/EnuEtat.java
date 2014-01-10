@@ -9,6 +9,16 @@ public enum EnuEtat {
 
 
 	CREE("2000", "Crée"),
+	
+	VALIDE("2002", "Validé"),
+	
+	DEMARRE("2003", "Démarré"),
+	
+	CLOTURE("2004", "Clôtuté"),
+	
+	LIVRE("2005", "Livré"),
+	
+	RECEPTIONNE("2006", "Réceptionné"),
 
 	SUPP("2001", "Supprimé");
 

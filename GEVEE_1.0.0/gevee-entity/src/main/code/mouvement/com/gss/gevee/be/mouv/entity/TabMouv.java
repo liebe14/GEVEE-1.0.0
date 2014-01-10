@@ -167,7 +167,7 @@ public class TabMouv extends GeveeBaseEntity{
 		tabLieuDepar = (tabLieuDepar == null ? new TabLieu() : tabLieuDepar);
 		tabRem = (tabRem == null ? new TabRem() : tabRem);
 		tabTrac = (tabTrac == null ? new TabTrac() : tabTrac);
-		
+		tabDep.initData();		
 	}
 
 	public void setCodRefMouv(String codRefMouv) {

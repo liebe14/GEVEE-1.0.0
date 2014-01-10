@@ -9,7 +9,7 @@ public enum EnuTypMouv {
 	
 	TRANSFERT("01", "Transfert"),
 	
-	LIVRAISON("02", "Transfert"),
+	LIVRAISON("02", "Livraison"),
 	
 	RETOUR_VIDE("03", "Retour vide"),
 	

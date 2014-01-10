@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 public enum EnuMarque {
 	
-	MERCEDES("01", "Mercedess"),
+	MERCEDES("01", "Mercedes"),
 
 	RENAULD("02", "Renault"),
 	

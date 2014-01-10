@@ -42,6 +42,9 @@ public class TabDep extends GeveeBaseEntity{
 	@Column(name = "LIB_ADD_RECEP")
 	private String libAddRecep;
 	
+	@Column(name = "DAT_RECEP")
+	private String datRecep;
+	
 	@Column(name = "VAL_CAU")
 	private BigDecimal valCau;
 	
@@ -75,6 +78,12 @@ public class TabDep extends GeveeBaseEntity{
 	
 	@Column(name = "BOO_DEM")
 	private BigDecimal booEstDem;
+	
+	@Column(name = "BOO_CAU")
+	private BigDecimal booEstCau;
+	
+	@Column(name = "BOO_REL_VID")
+	private BigDecimal booRelVid;
 
 
 	@Override
@@ -106,6 +115,7 @@ public class TabDep extends GeveeBaseEntity{
 	@Override
 	public void initData() {
 		tabCon = (tabCon == null ? new TabCon() : tabCon);
+		tabCon.initData();
 	}
 
 	public void setCodRefDep(String codRefDep) {
@@ -346,6 +356,65 @@ public class TabDep extends GeveeBaseEntity{
 
 	public void setBEstDem(boolean bEstDem) {
 		this.booEstDem = (bEstDem ? BigDecimal.ONE : BigDecimal.ZERO);
+	}
+
+	public void setBooEstCau(BigDecimal booEstCau) {
+		this.booEstCau = booEstCau;
+	}
+
+	public BigDecimal getBooEstCau() {
+		return booEstCau;
+	}
+	
+	public boolean getBEstCau() {
+		return (booEstCau != null && booEstCau.compareTo(BigDecimal.ONE) == 0);
+	}
+
+	public void setBEstCau(boolean bEstCau) {
+		this.booEstCau = (bEstCau ? BigDecimal.ONE : BigDecimal.ZERO);
+	}
+
+	public void setDatRecep(String datRecep) {
+		this.datRecep = datRecep;
+	}
+
+	public String getDatRecep() {
+		return datRecep;
+	}
+	
+	public Date getDateRecep() {
+		if (this.datRecep == null || this.datRecep.trim().isEmpty())
+			return null;
+
+		try {
+			return DateTools.getDateValue(this.datRecep);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void setDateRecep(Date dateRecep) {
+		if (dateRecep == null)
+			this.datRecep = null;
+		else
+			this.datRecep = DateTools.formatDate(dateRecep);
+	}
+
+	public void setBooRelVid(BigDecimal booRelVid) {
+		this.booRelVid = booRelVid;
+	}
+
+	public BigDecimal getBooRelVid() {
+		return booRelVid;
+	}
+	
+	public boolean getBRelVid() {
+		return (booRelVid != null && booRelVid.compareTo(BigDecimal.ONE) == 0);
+	}
+
+	public void setBRelVid(boolean bRelVid) {
+		this.booRelVid = (bRelVid ? BigDecimal.ONE : BigDecimal.ZERO);
 	}
 
 }
