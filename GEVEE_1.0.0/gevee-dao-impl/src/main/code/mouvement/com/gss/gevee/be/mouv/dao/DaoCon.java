@@ -72,8 +72,11 @@ public class DaoCon extends BaseDao<TabCon, String> implements IDaoCon{
 		if(currentCon.getNumCon() != null && !currentCon.getNumCon().equals("")){
 			clauseWhere = clauseWhere + "AND upper(o.numCon) like '%"+currentCon.getNumCon()+"%'";
 		}
-		if(currentCon.getTabOrdTran().getNumOrdTra()!= null ){
+		if(currentCon.getTabOrdTran().getNumOrdTra()!= null && !currentCon.getTabOrdTran().getNumOrdTra().equals("")){
 			clauseWhere = clauseWhere + "AND upper(o.tabOrdTran.numOrdTra) like '%"+currentCon.getTabOrdTran().getNumOrdTra()+"%'";
+		}
+		if(currentCon.getEtatEnt()!= null ){
+			clauseWhere = clauseWhere + "AND upper(o.etatEnt) like '%"+currentCon.getEtatEnt()+"%'";
 		}
 		
 		try{

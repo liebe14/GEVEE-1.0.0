@@ -10,6 +10,7 @@ import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
 import com.gss.gevee.be.core.dao.base.BaseDao;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
+import com.gss.gevee.be.mouv.entity.TabCon;
 import com.gss.gevee.be.mouv.entity.TabDep;
 
 @Stateless
@@ -96,5 +97,25 @@ public class DaoDep extends BaseDao<TabDep, String> implements IDaoDep{
 			throw sdr;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public  List<TabCon> findConByEtatEnt(String etatEnt)
+	throws GeveePersistenceException {
+		try{
+			String query = "SELECT o FROM TabCon o where o.etatEnt = '" + etatEnt + "' ORDER BY o.numCon ";
 
+			logger.debug("Requete <" + query + ">");
+
+			List<TabCon> v$list = getManager().createQuery(query).getResultList();
+
+			getLogger().debug("Nombre d'éléments trouvés : " + (v$list == null ? "0" : v$list.size()));
+			if ((v$list == null) || (v$list.size() <= 0)) {
+				return new ArrayList<TabCon>();
+			}
+			return v$list;
+		}catch(GeveePersistenceException sdr){
+			throw sdr;
+		}
+	}
 }
