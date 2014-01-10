@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.ejb.EJB;
 import javax.ejb.SessionContext;
+import javax.ejb.Stateless;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
@@ -14,10 +15,9 @@ import com.gss.gevee.be.core.exception.GeveeSystemException;
 import com.gss.gevee.be.core.sisv.base.IBaseSisv;
 import com.gss.gevee.be.core.svco.base.BaseSvco;
 import com.gss.gevee.be.mouv.entity.TabChk;
-import com.gss.gevee.be.mouv.entity.TabMouv;
 import com.gss.gevee.be.mouv.sisv.ISisvChk;
-import com.gss.gevee.be.mouv.sisv.ISisvMouv;
 
+@Stateless
 public class SvcoChk extends BaseSvco<TabChk> implements IRemoteChk, ILocalChk{
 	
 	@EJB
