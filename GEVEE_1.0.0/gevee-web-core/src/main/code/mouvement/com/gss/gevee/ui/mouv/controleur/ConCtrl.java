@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
+
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.svco.base.IBaseSvco;
 import com.gss.gevee.be.mouv.entity.TabCon;
+import com.gss.gevee.ui.core.base.FacesUtil;
 import com.gss.gevee.ui.core.base.GeveeCtrl;
 import com.gss.gevee.ui.core.base.ServiceLocatorException;
 import com.gss.gevee.ui.core.base.Traitement;
@@ -85,6 +89,80 @@ public class ConCtrl extends GeveeCtrl<TabCon, TabCon>{
 
 	public static String getNomManagedBean() {
 		return nomManagedBean;
+	}
+	
+	public void  rechercher(ActionEvent evt) {
+		
+		System.out.println("je suis dans rechercher override");
+		// Selon le type de recherche	
+		//String typeRecherche = FacesUtil.getActionAttribute(evt, "typeDeRecherche");
+		String typeRecherche = "CRITERE";
+		
+		List<TabCon> v$liste = new ArrayList<TabCon>();
+		
+		try{
+			
+			// Désactivation de la pagination
+			defaultVue.getEntiteRecherche().setOffset(-1);
+			defaultVue.getEntiteRecherche().setMaxRow(-1);
+			
+			// Nombre total d'éléménts de la requete de Recherche
+			//defaultVue.getTableMgr().setTotalRecherche(getEntitySvco().compterParCritere(defaultVue.getEntiteRecherche())); PAS CORRECT
+			long v$total = getEntitySvco().rechercherTout(defaultVue.getEntiteRecherche()).size();
+			// Définition de la plage pour la pagination
+			defaultVue.getEntiteRecherche().setOffset(1);
+			defaultVue.getEntiteRecherche().setMaxRow(200);
+			
+			//defaultVue.setListePagination(ToolBox.getListePagination(defaultVue.getTableMgr().getTotalRecherche(), pasPagination));	PAS CORRECT
+			List<SelectItem> v$pagination = getListePagination(v$total, 200);
+			/*
+			 * TODO Modification Temporaire à réviser
+			 * La recherchepar code  = recherche par critère
+			 */				
+			if(typeRecherche.equals("ID")){
+								
+				v$liste = rechercherParCritere(defaultVue.getEntiteRecherche());			
+			}
+			
+			else if(typeRecherche.equals("CRITERE")){
+				v$liste = rechercherParCritere(defaultVue.getEntiteRecherche());
+			}
+			else if(typeRecherche.equals("TOUT")) {
+								
+				v$liste = rechercherTout(defaultVue.getEntiteRecherche());
+				// Réinitialisation de la zone de recherche
+				reinitialiser(evt);
+			}
+			
+			// Mise  à jour de  la liste de recherche ==> Mise à jour du modèle automatiquement
+			defaultVue.getTableMgr().setListeRecherche(v$liste);
+			
+			// Mise à jour des informations de pagination dans le Gestionnaire de table
+			defaultVue.getTableMgr().setTotalRecherche(v$total);
+			defaultVue.setListePagination(v$pagination);
+			//defaultVue.getTableMgr().setListeRecherche(v$liste);
+			
+			// Si la liste de recherche est vide, précisez que la recherche n'a retourné aucun résultat
+			if(v$liste == null || v$liste.size() == 0){
+				FacesUtil.addWarnMessage("", "Aucun élément trouvé");
+			}
+			
+			if(defaultVue.getEntiteRecherche().getEtatEnt() != null){
+				defaultVue.getEntiteRecherche().setEtatEnt(null);
+			}
+						
+			// Mise à jour de la date de la dernière recherche
+			setTimeOfLastSearch();
+		}
+				
+		catch (GeveeAppException e) {			
+			FacesUtil.addWarnMessage("Echec lors de l'exécution du traitement",
+									 e.getMessage());
+		}catch (Exception e) {		
+			e.printStackTrace();
+			FacesUtil.addWarnMessage("TRAITEMENT_ALL_ECHEC_INCONNU",
+	 				 e.getMessage());	
+		}	
 	}
 
 }
