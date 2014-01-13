@@ -59,8 +59,13 @@ public class SisvChau extends BaseSisv<TabChau, String> implements ISisvChau{
 	@Override
 	public <X extends BaseEntity> List<X> rechercherParCritere(X entity)
 			throws GeveeSystemException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoChau.findByExample(entity);
+		} catch (GeveePersistenceException e) {
+			e.printStackTrace();
+			GeveeSystemException sbr = new GeveeSystemException(e);
+			throw sbr;
+		}
 	}
 
 }

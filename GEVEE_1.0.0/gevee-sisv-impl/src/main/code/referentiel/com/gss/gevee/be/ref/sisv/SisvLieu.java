@@ -58,8 +58,13 @@ public class SisvLieu extends BaseSisv<TabLieu, String> implements ISisvLieu{
 	@Override
 	public <X extends BaseEntity> List<X> rechercherParCritere(X entity)
 			throws GeveeSystemException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoLieu.findByExample(entity);
+		} catch (GeveePersistenceException e) {
+			e.printStackTrace();
+			GeveeSystemException sbr = new GeveeSystemException(e);
+			throw sbr;
+		}
 	}
 
 }

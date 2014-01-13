@@ -58,8 +58,13 @@ public class SisvCli extends BaseSisv<TabCli, String> implements ISisvCli{
 	@Override
 	public <X extends BaseEntity> List<X> rechercherParCritere(X entity)
 			throws GeveeSystemException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return daoCli.findByExample(entity);
+		} catch (GeveePersistenceException e) {
+			e.printStackTrace();
+			GeveeSystemException sbr = new GeveeSystemException(e);
+			throw sbr;
+		}
 	}
 
 }
