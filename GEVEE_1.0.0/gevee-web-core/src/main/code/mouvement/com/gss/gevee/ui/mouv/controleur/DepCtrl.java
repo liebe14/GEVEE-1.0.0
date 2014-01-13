@@ -1,11 +1,10 @@
 package com.gss.gevee.ui.mouv.controleur;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.richfaces.component.html.ContextMenu;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.enums.EnuEtat;
@@ -18,7 +17,6 @@ import com.gss.gevee.be.mouv.entity.TabOrd;
 import com.gss.gevee.ui.core.base.FacesUtil;
 import com.gss.gevee.ui.core.base.GeveeCtrl;
 import com.gss.gevee.ui.core.base.GeveeToolBox;
-import com.gss.gevee.ui.core.base.MenuFactory;
 import com.gss.gevee.ui.core.base.ServiceLocatorException;
 import com.gss.gevee.ui.core.base.Traitement;
 import com.gss.gevee.ui.mouv.util.MouvSvcoDelegaute;
@@ -51,7 +49,12 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 		v$mapTrt.put(MouvTrt.DEMARRER_DEP.getKey(), new Traitement(MouvTrt.DEMARRER_DEP));
 		
         // CLOTURER
-		v$mapTrt.put(MouvTrt.CLOTURER_DEP.getKey(), new Traitement(MouvTrt.CLOTURER_DEP));
+		Traitement v$traitementClo = new Traitement(
+				MouvTrt.CLOTURER_DEP);
+		v$traitementClo.setModalType(Traitement.MODAL_SPECIAL);
+		v$traitementClo.setModalPanel("mpnl_cloturer"); 
+		v$traitementClo.setMethode("beforeCloturer");
+		v$mapTrt.put(v$traitementClo.getKey(), v$traitementClo);
 		
 		// Receptionner
 		Traitement v$traitementTabDep = new Traitement(
@@ -61,7 +64,7 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 		v$traitementTabDep.setMethode("beforeReceptionner");
 		v$mapTrt.put(v$traitementTabDep.getKey(), v$traitementTabDep);
 		
-		// Enregistrer mouvement
+//		// Enregistrer mouvement
 		Traitement v$traitement = new Traitement(
 				MouvTrt.ENREG_MOUV);
 		v$traitement.setModalType(Traitement.MODAL_SPECIAL);
@@ -239,7 +242,21 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 		String v$msgDetails = "La réception du conteneur n° ";
 
 		try {
+			String nomRecep = defaultVue.getEntiteCourante().getLibRecep();
+			String addRecep = defaultVue.getEntiteCourante().getLibAddRecep();
+			Date dateRecep = defaultVue.getEntiteCourante().getDateRecep();
+			boolean isrelVid= defaultVue.getEntiteCourante().getBRelVid();
+			Date dateRelVid = defaultVue.getEntiteCourante().getDateRelVid();
+			boolean isDecha= defaultVue.getEntiteCourante().getBEstDecha();
+			Date dateEffDecha = defaultVue.getEntiteCourante().getDateEffDecha();
+			
+			
 
+			// Mise à jour de l'entité courante selon le contexte du Formulaire
+			if (defaultVue.getNavigationMgr().isFromListe())
+				defaultVue.setEntiteCourante(defaultVue.getTableMgr()
+						.getEntiteSelectionne());
+			
 			// Sauvegarde de l'entité avant traitement specifique
 			defaultVue.setEntiteTemporaire(defaultVue.getEntiteCourante());
 			
@@ -250,6 +267,14 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 			
 			// Consommation de l'EJB distant selon l'operation spécifique car
 			// l'entite courante est connue
+			defaultVue.getEntiteCourante().setLibRecep(nomRecep);
+			defaultVue.getEntiteCourante().setLibAddRecep(addRecep);
+			defaultVue.getEntiteCourante().setDateRecep(dateRecep);
+			defaultVue.getEntiteCourante().setBRelVid(isrelVid);
+			defaultVue.getEntiteCourante().setDateRelVid(dateRelVid);
+			defaultVue.getEntiteCourante().setBEstDecha(isDecha);
+			defaultVue.getEntiteCourante().setDateEffDecha(dateEffDecha);
+			
 			defaultVue.setEntiteCourante(MouvSvcoDelegaute.getSvcoDep()
 					.receptionner(defaultVue.getEntiteCourante()));
 			
@@ -284,7 +309,6 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 		}
 	}
 	
-	@SuppressWarnings("finally")
 	public String demarrer() {
 
 		// Determine vers quelle page ou Formulaire l'on doit se diriger
@@ -295,13 +319,16 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 
 		try {
 
+			// Mise à jour de l'entité courante selon le contexte du Formulaire
+			if (defaultVue.getNavigationMgr().isFromListe())
+				defaultVue.setEntiteCourante(defaultVue.getTableMgr()
+						.getEntiteSelectionne());
+			
 			// Sauvegarde de l'entité avant traitement specifique
 			defaultVue.setEntiteTemporaire(defaultVue.getEntiteCourante());
 
 			// Consommation de l'EJB distant selon l'operation spécifique car
 			// l'entite courante est connue
-//			defaultVue.setEntiteCourante(MouvSvcoDelegaute.getSvcoDep()
-//					.demarrer(defaultVue.getTableMgr().getEntiteSelectionne()));
 			defaultVue.setEntiteCourante(MouvSvcoDelegaute.getSvcoDep()
 					.demarrer(defaultVue.getEntiteCourante()));
 			
@@ -335,4 +362,72 @@ public class DepCtrl extends GeveeCtrl<TabDep, TabDep>{
 			return v$navigation;
 		}
 	}
+	
+	
+	public String beforeCloturer() {
+		return null;
+	}
+	
+	@SuppressWarnings("finally")
+	public String cloturer() {
+
+		// Determine vers quelle page ou Formulaire l'on doit se diriger
+		String v$navigation = null;
+
+		// Message d'information
+		String v$msgDetails = "Le déplacement du conteneur n°";
+
+		try {
+			
+			boolean isRet= defaultVue.getEntiteCourante().getBEstRet();
+			Date dateRelVid = defaultVue.getEntiteCourante().getDateEffRet();
+
+			// Mise à jour de l'entité courante selon le contexte du Formulaire
+			if (defaultVue.getNavigationMgr().isFromListe())
+				defaultVue.setEntiteCourante(defaultVue.getTableMgr()
+						.getEntiteSelectionne());
+			
+			// Sauvegarde de l'entité avant traitement specifique
+			defaultVue.setEntiteTemporaire(defaultVue.getEntiteCourante());
+			
+			defaultVue.getEntiteCourante().setBEstRet(isRet);
+			defaultVue.getEntiteCourante().setDateEffRet(dateRelVid);
+
+			// Consommation de l'EJB distant selon l'operation spécifique car
+			// l'entite courante est connue
+			defaultVue.setEntiteCourante(MouvSvcoDelegaute.getSvcoDep()
+					.cloturer(defaultVue.getEntiteCourante()));
+			
+			v$msgDetails += defaultVue.getEntiteCourante().getTabCon().getNumCon() + " a été clôturé";
+
+			// L'on remplace l'ancienne entité de la liste par la nouvelle issue
+			// du résultat du traitement spécifiques
+			defaultVue.getTableMgr().replace(defaultVue.getEntiteTemporaire(),
+					defaultVue.getEntiteCourante());
+
+			// Si nous sommes en Consultation ==> sur le formulaire Details
+			if (defaultVue.getNavigationMgr().isFromDetails()) {
+				// Traitements particuliers
+			}
+
+			// Par contre si nous sommes sur le formulaire Liste
+			else if (defaultVue.getNavigationMgr().isFromListe()) {
+				// Traitements particuliers
+			}
+
+			defaultVue.getTableMgr().updateDataModel();
+			FacesUtil.addInfoMessage("", v$msgDetails);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			// Aucune navigation possible
+			v$navigation = null;
+			getLogger().error(e.getMessage(), e);
+		} finally {
+			// Retour à la page adéquate
+			return v$navigation;
+		}
+	}
+	
+	
 }

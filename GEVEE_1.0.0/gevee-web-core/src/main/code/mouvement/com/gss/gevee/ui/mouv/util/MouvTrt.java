@@ -32,10 +32,10 @@ public class MouvTrt extends GeveeTrt{
 	public static Traitement CLOTURER_DEP;	
 	static{
 		
-		CLOTURER_DEP = new Traitement(/* Type */Traitement.SPECIFIQUE , /* Code */ "Clo_dep" , /* Libellé */ "Clôturer le déplacement" , /* Commentaire */ "" , /* Méthode */ "cloturer",
+		CLOTURER_DEP = new Traitement(/* Type */Traitement.SPECIFIQUE , /* Code */ "Clo_dep" , /* Libellé */ "Clôturer le déplacement" , /* Commentaire */ "" , /* Méthode */ "beforeCloturer",
 				/* Config IHM */ new boolean[]{true,true,true,false} , /* Config Visibilité */ "112",
-				/* Type de modal panel */ Traitement.MODAL_SIMPLE, /* Message du modal panel */ "Confirmer la clôture ?", /* Type de progress bar */ Traitement.PROGRESS_SIMPLE, 
-				/* Raccourci clavier */ "Shift+F4", /* index */ "12", /* reRender */ Traitement.RERENDER_MAIN_PANEL, /* image */ "" );
+				/* Type de modal panel */ Traitement.MODAL_SPECIAL, /* Message du modal panel */ "", /* Type de progress bar */ Traitement.PROGRESS_SIMPLE, 
+				/* Raccourci clavier */ "Shift+F4", /* index */ "12", /* reRender */ "mpnl_cloturer", /* image */ "" );
 	}
 	
 	public static Traitement RECEPTIONNER;	

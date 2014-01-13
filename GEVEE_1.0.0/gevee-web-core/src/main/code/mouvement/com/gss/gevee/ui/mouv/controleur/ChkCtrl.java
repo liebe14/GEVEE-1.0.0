@@ -123,7 +123,7 @@ public class ChkCtrl extends GeveeCtrl<TabChk, TabChk>{
 			// Consommation de l'EJB distant selon l'operation spécifique car
 			// l'entite courante est connue
 			defaultVue.setEntiteCourante(MouvSvcoDelegaute.getSvcoChk()
-					.valider(defaultVue.getEntiteCourante()));
+					.valider(defaultVue.getTableMgr().getEntiteSelectionne()));
 			
 			v$msgDetails += defaultVue.getEntiteCourante().getTabMouv().getCodRefMouv() + " au lieu dit " + defaultVue.getEntiteCourante().getTabLieu().getLibLieu() +
 			" a été validé";

@@ -93,7 +93,6 @@ public class ConCtrl extends GeveeCtrl<TabCon, TabCon>{
 	
 	public void  rechercher(ActionEvent evt) {
 		
-		System.out.println("je suis dans rechercher override");
 		// Selon le type de recherche	
 		//String typeRecherche = FacesUtil.getActionAttribute(evt, "typeDeRecherche");
 		String typeRecherche = "CRITERE";

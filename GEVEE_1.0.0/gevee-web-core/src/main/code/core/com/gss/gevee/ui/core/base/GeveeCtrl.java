@@ -201,7 +201,6 @@ public abstract class GeveeCtrl <H extends BaseEntity, T extends H>{
 	 * @param tableMenu the tableMenu to set
 	 */
 	public void setTableMenu(ContextMenu tableMenu) {
-		System.out.println("Je suis dans setTableMenu......");
 		this.tableMenu = tableMenu;
 	}	
 	
