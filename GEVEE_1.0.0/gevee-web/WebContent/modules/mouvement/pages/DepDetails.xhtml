@@ -83,12 +83,12 @@
 					
 					<h:outputText value="#{locale.dateeffdecha}" />
 					<h:inputText value="#{depCtrl.defaultVue.entiteCourante.dateEffDecha}" readonly="true" style="width: 30%" title="#{locale.dateeffdecha}"  >
-						<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy HH:mm" timeZone="GMT+1" />
 					</h:inputText>
 					
 					<h:outputText value="Date relevage TC vide" />
 					<h:inputText value="#{depCtrl.defaultVue.entiteCourante.dateRelVid}" readonly="true" style="width: 30%" title="Date relevage TC vide"  >
-						<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1" />
+						<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy HH:mm" timeZone="GMT+1" />
 					</h:inputText>
 					
 					<h:outputText value="#{locale.dateestretour}" />

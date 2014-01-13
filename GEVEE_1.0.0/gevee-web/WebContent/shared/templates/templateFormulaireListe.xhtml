@@ -26,7 +26,7 @@
 		
 <!--		 Injection du menu contextuel pour le tableau -->
 		<ui:define name="menuContextuel">
-            <rich:contextMenu id="ctmn_menu" binding="#{managedBean.tableMenu}" />
+            <rich:contextMenu id="ctmn_menu" binding="#{managedBean.tableMenu}"/>
             <a4j:jsFunction action="null" name="refreshPage" data="#{managedBean.timeoutElapsed}" oncomplete="if(data == true){loadPageListTable();}" />
             <a4j:jsFunction actionListener="#{managedBean.rechercher}" reRender="pnel_table,actionForm" status="stus_actions"
 				name="loadPageListTable" />																																		                        			
@@ -211,7 +211,7 @@
 							<!--  Gestion du double Click pour afficher une entite en consultation-->
 													
 							<!--  Controle du menu contextuel -->											 																							
-							<rich:componentControl event="onRowDblClick" for="ctmn_menu" operation="show"  />					
+							<rich:componentControl event="onRowDblClick" for="ctmn_menu" operation="show" />					
 																								 						 						 
 						</rich:extendedDataTable>	
 						
