@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+
+   		<ui:composition >
+				
+			<rich:modalPanel id="mpnl_cloturer"  autosized="true" minWidth="620" minHeight="100"  >
+			
+				<f:facet name="header">
+					<h:outputText value="#{locale.clodep}" style="padding-right:15px;" />						
+				</f:facet>
+				
+				<h:form>
+					
+				<h:panelGrid columns="2" width="100%"  style="border:2px solid #{richSkin.panelBorderColor};"   >
+																		
+					<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
+					
+						
+						<h:outputText value="#{locale.ret} " />
+						<h:selectBooleanCheckbox value="#{depCtrl.defaultVue.entiteCourante.BEstRet}" >
+							<a4j:support ajaxSingle="true"  event="onchange" reRender="datret1,datret2"/>
+						</h:selectBooleanCheckbox>
+						
+						<h:panelGroup id="datret1">
+							<h:outputText value="#{locale.dateeffretour}" rendered="#{depCtrl.defaultVue.entiteCourante.BEstRet}"/>
+						</h:panelGroup>
+						<h:panelGroup id="datret2">
+							<rich:calendar value="#{depCtrl.defaultVue.entiteCourante.dateEffRet}" inputStyle="width: 30%"  title="#{locale.dateeffretour}" 
+								styleClass="selectDate"  datePattern="dd/MM/yyyy HH:mm" rendered="#{depCtrl.defaultVue.entiteCourante.BEstRet}">
+							<a4j:support event="onchanged" ajaxSingle="true" />
+							</rich:calendar>
+						</h:panelGroup>
+																														
+					</h:panelGrid>
+					
+				</h:panelGrid>
+				
+				<h:panelGroup>
+					<a4j:commandButton  value="Valider" action="#{depCtrl.cloturer}" reRender="pnel_main" oncomplete="#{rich:component('mpnl_cloturer')}.hide();return true;" />
+					<a4j:commandButton  value="Annuler"  action="null"  oncomplete="#{rich:component('mpnl_cloturer')}.hide();return false;"/>
+				</h:panelGroup>
+				
+				</h:form>
+				
+			</rich:modalPanel>
+        												
+		</ui:composition>
+</html>
