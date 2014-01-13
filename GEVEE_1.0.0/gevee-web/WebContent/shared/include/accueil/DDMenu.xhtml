@@ -8,23 +8,16 @@
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
       <f:view locale="#{localeCtrl.actual}" />
-   		<ui:composition >
-   			<rich:dropDownMenu mode="ajax" rendered="true">
-				<f:facet name="label">
-					
-
-				
-				</f:facet>
-			</rich:dropDownMenu>
+   		<ui:composition location="right">
+   			   			
    			
-   			<rich:separator width="3" height="0"/>
-   			
-		    <rich:dropDownMenu mode="ajax" 
-							   rendered="true">
+		    <rich:dropDownMenu mode="ajax"  rendered="true" >
 				<f:facet name="label">
 					<h:panelGrid cellpadding="0" cellspacing="0" columns="2"
 						style="vertical-align:middle">
-						<h:outputText value="#{locale.connecte} : #{sessionCtrl.defaultVue.user.codUsr}" />
+						<h:outputText value="#{locale.connecte} : " />
+						<h:outputText value=" &nbsp; #{sessionCtrl.defaultVue.user.codUsr}"  style="color:#000;font-style:italic;"/>
+						
 					</h:panelGrid>
 				</f:facet>
 				
