@@ -84,6 +84,12 @@ public class TabDep extends GeveeBaseEntity{
 	
 	@Column(name = "BOO_REL_VID")
 	private BigDecimal booRelVid;
+	
+	@Column(name = "BOO_EST_DECHA")
+	private BigDecimal booEstDecha;
+	
+	@Column(name = "BOO_EST_RET")
+	private BigDecimal booEstRet;
 
 
 	@Override
@@ -415,6 +421,38 @@ public class TabDep extends GeveeBaseEntity{
 
 	public void setBRelVid(boolean bRelVid) {
 		this.booRelVid = (bRelVid ? BigDecimal.ONE : BigDecimal.ZERO);
+	}
+
+	public void setBooEstDecha(BigDecimal booEstDecha) {
+		this.booEstDecha = booEstDecha;
+	}
+
+	public BigDecimal getBooEstDecha() {
+		return booEstDecha;
+	}
+	
+	public boolean getBEstDecha() {
+		return (booEstDecha != null && booEstDecha.compareTo(BigDecimal.ONE) == 0);
+	}
+
+	public void setBEstDecha(boolean bEstDecha) {
+		this.booEstDecha = (bEstDecha ? BigDecimal.ONE : BigDecimal.ZERO);
+	}
+
+	public void setBooEstRet(BigDecimal booEstRet) {
+		this.booEstRet = booEstRet;
+	}
+
+	public BigDecimal getBooEstRet() {
+		return booEstRet;
+	}
+	
+	public boolean getBEstRet() {
+		return (booEstRet != null && booEstRet.compareTo(BigDecimal.ONE) == 0);
+	}
+
+	public void setBEstRet(boolean bEstRet) {
+		this.booEstRet = (bEstRet ? BigDecimal.ONE : BigDecimal.ZERO);
 	}
 
 }

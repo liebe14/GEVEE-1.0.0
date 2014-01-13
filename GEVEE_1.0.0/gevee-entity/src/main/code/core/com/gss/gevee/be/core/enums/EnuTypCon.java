@@ -96,5 +96,14 @@ public enum EnuTypCon {
 			myMap.put(enm.getValue(), enm.getLibelle());
 		}
 	}
+	
+	public static boolean is20Pieds(String valueTyp){
+		boolean val = false;
+		if(valueTyp.equals(DRY_20.getValue())||valueTyp.equals(REEFER_20.getValue()) 
+				|| valueTyp.equals(OPENTOP_20.getValue()) || valueTyp.equals(FLAT_20.getValue()) ){
+			val = true;
+		}
+		return val;
+	}
 
 }
