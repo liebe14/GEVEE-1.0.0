@@ -69,16 +69,16 @@ public class DaoOrd extends BaseDao<TabOrd, String> implements IDaoOrd{
 	throws GeveePersistenceException {
 		String clauseWhere = "1=1 ";
 		TabOrd currentOrd = (TabOrd)entity;
-		if(currentOrd.getNumOrdTra() != null ){
+		if(currentOrd.getNumOrdTra() != null && !currentOrd.getNumOrdTra().equals("")){
 			clauseWhere = clauseWhere + "AND upper(o.numOrdTra) like '%"+currentOrd.getNumOrdTra()+"%'";
 		}
-		if(currentOrd.getNumDoss() != null ){
+		if(currentOrd.getNumDoss() != null && !currentOrd.getNumDoss().equals("")){
 			clauseWhere = clauseWhere + "AND upper(o.numDoss) like '%"+currentOrd.getNumDoss()+"%'";
 		}
-		if(currentOrd.getTabLieuEnlev().getLibLieu() != null ){
+		if(currentOrd.getTabLieuEnlev().getLibLieu() != null && !currentOrd.getTabLieuEnlev().getLibLieu().equals("")){
 			clauseWhere = clauseWhere + "AND upper(o.tabLieuEnlev.libLieu) like '%"+currentOrd.getTabLieuEnlev().getLibLieu()+"%'";
 		}
-		if(currentOrd.getTabLieuDecha().getLibLieu() != null ){
+		if(currentOrd.getTabLieuDecha().getLibLieu() != null && !currentOrd.getTabLieuDecha().getLibLieu().equals("")){
 			clauseWhere = clauseWhere + "AND upper(o.tabLieuDecha.libLieu) like '%"+currentOrd.getTabLieuDecha().getLibLieu()+"%'";
 		}
 		
