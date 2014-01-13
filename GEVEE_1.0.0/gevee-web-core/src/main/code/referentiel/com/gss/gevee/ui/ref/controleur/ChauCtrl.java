@@ -79,7 +79,7 @@ public class ChauCtrl extends GeveeCtrl<TabChau, TabChau>{
 			throws GeveeAppException {
 		try {
 			super.setTimeOfLastSearch();
-			return RefSvcoDeleguate.getSvcoChau().rechercherTout(p$entity);
+			return RefSvcoDeleguate.getSvcoChau().rechercherParCritere(p$entity);
 		} catch (ServiceLocatorException e) {
 			e.printStackTrace();
 		}catch (GeveeAppException e) {

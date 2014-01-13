@@ -79,7 +79,7 @@ public class LieuCtrl extends GeveeCtrl<TabLieu, TabLieu>{
 			throws GeveeAppException {
 		try {
 			super.setTimeOfLastSearch();
-			return RefSvcoDeleguate.getSvcoLieu().rechercherTout(p$entity);
+			return RefSvcoDeleguate.getSvcoLieu().rechercherParCritere(p$entity);
 		} catch (ServiceLocatorException e) {
 			e.printStackTrace();
 		}catch (GeveeAppException e) {

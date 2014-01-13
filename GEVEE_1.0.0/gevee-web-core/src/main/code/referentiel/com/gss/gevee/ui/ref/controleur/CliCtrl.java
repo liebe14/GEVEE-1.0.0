@@ -79,7 +79,7 @@ public class CliCtrl extends GeveeCtrl<TabCli, TabCli>{
 			throws GeveeAppException {
 		try {
 			super.setTimeOfLastSearch();
-			return RefSvcoDeleguate.getSvcoCli().rechercherTout(p$entity);
+			return RefSvcoDeleguate.getSvcoCli().rechercherParCritere(p$entity);
 		} catch (ServiceLocatorException e) {
 			e.printStackTrace();
 		}catch (GeveeAppException e) {
