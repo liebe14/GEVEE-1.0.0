@@ -68,8 +68,34 @@ public class DaoChau extends BaseDao<TabChau, String> implements IDaoChau{
 	@Override
 	public <X extends BaseEntity> List<X> findByExample(X entity)
 			throws GeveePersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		String clauseWhere = "";
+		TabChau currentChau = (TabChau)entity;
+		if(currentChau.getMatChau() != null && currentChau.getLibNom() != null){
+			clauseWhere = "upper(o.matChau) like '%"+currentChau.getMatChau()+"%' AND upper(o.libNom) like '%"+currentChau.getLibNom()+"%'";
+		}else if(currentChau.getMatChau() == null){
+			clauseWhere = "upper(o.matChau) like '%"+currentChau.getMatChau()+"%'";
+		}else if(currentChau.getLibNom() == null){
+			clauseWhere = "upper(o.libNom) like '%"+currentChau.getLibNom()+"%'";
+		}else{
+			clauseWhere="1=1";
+		}
+		try{
+			String query = "SELECT o FROM " + entity.getClass().getSimpleName() + " o where " + clauseWhere +
+			" ORDER BY o.matChau ";
+
+			logger.debug("Requete <" + query + ">");
+
+			List<X> v$list = getManager().createQuery(query).getResultList();
+
+			getLogger().debug("Nombre d'éléments trouvés : " + (v$list == null ? "0" : v$list.size()));
+			if ((v$list == null) || (v$list.size() <= 0)) {
+				return new ArrayList<X>();
+			}
+			return v$list;
+		}catch(GeveePersistenceException sdr){
+			throw sdr;
+		}
 	}
+	
 	
 }

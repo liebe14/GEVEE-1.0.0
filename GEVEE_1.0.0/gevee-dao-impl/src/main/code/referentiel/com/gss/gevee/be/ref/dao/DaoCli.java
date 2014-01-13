@@ -68,8 +68,33 @@ public class DaoCli extends BaseDao<TabCli, String> implements IDaoCli{
 	@Override
 	public <X extends BaseEntity> List<X> findByExample(X entity)
 			throws GeveePersistenceException {
-		// TODO Auto-generated method stub
-		return null;
+		String clauseWhere = "";
+		TabCli currentCli = (TabCli)entity;
+		if(currentCli.getCodCli()!= null && currentCli.getLibNom() != null){
+			clauseWhere = "upper(o.codCli) like '%"+currentCli.getCodCli()+"%' AND upper(o.libNom) like '%"+currentCli.getLibNom()+"%'";
+		}else if(currentCli.getCodCli() == null){
+			clauseWhere = "upper(o.codCli) like '%"+currentCli.getCodCli()+"%'";
+		}else if(currentCli.getLibNom() == null){
+			clauseWhere = "upper(o.libNom) like '%"+currentCli.getLibNom()+"%'";
+		}else{
+			clauseWhere="1=1";
+		}
+		try{
+			String query = "SELECT o FROM " + entity.getClass().getSimpleName() + " o where " + clauseWhere +
+			" ORDER BY o.codCli ";
+
+			logger.debug("Requete <" + query + ">");
+
+			List<X> v$list = getManager().createQuery(query).getResultList();
+
+			getLogger().debug("Nombre d'éléments trouvés : " + (v$list == null ? "0" : v$list.size()));
+			if ((v$list == null) || (v$list.size() <= 0)) {
+				return new ArrayList<X>();
+			}
+			return v$list;
+		}catch(GeveePersistenceException sdr){
+			throw sdr;
+		}
 	}
 	
 }
