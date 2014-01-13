@@ -69,8 +69,14 @@ public class SvcoCli extends BaseSvco<TabCli> implements IRemoteCli, ILocalCli{
 	@Override
 	public <X extends BaseEntity> List<X> rechercherParCritere(X entity)
 			throws GeveeAppException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return sisvCli.rechercherParCritere(entity);
+		} catch (GeveeSystemException e) {
+			e.printStackTrace();
+			GeveeAppException sdr = new GeveeAppException(e);
+			throw sdr;
+		}
+
 	}
 
 }

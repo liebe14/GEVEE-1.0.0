@@ -69,8 +69,13 @@ public class SvcoLieu extends BaseSvco<TabLieu> implements IRemoteLieu, ILocalLi
 	@Override
 	public <X extends BaseEntity> List<X> rechercherParCritere(X entity)
 			throws GeveeAppException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return sisvLieu.rechercherParCritere(entity);
+		} catch (GeveeSystemException e) {
+			e.printStackTrace();
+			GeveeAppException sdr = new GeveeAppException(e);
+			throw sdr;
+		}
 	}
 
 }
