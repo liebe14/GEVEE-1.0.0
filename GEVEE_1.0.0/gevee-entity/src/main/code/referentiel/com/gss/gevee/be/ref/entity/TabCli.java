@@ -1,13 +1,17 @@
 package com.gss.gevee.be.ref.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.gss.gevee.be.core.base.GeveeBaseEntity;
+import com.gss.gevee.be.mouv.entity.TabCon;
 
 @Entity
 @Table(name="TAB_CLI")
@@ -47,6 +51,16 @@ public class TabCli extends GeveeBaseEntity implements Serializable{
 	//Adresse
 	@Column(name = "LIB_ADR")
 	private String libAdr;
+
+	//Fichier joint
+	@Column(name = "LIB_File")
+	private String libFile;
+
+	/**
+	 * Liste des fichiers
+	 */
+	@Transient
+	private List<Object> listFile = new ArrayList<Object>();
 	
 	
 	
@@ -104,6 +118,22 @@ public class TabCli extends GeveeBaseEntity implements Serializable{
 
 	public void setLibAdr(String libAdr) {
 		this.libAdr = libAdr;
+	}
+		
+	public void setLibFile(String libFile) {
+		this.libFile = libFile;
+	}
+
+	public String getLibFile() {
+		return libFile;
+	}
+
+	public void setListFile(List<Object> listFile) {
+		this.listFile = listFile;
+	}
+
+	public List<Object> getListFile() {
+		return listFile;
 	}
 
 	@Override

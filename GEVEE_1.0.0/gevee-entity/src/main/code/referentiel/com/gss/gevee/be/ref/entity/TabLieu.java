@@ -28,6 +28,13 @@ public class TabLieu extends GeveeBaseEntity implements Serializable{
 	@Column(name = "LIB_LIEU")
 	private String libLieu;
 
+	//Sexe
+	@Column(name = "BOO_PARC")
+	private String booParc;
+	
+	//Description
+	@Column(name = "LIB_DESC")
+	private String libDesc;	
 	
 	public String getCodLieu() {
 		return codLieu;
@@ -43,6 +50,22 @@ public class TabLieu extends GeveeBaseEntity implements Serializable{
 
 	public void setLibLieu(String libLieu) {
 		this.libLieu = libLieu;
+	}
+
+	public String getBooParc() {
+		return booParc;
+	}
+
+	public void setBooParc(String booParc) {
+		this.booParc = booParc;
+	}
+
+	public String getLibDesc() {
+		return libDesc;
+	}
+
+	public void setLibDesc(String libDesc) {
+		this.libDesc = libDesc;
 	}
 
 	@Override
