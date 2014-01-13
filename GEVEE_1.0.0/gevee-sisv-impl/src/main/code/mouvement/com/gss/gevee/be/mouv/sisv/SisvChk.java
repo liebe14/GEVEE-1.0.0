@@ -72,7 +72,6 @@ public class SisvChk extends BaseSisv<TabChk, String> implements ISisvChk{
 	@Override
 	public  TabChk valider(TabChk tabChk) throws GeveeSystemException {
 		try {
-			tabChk.setBooEstVal(BigDecimal.ONE);
 			return super.modifier(tabChk);
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();

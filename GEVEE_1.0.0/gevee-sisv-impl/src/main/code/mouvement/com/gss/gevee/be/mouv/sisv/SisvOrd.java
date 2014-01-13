@@ -88,6 +88,8 @@ public class SisvOrd extends BaseSisv<TabOrd, String> implements ISisvOrd{
 				for(TabCon conCour : listCon){
 					srlOrdTran.addElement(new SrlOrdTranElt(v$TabOrd, conCour));
 				}
+			}else{
+				srlOrdTran.addElement(new SrlOrdTranElt(v$TabOrd, null));
 			}
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
