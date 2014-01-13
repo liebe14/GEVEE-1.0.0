@@ -25,12 +25,21 @@
         							         		
          				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
 
-							<h:outputText value="Code lieu :}"   />
+							<h:outputText value="Code lieu"   />
 			  				<h:inputText  value="#{entiteCourante.codLieu}" style="width: 95%"  readonly="true" />
 
-							<h:outputText value="Libellé lieu :"   />
+							<h:outputText value="#{locale.liblieu}"   />
 			  				<h:inputText value="#{entiteCourante.libLieu}" style="width: 95%"  readonly="true"  redisplay="true" />
-					
+
+						    <h:outputText value="Parc"  />
+							<h:selectOneRadio  value="#{entiteCourante.booParc}" disabled="true" >
+								<f:selectItem itemLabel="Oui" itemValue="O"  />
+								<f:selectItem itemLabel="Non" itemValue="N"/>
+							</h:selectOneRadio>
+							
+							<h:outputText value="Description"   />
+			  				<h:inputTextarea value="#{entiteCourante.libDesc}" style="width: 95%"  readonly="true"  redisplay="true" />
+			  									
          				</h:panelGrid>  
          					         		         		
          			</h:panelGrid>  

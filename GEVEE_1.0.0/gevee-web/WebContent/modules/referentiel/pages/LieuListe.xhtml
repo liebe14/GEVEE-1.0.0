@@ -20,10 +20,10 @@
 			
 				<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
 				
-					<h:outputText value="Code lieu :" />          				
+					<h:outputText value="Code lieu" />          				
          			<h:inputText  value="#{lieuCtrl.defaultVue.entiteRecherche.codLieu}" style="width: 60%" /> 
          			
-					<h:outputText value="Libellé lieu" />          				
+					<h:outputText value="#{locale.liblieu}" />          				
          			<h:inputText  value="#{lieuCtrl.defaultVue.entiteRecherche.libLieu}" style="width: 60%" />           					           					           					   					            				            				            			
           					           					           					   					            				            				            			        									   					           					
 				</h:panelGrid>
@@ -43,9 +43,9 @@
 				<h:outputText value="#{entity.codLieu}" />				
 			</rich:column>
 			
-			<rich:column label="Libellé lieu" sortBy="#{entity.libLieu}" filterBy="#{entity.libLieu}" width="150" >
+			<rich:column label="#{locale.liblieu}" sortBy="#{entity.libLieu}" filterBy="#{entity.libLieu}" width="150" >
 				<f:facet name="header">
-					<h:outputText value="Libellé lieu"  />
+					<h:outputText value="#{locale.liblieu}"  />
 				</f:facet>
 				<h:outputText value="#{entity.libLieu}" />				
 			</rich:column>							

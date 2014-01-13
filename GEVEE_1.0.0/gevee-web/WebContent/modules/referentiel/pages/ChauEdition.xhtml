@@ -54,7 +54,7 @@
 							</h:inputText>	
 
 							<h:panelGroup>
-								<h:outputText value="Numéro du permis" />
+								<h:outputText value="#{locale.numpermis}" />
 								<ui:include src="/shared/include/required.xhtml" />
 							</h:panelGroup> 												
 							<h:panelGroup>
@@ -65,8 +65,8 @@
 								<rich:message for="inpt_permis" errorClass="msg_error" />						
 							</h:panelGroup>	
 							
-							<h:outputText value="Date Validité permis :" />						
-							<rich:calendar value="#{entiteCourante.dateValidePermis}" inputStyle="width: 50%;"  title="Date Validité du permis" >
+							<h:outputText value="#{locale.datvalpermis}" />						
+							<rich:calendar value="#{entiteCourante.dateValidePermis}" inputStyle="width: 50%;"  title="#{locale.datvalpermis}" >
 								<a4j:support event="onchanged" ajaxSingle="true" />
 							</rich:calendar>							
 								
@@ -74,13 +74,13 @@
 						
 						<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic">
 														
-						   <h:outputText value="Téléphone"  />						
+						   <h:outputText value="#{locale.telephone}"  />						
 							<h:inputText  value="#{entiteCourante.libTel}"   style="width: 95%"   >
 							  <a4j:support event="onchange"  ajaxSingle="true" />	
 							</h:inputText>
 							
 							<h:panelGroup>
-								<h:outputText value="Numéro CNI" />
+								<h:outputText value="#{locale.numcni}" />
 								<ui:include src="/shared/include/required.xhtml" />
 							</h:panelGroup> 												
 							<h:panelGroup>
@@ -91,13 +91,13 @@
 								<rich:message for="inpt_cni" errorClass="msg_error" />						
 							</h:panelGroup>	
 							
-						    <h:outputText value="Date délivrance CNI:" />						
-							<rich:calendar value="#{entiteCourante.dateDelivranceCNI}" inputStyle="width: 50%;"  title="Date de délivrance de la CNI" >
+						    <h:outputText value="#{locale.datdelcni}" />						
+							<rich:calendar value="#{entiteCourante.dateDelivranceCNI}" inputStyle="width: 50%;"  title="#{locale.datdelcni}" >
 								<a4j:support event="onchanged" ajaxSingle="true" />
 							</rich:calendar>	
 							
-						    <h:outputText value="Date validité CNI :" />						
-							<rich:calendar value="#{entiteCourante.dateValideCNI}" inputStyle="width: 50%;"  title="Date de validité de la CNI" >
+						    <h:outputText value="#{locale.datvalcni}" />						
+							<rich:calendar value="#{entiteCourante.dateValideCNI}" inputStyle="width: 50%;"  title="#{locale.datvalcni}" >
 								<a4j:support event="onchanged" ajaxSingle="true" />
 							</rich:calendar>	
 							

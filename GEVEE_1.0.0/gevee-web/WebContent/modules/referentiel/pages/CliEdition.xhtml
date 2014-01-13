@@ -48,12 +48,12 @@
 								<rich:message for="inpt_nom" errorClass="msg_error" />						
 							</h:panelGroup>	
 
-							<h:outputText value="Prenom"  />						
+							<h:outputText value="Raison sociale"  />						
 							<h:inputText  value="#{entiteCourante.libPre}"   style="width: 95%"   >
 							  <a4j:support event="onchange"  ajaxSingle="true" />	
 							</h:inputText>	
 								
-						   <h:outputText value="Téléphone"  />						
+						   <h:outputText value="#{locale.telephone}"  />						
 							<h:inputText  value="#{entiteCourante.libTel}"   style="width: 95%"   >
 							  <a4j:support event="onchange"  ajaxSingle="true" />	
 							</h:inputText>
@@ -63,7 +63,7 @@
 							  <a4j:support event="onchange"  ajaxSingle="true" />	
 							</h:inputText>																					
 			
-							<h:outputText value="Localité"  />						
+							<h:outputText value="#{locale.localite}"  />						
 							<h:inputText   value="#{entiteCourante.libLoc}"   style="width: 95%"   >
 							  <a4j:support event="onchange"  ajaxSingle="true" />	
 							</h:inputText>	
@@ -71,8 +71,35 @@
 							<h:outputText value="Adresse"  />						
 							<h:inputTextarea   value="#{entiteCourante.libAdr}"   style="width: 95%"   >
 							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputTextarea>	
+							
+							<h:outputText value="Nom fichier"  />						
+							<h:inputTextarea   value="#{entiteCourante.libFile}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
 							</h:inputTextarea>																					
-																											
+                            																				
+                            
+                            <h:panelGroup>
+								<h:outputText value="Fichier joint" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+							<h:panelGroup>							
+								<rich:fileUpload id="fileupload" autoclear="false" listHeight="100px" listWidth="100%"		
+									required="true"	requiredMessage="#{msg['erreur.validation.obligatoire']}"				
+									immediate="true"
+									transferErrorLabel="Erreur de transfere"
+									addControlLabel="Ajouter" cancelEntryControlLabel="Annuler"
+									clearAllControlLabel="Supprimer" stopControlLabel="Stop"
+									stopEntryControlLabel="Stop" uploadControlLabel="Telecharger"
+									doneLabel="Fichier telecherger" clearControlLabel="Nettoyer"
+									progressLabel="Telecharment encours ..." 
+									 allowFlash="true"
+									 uploadData="#{entiteCourante.listFile}"
+									  >
+								</rich:fileUpload>
+								<rich:message for="fileupload" errorClass="msg_error" />									
+					       </h:panelGroup>
+																								
 							
 										  					
          				</h:panelGrid>  

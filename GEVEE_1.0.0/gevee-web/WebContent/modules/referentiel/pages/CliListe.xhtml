@@ -20,15 +20,13 @@
 			
 				<h:panelGrid columns="2" width="100%"  columnClasses="pngdColLeftDynamic,pngdColRightDynamic" >
 				
-					<h:outputText value="Code client :" />          				
+					<h:outputText value="Code client" />          				
          			<h:inputText  value="#{cliCtrl.defaultVue.entiteRecherche.codCli}" style="width: 60%" /> 
          			
 					<h:outputText value="Nom" />          				
          			<h:inputText  value="#{cliCtrl.defaultVue.entiteRecherche.libNom}" style="width: 60%" />           					           					           					   					            				            				            			
 
-					<h:outputText value="Prenom" />          				
-         			<h:inputText  value="#{cliCtrl.defaultVue.entiteRecherche.libPre}" style="width: 60%" />           					           					           					   					            				            				            			
-         			          					           					           					   					            				            				            			        									   					           					
+					          					           					           					   					            				            				            			        									   					           					
 				</h:panelGrid>
 														
 																																																	
@@ -53,9 +51,9 @@
 				<h:outputText value="#{entity.libNom}" />				
 			</rich:column>
 			
-			<rich:column label="Prenom" sortBy="#{entity.libPre}" filterBy="#{entity.libPre}" width="150" >
+			<rich:column label="Raison sociale" sortBy="#{entity.libPre}" filterBy="#{entity.libPre}" width="150" >
 				<f:facet name="header">
-					<h:outputText value="Prenom"  />
+					<h:outputText value="Raison sociale"  />
 				</f:facet>
 				<h:outputText value="#{entity.libPre}" />				
 			</rich:column>

@@ -25,37 +25,37 @@
         							         		
          				<h:panelGrid columns="2" width="100%" columnClasses="pngdColLeftDynamic,pngdColRightDynamic"  >
 
-							<h:outputText value="Matricule :}"   />
+							<h:outputText value="Matricule"   />
 			  				<h:inputText  value="#{entiteCourante.matChau}" style="width: 95%"  readonly="true" />
 
-							<h:outputText value="Nom :"   />
+							<h:outputText value="Nom"   />
 			  				<h:inputText value="#{entiteCourante.libNom}" style="width: 95%"  readonly="true"  redisplay="true" />
 
-							<h:outputText value="Prenom :"   />
+							<h:outputText value="Prenom"   />
 			  				<h:inputText value="#{entiteCourante.libPre}" style="width: 95%"  readonly="true"  redisplay="true" />
 
-							<h:outputText value="Numéro du Permis :"   />
+							<h:outputText value="#{locale.numpermis}"   />
 			  				<h:inputText value="#{entiteCourante.numPerm}" style="width: 95%"  readonly="true"  redisplay="true" />
 
-							<h:outputText value="Date Validité du permis :" />
-							<h:inputText value="#{entiteCourante.dateValidePermis}" style="width: 95%" readonly="true" title="Date de validité du permis"   >
-								<f:convertDateTime type="date" dateStyle="full" pattern="EEEE, d MMM yyyy" timeZone="GMT+1"/>
+							<h:outputText value="#{locale.datvalpermis}" />
+							<h:inputText value="#{entiteCourante.dateValidePermis}" style="width: 95%" readonly="true" title="#{locale.datvalpermis}"   >
+								<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1"/>
 							</h:inputText>
 							
 							
-							<h:outputText value="Téléphone :"   />
+							<h:outputText value="#{locale.telephone}"   />
 			  				<h:inputText value="#{entiteCourante.libTel}" style="width: 95%"  readonly="true"  redisplay="true" />							
 
-							<h:outputText value="Numéro CNI :"   />
+							<h:outputText value="#{locale.numcni}"   />
 			  				<h:inputText value="#{entiteCourante.numCNI}" style="width: 95%"  readonly="true"  redisplay="true" />							
 
-							<h:outputText value="Date de délivrance de la CNI :" />
-							<h:inputText value="#{entiteCourante.dateDelivranceCNI}" style="width: 95%" readonly="true" title="Date de délivrance de la CNI"   >
-								<f:convertDateTime type="date" dateStyle="full" pattern="EEEE, d MMM yyyy" timeZone="GMT+1"/>
+							<h:outputText value="#{locale.datdelcni}" />
+							<h:inputText value="#{entiteCourante.dateDelivranceCNI}" style="width: 95%" readonly="true" title="#{locale.datdelcni}"   >
+								<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1"/>
 							</h:inputText>
 							
-							<h:outputText value="Date de validité de la CNI :" />
-							<h:inputText value="#{entiteCourante.dateValideCNI}" style="width: 95%" readonly="true" title="Date de validité de la CNI"   >
+							<h:outputText value="#{locale.datvalcni}" />
+							<h:inputText value="#{entiteCourante.dateValideCNI}" style="width: 95%" readonly="true" title="#{locale.datvalcni}"   >
 								<f:convertDateTime type="date" dateStyle="full" pattern="dd/MM/yyyy" timeZone="GMT+1"/>
 							</h:inputText>
 							

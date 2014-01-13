@@ -37,7 +37,7 @@
 							</h:panelGroup>	
 							
 							<h:panelGroup>
-								<h:outputText value="Libellé lieu" />
+								<h:outputText value="#{locale.liblieu}" />
 								<ui:include src="/shared/include/required.xhtml" />
 							</h:panelGroup> 												
 							<h:panelGroup>
@@ -48,6 +48,25 @@
 								<rich:message for="inpt_lieu" errorClass="msg_error" />						
 							</h:panelGroup>	
 
+							<h:panelGroup>
+								<h:outputText value="Parc" />
+								<ui:include src="/shared/include/required.xhtml" />
+							</h:panelGroup> 												
+						    <h:panelGroup>
+								<h:selectOneRadio id="sord_parc" value="#{entiteCourante.booParc}"  
+						    		required="true" requiredMessage="Valeur obligatoire" >
+									<f:selectItem itemLabel="Oui" itemValue="O"  />
+									<f:selectItem itemLabel="Non" itemValue="N"/>
+									<a4j:support event="onchange"  ajaxSingle="true" />
+								</h:selectOneRadio> 
+								<rich:message for="sord_parc" errorClass="msg_error" />
+							</h:panelGroup>
+						
+							<h:outputText value="Description"  />						
+							<h:inputTextarea   value="#{entiteCourante.libDesc}"   style="width: 95%"   >
+							  <a4j:support event="onchange"  ajaxSingle="true" />	
+							</h:inputTextarea>																					
+							
 												  					
          				</h:panelGrid>  
          					         		         		

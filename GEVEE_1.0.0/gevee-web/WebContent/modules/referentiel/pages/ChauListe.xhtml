@@ -24,10 +24,7 @@
          			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.matChau}" style="width: 60%" /> 
          			
 					<h:outputText value="Nom" />          				
-         			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.libNom}" style="width: 60%" />           					           					           					   					            				            				            			
-
-					<h:outputText value="Prenom" />          				
-         			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.libPre}" style="width: 60%" />           					           					           					   					            				            				            			
+         			<h:inputText  value="#{chauCtrl.defaultVue.entiteRecherche.libNom}" style="width: 60%" />           					           					           					   					            				            				            			    					           					   					            				            				            			
          			          					           					           					   					            				            				            			        									   					           					
 				</h:panelGrid>
 														
@@ -59,55 +56,15 @@
 				</f:facet>
 				<h:outputText value="#{entity.libPre}" />				
 			</rich:column>
-			
-		    <rich:column label="Numéro Permis" sortBy="#{entity.numPerm}" width="150" >
+						
+		    <rich:column label="#{locale.telephone}" filterBy="#{entity.libTel}" width="150" >
 				<f:facet name="header">
-					<h:outputText value="Numero Permis"  />
-				</f:facet>
-				<h:outputText value="#{entity.numPerm}" />				
-			</rich:column>
-				
-		    <rich:column label="Date Validité du permis" sortBy="#{entity.dateValidePermis}" width="150" >
-				<f:facet name="header">
-					<h:outputText value="Date Validité du permis"  />
-				</f:facet>
-				<h:outputText value="#{entity.dateValidePermis}" />				
-			</rich:column>
-
-		    <rich:column label="Information" sortBy="#{entity.libInf}" width="150" >
-				<f:facet name="header">
-					<h:outputText value="Information"  />
-				</f:facet>
-				<h:outputText value="#{entity.libInf}" />				
-			</rich:column>	
-			
-		    <rich:column label="Téléphone" sortBy="#{entity.libTel}" width="150" >
-				<f:facet name="header">
-					<h:outputText value="Téléphone"  />
+					<h:outputText value="#{locale.telephone}"  />
 				</f:facet>
 				<h:outputText value="#{entity.libTel}" />				
 			</rich:column>
 			
-		    <rich:column label="Numéro CNI" sortBy="#{entity.numCNI}" width="150" >
-				<f:facet name="header">
-					<h:outputText value="Numéro CNI"  />
-				</f:facet>
-				<h:outputText value="#{entity.numCNI}" />				
-			</rich:column>	
-			
-			<rich:column label="Date délivrance CNI" sortBy="#{entity.dateDelivranceCNI}" width="150" >
-				<f:facet name="header">
-					<h:outputText value="Date délivrance CNI"  />
-				</f:facet>
-				<h:outputText value="#{entity.dateDelivranceCNI}" />				
-			</rich:column>	
-			
-			<rich:column label="Date validité CNI" sortBy="#{entity.dateValideCNI}" width="150" >
-				<f:facet name="header">
-					<h:outputText value="Date validité CN"  />
-				</f:facet>
-				<h:outputText value="#{entity.dateValideCNI}" />				
-			</rich:column>				
+				
 							
 		</ui:define>
 													
