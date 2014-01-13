@@ -14,6 +14,7 @@ import javax.faces.el.MethodBinding;
 import org.ajax4jsf.component.html.HtmlActionParameter;
 import org.ajax4jsf.component.html.HtmlAjaxCommandButton;
 import org.ajax4jsf.component.html.HtmlAjaxFunction;
+import org.jboss.util.Null;
 import org.richfaces.component.html.ContextMenu;
 import org.richfaces.component.html.HtmlDropDownMenu;
 import org.richfaces.component.html.HtmlHotKey;
@@ -591,8 +592,11 @@ public class MenuFactory {
 			// Libellé de l'action
 				String v$libelle = t.getLibelle() + ((t.getClavier() == null || t.getClavier().trim().isEmpty()) ? "" : " - "+ t.getClavier());
 				v$menuItem.setValue( v$libelle /* t.getLibelle()+" - "+t.getClavier()) */);
-				
-			// Description de l'action
+			
+			// Icon des Libellés 	
+			 if ( ! urlIcon(t.getLibelle()).equals(t.getLibelle())) v$menuItem.setIcon(urlIcon(t.getLibelle()));				
+			
+			 // Description de l'action
 					// TODO A intégrer à l'aide du composant Tooltip
 				
 			// Exécution en mode ajax
@@ -759,6 +763,30 @@ public class MenuFactory {
 		return contextMenu;
 	}
 	
+ public String urlIcon(String libelle){
+	 
+	 if (libelle.equalsIgnoreCase("Ajouter")){
+			return "/shared/images/iconNew.png";
+	 }
+	 if (libelle.equalsIgnoreCase("Copier")){
+			return "/shared/images/iconCopy.png";
+	 }
+	 if (libelle.equalsIgnoreCase("Modifier")){
+			return "/shared/images/iconEdit.png";
+	 }	 
+	 if (libelle.equalsIgnoreCase("Afficher")){
+			return "/shared/images/iconAff.png";
+	 }
+	 if (libelle.equalsIgnoreCase("Supprimer")){
+			return "/shared/images/iconDel.png";
+	 }
+	 if (libelle.equalsIgnoreCase("Selectionner")){
+			return "/shared/images/iconSelect.png";
+	 }
+	 
+	 return libelle ; 	 
+ }
+	
 /*	
 	public HtmlToolBar getToolbar(){
 		
@@ -868,6 +896,7 @@ public class MenuFactory {
 			
 			// Image du bouton
 			v$bouton.setImage(t.getImage());
+		
 			
 			// Requête de type ajax
 			v$bouton.setAjaxSingle(true);
