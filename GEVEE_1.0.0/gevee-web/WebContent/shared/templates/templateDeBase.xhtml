@@ -13,11 +13,41 @@
 body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 14px;
+	background: url("/gevee-web/shared/images/arbody.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	
+}
+
+.rich-ddmenu-label, .rich-ddmenu-label-disabled {
+    font-size: 13px;
+}
+
+.rich-menu-item, .rich-menu-item a, .rich-menu-item a:hover, .rich-menu-item a:visited, .rich-menu-group, .rich-menu-group a, .rich-menu-group a:hover, .rich-menu-group a:visited {
+    font-size: 13px;
+}
+.rich-panel-header {
+    font-size: 13px;
+}
+
+.rich-stglpanel-header {
+    font-size: 13px;
+}
+
+button[type="button"]:hover, button[type="reset"]:hover, button[type="submit"]:hover, input[type="reset"]:hover, input[type="submit"]:hover, input[type="button"]:hover{
+  
+    background: #C1D828;
+    color: #000;
+
+}
+
+.rich-panel-body {
+    background-image: none;
 }
 
 .header {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
-	font-size: 18px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #215CA0;
 }
 
 .bottom {
@@ -123,11 +153,57 @@ body {
 }
 
 .readonly{
-
+	background-color: #FFFFD1; 
+	background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    border-radius: 4px;
+    color: #000;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 2px;
+    padding: 5px 0px;
+    vertical-align: middle;
 }
 
+.readonly:focus{
+ border-color: #C1D828;
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #C1D828;
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #C1D828;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #C1D828;
+}
 .editable{
 	background-color: #FFFFD1; 
+	background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+    border-radius: 4px;
+    color: #000;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 2px;
+    padding: 5px 0px;
+    vertical-align: middle;
+	
+}
+
+.editable:focus{
+ border-color: #C1D828;
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #C1D828;
+  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #C1D828;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px #C1D828;	
 }
 
 .required{
@@ -153,9 +229,15 @@ body {
 <body  bgcolor="#ffffff" onload="initPage();">
 
 <!-- Formulaire pour l'envoi des donnees ... -->
+<h:panelGrid columns="2" >
+	
+	
+    <h:graphicImage value="/shared/images/logo.png"  onmouseover="this.style.background='#cde3f4'" /> 
+	
+    <h:outputText value="#{locale.nameAppli}" style="font-size:20px;font-weight:bold;color:#C1D828;text-shadow:1px -2px 1px #215CA0" />					
+</h:panelGrid>
 
 <center>
-
 
 <table  style="border: 1px solid #CAD6E0; height: 100%;"  width="100%" border="0">
 	<tbody>	  
@@ -177,12 +259,12 @@ body {
 						</td>
 					</tr>
 					<tr valign="top">
-						<td class="header" width="100%" style="border: 1px solid #CAD6E0; height: 10%;">
+						<td class="header" width="100%" style=" height: 10%;">
 							<ui:insert name="menuProgram">Barre de preferences</ui:insert>
 						</td>
 					</tr>
 					<tr valign="top">
-						<td class="header" width="100%" style="border: 1px solid #CAD6E0; height: 10%;">
+						<td class="header" width="100%" style=" height: 10%;">
 							<ui:insert name="menuDetail">Barre de profil</ui:insert>
 						</td>
 					</tr>
@@ -221,7 +303,7 @@ body {
 							
 								<tr>
 									<td width="100%"><rich:panel id="pnel_main"
-										style="height:600px;overflow:auto;">
+										style="height:410px;overflow:auto;background:#fff;">
 										<table width="100%" style="height: 100%" align="left"
 											cellpadding="0" cellspacing="0" border="0">
 											<tbody>
@@ -251,7 +333,7 @@ body {
 						</tr>
 						<tr>
 							<td class="bottom" height="1%" width="100%"><ui:insert
-								name="pageBottom"><h:outputText value="Copyright @ 2013, Gss. Tous droits reservés" /></ui:insert><br>
+								name="pageBottom"><h:outputText value="#{locale.copyright}" /></ui:insert><br>
 								<ui:insert  name="pageBottom" ><h:outputText style="COLOR: red; font-size: medium; font-weight: bold" value="Evaluation" rendered="false"/></ui:insert>	</br></td>
 							 
 						</tr>

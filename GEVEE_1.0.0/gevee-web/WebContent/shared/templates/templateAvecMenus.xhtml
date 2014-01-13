@@ -140,17 +140,18 @@
 		<!--  -->
 		
 		<ui:define name="menuBrowser">
+		  
 		<!-- Formulaire:  Faudra penser a le mettre au endroit approprie -->
 		
 		<!--  --> 
-		<h:form>
-		<rich:toolBar height="26px">
+		<h:form>	
+		<rich:toolBar height="26px" itemSeparator="line">
 			
             <ui:include src="../../modules/admin/include/DDMenu.xhtml" />
             <ui:include src="../../modules/referentiel/include/DDMenu.xhtml" />
             <ui:include src="../../modules/mouvement/include/DDMenu.xhtml" />
             
-            <rich:separator width="70" height="0"/>
+            <rich:separator width="838px" height="0"/>
             <ui:include src="../../shared/include/accueil/DDMenu.xhtml" />
 			
 		</rich:toolBar>
