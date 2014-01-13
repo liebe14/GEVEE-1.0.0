@@ -2,6 +2,7 @@ package com.gss.gevee.be.mouv.svco;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,7 +26,9 @@ import javax.mail.internet.MimeMultipart;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
+import com.gss.gevee.be.core.base.DateTools;
 import com.gss.gevee.be.core.enums.EnuEtat;
+import com.gss.gevee.be.core.enums.EnuTypCon;
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.exception.GeveePersistenceException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
@@ -50,6 +53,8 @@ public class SvcoDep extends BaseSvco<TabDep> implements IRemoteDep, ILocalDep{
 	SessionContext session;
 
 	private static BaseLogger logger = BaseLogger.getLogger(SvcoDep.class);
+	
+	private long CONST_DURATION_OF_DAY = 1000l * 60 * 60 * 24;
 
 	@Override
 	protected IBaseSisv<TabDep, String> getBaseSisv() {
@@ -113,6 +118,27 @@ public class SvcoDep extends BaseSvco<TabDep> implements IRemoteDep, ILocalDep{
 	@Override
 	public TabDep cloturer(TabDep tabDep) throws GeveeAppException {
 		try {
+			BigDecimal mntDet;
+			//On met à jour l'état du conteneur à livré
+			TabCon conCour = tabDep.getTabCon();
+			conCour.setEtatEnt(EnuEtat.LIVRE.getValue());
+			sisvCon.modifier(conCour);
+			//On calcule la détention 
+			if(tabDep.getBEstCau()){
+				Date datEstRet = tabDep.getDateEstRet();
+				Date datEffRet = tabDep.getDateEffRet();
+				if(null != datEstRet && null != datEffRet){
+					long diff = datEffRet.getTime() - datEstRet.getTime();
+					long nbrJrRetard = (long)diff/CONST_DURATION_OF_DAY;
+					System.out.println("Le nombre de jour est : " + nbrJrRetard);
+					if(EnuTypCon.is20Pieds(conCour.getEnuTypCon())){
+						mntDet = new BigDecimal(7500*nbrJrRetard);
+					}else{
+						mntDet = new BigDecimal(15000*nbrJrRetard);
+					}
+					tabDep.setValDet(mntDet);
+				}
+			}
 			//Mise à jour de l'entité
 			tabDep.setBooEstClo(BigDecimal.ONE);
 			tabDep.setEtatEnt(EnuEtat.CLOTURE.getValue());
@@ -121,7 +147,10 @@ public class SvcoDep extends BaseSvco<TabDep> implements IRemoteDep, ILocalDep{
 			e.printStackTrace();
 			GeveeAppException sdr = new GeveeAppException(e);
 			throw sdr;
+		}catch (GeveePersistenceException e) {
+			e.printStackTrace();
 		}
+		return null;
 	}
 	
 	@Override
@@ -138,30 +167,31 @@ public class SvcoDep extends BaseSvco<TabDep> implements IRemoteDep, ILocalDep{
 			//envoit un mail au client
 //			String  mailClient = con.getTabOrdTran().getTabClient().getLibMail();
 			String  msgBody = "Conteneur n° " + con.getNumCon() +" réceptionné par : " + tabDep.getLibRecep();
-			final String username = "global@globalservices-sarl.com";
-			final String password = "global123";
-			Properties props = new Properties();
-			props.put("mail.smtp.auth", "true");
-			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.globalservices-sarl.com");
-			props.put("mail.smtp.port", "25");
-			Session session = Session.getInstance(props,
-			  new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication(username, password);
-				}
-			});
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("global@globalservices-sarl.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("blaise.tsahata1@gmail.com"));
-			message.setSubject("Conteneur réceptionné");
-			MimeBodyPart mbp1 = new MimeBodyPart();
-			mbp1.setText(msgBody);
-			MimeMultipart mp = new MimeMultipart();
-			mp.addBodyPart(mbp1);
-			message.setContent(mp);
-			Transport.send(message);
-			logger.info("mail transmit");
+			System.out.println("======== "+ msgBody);
+//			final String username = "global@globalservices-sarl.com";
+//			final String password = "global123";
+//			Properties props = new Properties();
+//			props.put("mail.smtp.auth", "true");
+//			props.put("mail.smtp.starttls.enable", "true");
+//			props.put("mail.smtp.host", "smtp.globalservices-sarl.com");
+//			props.put("mail.smtp.port", "25");
+//			Session session = Session.getInstance(props,
+//			  new javax.mail.Authenticator() {
+//				protected PasswordAuthentication getPasswordAuthentication() {
+//					return new PasswordAuthentication(username, password);
+//				}
+//			});
+//			Message message = new MimeMessage(session);
+//			message.setFrom(new InternetAddress("global@globalservices-sarl.com"));
+//			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("blaise.tsahata1@gmail.com"));
+//			message.setSubject("Conteneur réceptionné");
+//			MimeBodyPart mbp1 = new MimeBodyPart();
+//			mbp1.setText(msgBody);
+//			MimeMultipart mp = new MimeMultipart();
+//			mp.addBodyPart(mbp1);
+//			message.setContent(mp);
+//			Transport.send(message);
+//			logger.info("mail transmit");
 			
 			return depReturn;
 		} catch (GeveeSystemException e) {
@@ -171,21 +201,21 @@ public class SvcoDep extends BaseSvco<TabDep> implements IRemoteDep, ILocalDep{
 		} catch (GeveePersistenceException e) {
 			e.printStackTrace();
 		}
-		catch(NoSuchProviderException e) {
-			e.printStackTrace();
-		    System.err.println("Pas de transport disponible pour ce protocole");
-		    System.err.println(e);
-		}
-		catch(AddressException e) {
-			e.printStackTrace();
-		    System.err.println("Adresse invalide");
-		    System.err.println(e);
-		}
-		catch(MessagingException e) {
-			e.printStackTrace();
-		    System.err.println("Erreur dans le message");
-		    System.err.println(e);
-		}
+//		catch(NoSuchProviderException e) {
+//			e.printStackTrace();
+//		    System.err.println("Pas de transport disponible pour ce protocole");
+//		    System.err.println(e);
+//		}
+//		catch(AddressException e) {
+//			e.printStackTrace();
+//		    System.err.println("Adresse invalide");
+//		    System.err.println(e);
+//		}
+//		catch(MessagingException e) {
+//			e.printStackTrace();
+//		    System.err.println("Erreur dans le message");
+//		    System.err.println(e);
+//		}
 		return null;
 	}
 	

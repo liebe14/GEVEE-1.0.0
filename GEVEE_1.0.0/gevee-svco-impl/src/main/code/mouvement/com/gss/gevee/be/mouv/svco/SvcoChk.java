@@ -1,6 +1,7 @@
 package com.gss.gevee.be.mouv.svco;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -10,6 +11,7 @@ import javax.ejb.Stateless;
 
 import com.gss.gevee.be.core.base.BaseEntity;
 import com.gss.gevee.be.core.base.BaseLogger;
+import com.gss.gevee.be.core.enums.EnuEtat;
 import com.gss.gevee.be.core.exception.GeveeAppException;
 import com.gss.gevee.be.core.exception.GeveeSystemException;
 import com.gss.gevee.be.core.sisv.base.IBaseSisv;
@@ -78,6 +80,8 @@ public class SvcoChk extends BaseSvco<TabChk> implements IRemoteChk, ILocalChk{
 	public TabChk valider(TabChk tabChk)
 	throws GeveeAppException {
 		try {
+			tabChk.setEtatEnt(EnuEtat.VALIDE.getValue());
+			tabChk.setBooEstVal(BigDecimal.ONE);
 			return sisvChk.valider(tabChk);
 		} catch (GeveeSystemException e) {
 			e.printStackTrace();
